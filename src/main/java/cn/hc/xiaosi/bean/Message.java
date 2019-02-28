@@ -1,6 +1,7 @@
 package cn.hc.xiaosi.bean;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 /**
  * @ClassName Message
@@ -8,6 +9,7 @@ import lombok.Data;
  * @Author XiaoSi
  * @Date 2019/2/2312:51
  */
+@Accessors(chain = true)
 @Data
 public class Message {
     private int code;

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hc.xiaosi.dao.MusicDAO">
+  <resultMap id="BaseResultMap" type="cn.hc.xiaosi.entity.Music">
+    <id column="enMusic" jdbcType="VARCHAR" property="enmusic" />
+    <result column="enArticle" jdbcType="VARCHAR" property="enarticle" />
+    <result column="enNav" jdbcType="VARCHAR" property="ennav" />
+    <result column="enCategory" jdbcType="VARCHAR" property="encategory" />
+    <result column="enTag" jdbcType="VARCHAR" property="entag" />
+    <result column="adminID" jdbcType="VARCHAR" property="adminid" />
+    <result column="IMGMusic" jdbcType="VARCHAR" property="imgmusic" />
+    <result column="caption" jdbcType="VARCHAR" property="caption" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="summary" jdbcType="VARCHAR" property="summary" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    enMusic, enArticle, enNav, enCategory, enTag, adminID, IMGMusic, caption, author, 
+    summary, `status`, createtime, updatetime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_music
+    where enMusic = #{enmusic,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tb_music
+    where enMusic = #{enmusic,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.hc.xiaosi.entity.Music">
+    insert into tb_music (enMusic, enArticle, enNav, 
+      enCategory, enTag, adminID, 
+      IMGMusic, caption, author, 
+      summary, `status`, createtime, 
+      updatetime)
+    values (#{enmusic,jdbcType=VARCHAR}, #{enarticle,jdbcType=VARCHAR}, #{ennav,jdbcType=VARCHAR}, 
+      #{encategory,jdbcType=VARCHAR}, #{entag,jdbcType=VARCHAR}, #{adminid,jdbcType=VARCHAR}, 
+      #{imgmusic,jdbcType=VARCHAR}, #{caption,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
+      #{summary,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.hc.xiaosi.entity.Music">
+    insert into tb_music
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="enmusic != null">
+        enMusic,
+      </if>
+      <if test="enarticle != null">
+        enArticle,
+      </if>
+      <if test="ennav != null">
+        enNav,
+      </if>
+      <if test="encategory != null">
+        enCategory,
+      </if>
+      <if test="entag != null">
+        enTag,
+      </if>
+      <if test="adminid != null">
+        adminID,
+      </if>
+      <if test="imgmusic != null">
+        IMGMusic,
+      </if>
+      <if test="caption != null">
+        caption,
+      </if>
+      <if test="author != null">
+        author,
+      </if>
+      <if test="summary != null">
+        summary,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+      <if test="updatetime != null">
+        updatetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="enmusic != null">
+        #{enmusic,jdbcType=VARCHAR},
+      </if>
+      <if test="enarticle != null">
+        #{enarticle,jdbcType=VARCHAR},
+      </if>
+      <if test="ennav != null">
+        #{ennav,jdbcType=VARCHAR},
+      </if>
+      <if test="encategory != null">
+        #{encategory,jdbcType=VARCHAR},
+      </if>
+      <if test="entag != null">
+        #{entag,jdbcType=VARCHAR},
+      </if>
+      <if test="adminid != null">
+        #{adminid,jdbcType=VARCHAR},
+      </if>
+      <if test="imgmusic != null">
+        #{imgmusic,jdbcType=VARCHAR},
+      </if>
+      <if test="caption != null">
+        #{caption,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null">
+        #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.hc.xiaosi.entity.Music">
+    update tb_music
+    <set>
+      <if test="enarticle != null">
+        enArticle = #{enarticle,jdbcType=VARCHAR},
+      </if>
+      <if test="ennav != null">
+        enNav = #{ennav,jdbcType=VARCHAR},
+      </if>
+      <if test="encategory != null">
+        enCategory = #{encategory,jdbcType=VARCHAR},
+      </if>
+      <if test="entag != null">
+        enTag = #{entag,jdbcType=VARCHAR},
+      </if>
+      <if test="adminid != null">
+        adminID = #{adminid,jdbcType=VARCHAR},
+      </if>
+      <if test="imgmusic != null">
+        IMGMusic = #{imgmusic,jdbcType=VARCHAR},
+      </if>
+      <if test="caption != null">
+        caption = #{caption,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null">
+        summary = #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where enMusic = #{enmusic,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.hc.xiaosi.entity.Music">
+    update tb_music
+    set enArticle = #{enarticle,jdbcType=VARCHAR},
+      enNav = #{ennav,jdbcType=VARCHAR},
+      enCategory = #{encategory,jdbcType=VARCHAR},
+      enTag = #{entag,jdbcType=VARCHAR},
+      adminID = #{adminid,jdbcType=VARCHAR},
+      IMGMusic = #{imgmusic,jdbcType=VARCHAR},
+      caption = #{caption,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      summary = #{summary,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP}
+    where enMusic = #{enmusic,jdbcType=VARCHAR}
+  </update>
+</mapper>

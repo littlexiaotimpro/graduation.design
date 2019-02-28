@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hc.xiaosi.dao.CategoryDAO">
+  <resultMap id="BaseResultMap" type="cn.hc.xiaosi.entity.Category">
+    <id column="enCategory" jdbcType="VARCHAR" property="encategory" />
+    <result column="enNav" jdbcType="VARCHAR" property="ennav" />
+    <result column="caption" jdbcType="VARCHAR" property="caption" />
+    <result column="cateLevel" jdbcType="INTEGER" property="catelevel" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    enCategory, enNav, caption, cateLevel, `status`, createtime, updatetime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_category
+    where enCategory = #{encategory,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tb_category
+    where enCategory = #{encategory,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.hc.xiaosi.entity.Category">
+    insert into tb_category (enCategory, enNav, caption, 
+      cateLevel, `status`, createtime, 
+      updatetime)
+    values (#{encategory,jdbcType=VARCHAR}, #{ennav,jdbcType=VARCHAR}, #{caption,jdbcType=VARCHAR}, 
+      #{catelevel,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.hc.xiaosi.entity.Category">
+    insert into tb_category
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="encategory != null">
+        enCategory,
+      </if>
+      <if test="ennav != null">
+        enNav,
+      </if>
+      <if test="caption != null">
+        caption,
+      </if>
+      <if test="catelevel != null">
+        cateLevel,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+      <if test="updatetime != null">
+        updatetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="encategory != null">
+        #{encategory,jdbcType=VARCHAR},
+      </if>
+      <if test="ennav != null">
+        #{ennav,jdbcType=VARCHAR},
+      </if>
+      <if test="caption != null">
+        #{caption,jdbcType=VARCHAR},
+      </if>
+      <if test="catelevel != null">
+        #{catelevel,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.hc.xiaosi.entity.Category">
+    update tb_category
+    <set>
+      <if test="ennav != null">
+        enNav = #{ennav,jdbcType=VARCHAR},
+      </if>
+      <if test="caption != null">
+        caption = #{caption,jdbcType=VARCHAR},
+      </if>
+      <if test="catelevel != null">
+        cateLevel = #{catelevel,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where enCategory = #{encategory,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.hc.xiaosi.entity.Category">
+    update tb_category
+    set enNav = #{ennav,jdbcType=VARCHAR},
+      caption = #{caption,jdbcType=VARCHAR},
+      cateLevel = #{catelevel,jdbcType=INTEGER},
+      `status` = #{status,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP}
+    where enCategory = #{encategory,jdbcType=VARCHAR}
+  </update>
+</mapper>

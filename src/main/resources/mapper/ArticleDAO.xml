@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hc.xiaosi.dao.ArticleDAO">
+  <resultMap id="BaseResultMap" type="cn.hc.xiaosi.entity.Article">
+    <id column="enArticle" jdbcType="VARCHAR" property="enarticle" />
+    <result column="enNav" jdbcType="VARCHAR" property="ennav" />
+    <result column="enCategory" jdbcType="VARCHAR" property="encategory" />
+    <result column="enTag" jdbcType="VARCHAR" property="entag" />
+    <result column="adminID" jdbcType="VARCHAR" property="adminid" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="summary" jdbcType="VARCHAR" property="summary" />
+    <result column="fileurl" jdbcType="VARCHAR" property="fileurl" />
+    <result column="readnum" jdbcType="INTEGER" property="readnum" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    enArticle, enNav, enCategory, enTag, adminID, title, author, summary, fileurl, readnum, 
+    `status`, createtime, updatetime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_article
+    where enArticle = #{enarticle,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tb_article
+    where enArticle = #{enarticle,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.hc.xiaosi.entity.Article">
+    insert into tb_article (enArticle, enNav, enCategory, 
+      enTag, adminID, title, 
+      author, summary, fileurl, 
+      readnum, `status`, createtime, 
+      updatetime)
+    values (#{enarticle,jdbcType=VARCHAR}, #{ennav,jdbcType=VARCHAR}, #{encategory,jdbcType=VARCHAR}, 
+      #{entag,jdbcType=VARCHAR}, #{adminid,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{author,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, #{fileurl,jdbcType=VARCHAR}, 
+      #{readnum,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.hc.xiaosi.entity.Article">
+    insert into tb_article
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="enarticle != null">
+        enArticle,
+      </if>
+      <if test="ennav != null">
+        enNav,
+      </if>
+      <if test="encategory != null">
+        enCategory,
+      </if>
+      <if test="entag != null">
+        enTag,
+      </if>
+      <if test="adminid != null">
+        adminID,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="author != null">
+        author,
+      </if>
+      <if test="summary != null">
+        summary,
+      </if>
+      <if test="fileurl != null">
+        fileurl,
+      </if>
+      <if test="readnum != null">
+        readnum,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+      <if test="updatetime != null">
+        updatetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="enarticle != null">
+        #{enarticle,jdbcType=VARCHAR},
+      </if>
+      <if test="ennav != null">
+        #{ennav,jdbcType=VARCHAR},
+      </if>
+      <if test="encategory != null">
+        #{encategory,jdbcType=VARCHAR},
+      </if>
+      <if test="entag != null">
+        #{entag,jdbcType=VARCHAR},
+      </if>
+      <if test="adminid != null">
+        #{adminid,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null">
+        #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="fileurl != null">
+        #{fileurl,jdbcType=VARCHAR},
+      </if>
+      <if test="readnum != null">
+        #{readnum,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.hc.xiaosi.entity.Article">
+    update tb_article
+    <set>
+      <if test="ennav != null">
+        enNav = #{ennav,jdbcType=VARCHAR},
+      </if>
+      <if test="encategory != null">
+        enCategory = #{encategory,jdbcType=VARCHAR},
+      </if>
+      <if test="entag != null">
+        enTag = #{entag,jdbcType=VARCHAR},
+      </if>
+      <if test="adminid != null">
+        adminID = #{adminid,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null">
+        summary = #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="fileurl != null">
+        fileurl = #{fileurl,jdbcType=VARCHAR},
+      </if>
+      <if test="readnum != null">
+        readnum = #{readnum,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where enArticle = #{enarticle,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.hc.xiaosi.entity.Article">
+    update tb_article
+    set enNav = #{ennav,jdbcType=VARCHAR},
+      enCategory = #{encategory,jdbcType=VARCHAR},
+      enTag = #{entag,jdbcType=VARCHAR},
+      adminID = #{adminid,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      summary = #{summary,jdbcType=VARCHAR},
+      fileurl = #{fileurl,jdbcType=VARCHAR},
+      readnum = #{readnum,jdbcType=INTEGER},
+      `status` = #{status,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP}
+    where enArticle = #{enarticle,jdbcType=VARCHAR}
+  </update>
+</mapper>
