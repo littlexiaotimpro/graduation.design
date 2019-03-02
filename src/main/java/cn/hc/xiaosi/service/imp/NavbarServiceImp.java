@@ -26,9 +26,9 @@ public class NavbarServiceImp implements NavbarService {
     private NavbarDAO navbarDAO;
 
     @Override
-    public ArrayList<NavbarOutputDTO> clientFindAll() {
+    public ArrayList<NavbarOutputDTO> clientFindAllUsing() {
         ArrayList<NavbarOutputDTO> arrayList = new ArrayList<NavbarOutputDTO>();
-        Iterator iterator = navbarDAO.findAll().iterator();
+        Iterator iterator = navbarDAO.findAllUsing().iterator();
         while (iterator.hasNext()) {
             NavbarOutputDTO navbarOutputDTO = new NavbarOutputDTO();
             navbarOutputDTO = navbarOutputDTO.convertFor((Navbar) iterator.next());
@@ -58,6 +58,18 @@ public class NavbarServiceImp implements NavbarService {
     public Message controlDeleteNavbar(NavbarStatusInputDTO navbarStatusInputDTO) {
         Navbar navbar = navbarStatusInputDTO.convertToNavbar();
         Integer result = navbarDAO.deleteNavbar(navbar);
+        Message message = new Message();
+        if (result == null || result == 0) {
+            return message.setCode(-1).setMsg("操作失败!");
+        } else {
+            return message.setCode(1).setMsg("操作成功!");
+        }
+    }
+
+    @Override
+    public Message controlUpdateNavbar(NavbarInputDTO navbarInputDTO) {
+        Navbar navbar = navbarInputDTO.convertToNavbar();
+        Integer result = navbarDAO.updateNavbar(navbar);
         Message message = new Message();
         if (result == null || result == 0) {
             return message.setCode(-1).setMsg("操作失败!");

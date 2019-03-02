@@ -50,6 +50,12 @@ public class NavbarController {
         return navbarService.controlDeleteNavbar(navbarStatusInputDTO);
     }
 
+    @RequestMapping(value = "update")
+    @ApiOperation(value = "编辑导航信息")
+    public Message updateNavbar(@RequestBody NavbarInputDTO navbarInputDTO) {
+        return navbarService.controlUpdateNavbar(navbarInputDTO);
+    }
+
     /**
      * 客户端
      *
@@ -58,7 +64,7 @@ public class NavbarController {
     @RequestMapping(value = "client")
     @ApiOperation(value = "客户端输出")
     public ArrayList<NavbarOutputDTO> navbarOutputDTOS() {
-        return navbarService.clientFindAll();
+        return navbarService.clientFindAllUsing();
     }
 
 

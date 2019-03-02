@@ -13,11 +13,18 @@ import java.util.ArrayList;
 public interface NavbarDAO extends MyBatisBaseDao<Navbar, String> {
 
     /**
-     * 查询所有的启用的导航栏
+     * 查询所有导航栏
      *
      * @return
      */
     ArrayList<Navbar> findAll();
+
+    /**
+     * 查询所有的启用的导航栏
+     *
+     * @return
+     */
+    ArrayList<Navbar> findAllUsing();
 
     /**
      * 新增导航
@@ -34,5 +41,13 @@ public interface NavbarDAO extends MyBatisBaseDao<Navbar, String> {
      * @return
      */
     int deleteNavbar(@Param("navbar") Navbar navbar);
+
+    /**
+     * 编辑导航信息
+     *
+     * @param navbar
+     * @return
+     */
+    int updateNavbar(@Param("navbar") Navbar navbar);
 
 }

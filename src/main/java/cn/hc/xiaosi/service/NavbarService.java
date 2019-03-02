@@ -21,7 +21,7 @@ public interface NavbarService {
      *
      * @return
      */
-    ArrayList<NavbarOutputDTO> clientFindAll();
+    ArrayList<NavbarOutputDTO> clientFindAllUsing();
 
     /**
      * 前台管理端获取的全部信息
@@ -45,5 +45,13 @@ public interface NavbarService {
      * @return
      */
     Message controlDeleteNavbar(NavbarStatusInputDTO navbarStatusInputDTO);
+
+    /**
+     * 前台管理端编辑导航信息
+     *
+     * @param navbarInputDTO
+     * @return
+     */
+    Message controlUpdateNavbar(NavbarInputDTO navbarInputDTO);
 
 }
