@@ -32,7 +32,7 @@ public interface NavbarDAO extends MyBatisBaseDao<Navbar, String> {
      * @param navbar
      * @return
      */
-    int saveNavbar(@Param("navbar") Navbar navbar);
+    Integer saveNavbar(@Param("navbar") Navbar navbar);
 
     /**
      * 启用,禁用导航
@@ -40,7 +40,7 @@ public interface NavbarDAO extends MyBatisBaseDao<Navbar, String> {
      * @param navbar
      * @return
      */
-    int deleteNavbar(@Param("navbar") Navbar navbar);
+    Integer deleteNavbar(@Param("navbar") Navbar navbar);
 
     /**
      * 编辑导航信息
@@ -48,6 +48,6 @@ public interface NavbarDAO extends MyBatisBaseDao<Navbar, String> {
      * @param navbar
      * @return
      */
-    int updateNavbar(@Param("navbar") Navbar navbar);
+    Integer updateNavbar(@Param("navbar") Navbar navbar);
 
 }

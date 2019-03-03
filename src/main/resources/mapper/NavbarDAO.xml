@@ -104,13 +104,14 @@
     where enNav = #{ennav,jdbcType=VARCHAR}
   </update>
     <select id="findAll" resultMap="BaseResultMap">
-        select * from tb_navbar
+        select * from tb_navbar order by navLevel asc
     </select>
     <select id="findAllUsing" resultMap="BaseResultMap">
         select * from tb_navbar
         <where>
-            status = '1'
+            status = 1
         </where>
+        order by navLevel asc
     </select>
     <insert id="saveNavbar" parameterType="cn.hc.xiaosi.entity.Navbar">
         insert into tb_navbar
@@ -119,7 +120,6 @@
             <if test="navbar.caption!=null">caption,</if>
             <if test="navbar.navlevel!=null">navLevel,</if>
             <if test="navbar.status!=null">status,</if>
-
         </trim>
         <trim suffixOverrides="," suffix=")" prefix="values(">
             <if test="navbar.ennav!=null">#{navbar.ennav},NOW(),</if>
@@ -131,7 +131,8 @@
     <update id="deleteNavbar" parameterType="cn.hc.xiaosi.entity.Navbar">
         update tb_navbar
         <set>
-            <if test="navbar.status!=null">status = #{navbar.status}</if>
+            <if test="navbar.status!=null">status = #{navbar.status},</if>
+            <if test="navbar.ennav!=null">updatetime = NOW()</if>
         </set>
         <where>
             <if test="navbar.ennav!=null">and enNav = #{navbar.ennav}</if>
