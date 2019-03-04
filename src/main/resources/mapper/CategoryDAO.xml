@@ -117,7 +117,7 @@
     <select id="findAll" resultMap="BaseResultMap">
     select * from tb_category order by enNav asc, cateLevel asc
   </select>
-    <select id="findByEnNav" resultMap="BaseResultMap">
+    <select id="findByEnNav" parameterType="cn.hc.xiaosi.entity.Category" resultMap="BaseResultMap">
         select * from tb_category
         <where>
             enNav = #{category.ennav} and `status` = 1
