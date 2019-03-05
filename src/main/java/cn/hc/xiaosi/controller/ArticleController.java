@@ -71,7 +71,7 @@ public class ArticleController {
         return articleService.clientFindByCateTag(articleCateTagInputDTO);
     }
 
-    @RequestMapping(value = "cate_tag")
+    @RequestMapping(value = "record")
     @ApiOperation(value = "客户端根据全局搜索输出")
     public ArrayList<ArticleOutputDTO> articleOutputByRecord(@RequestBody RecordInputDTO recordInputDTO) {
         return articleService.clientFindByRecord(recordInputDTO);
