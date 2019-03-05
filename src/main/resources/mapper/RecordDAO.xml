@@ -79,4 +79,16 @@
       searchtime = #{searchtime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+    <select id="findAll" resultMap="BaseResultMap">
+        select * from tb_record
+    </select>
+    <insert id="saveRecord" parameterType="cn.hc.xiaosi.entity.Record">
+        insert into tb_record
+        <trim suffixOverrides="," prefix="(" suffix=")">
+            <if test="record.keyword!=null">keyword,</if>
+        </trim>
+        <trim suffixOverrides="," prefix="values(" suffix=")">
+            <if test="record.keyword!=null">#{record.keyword},</if>
+        </trim>
+    </insert>
 </mapper>
