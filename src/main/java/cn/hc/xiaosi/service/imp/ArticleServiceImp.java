@@ -37,6 +37,14 @@ public class ArticleServiceImp implements ArticleService {
     }
 
     @Override
+    public ArticleOutputDTO clientFindByEnArticle(ArticlePrimaryKeyInputDTO articlePrimaryKeyInputDTO) {
+        Article article = articlePrimaryKeyInputDTO.convertToArticle();
+        ArticleOutputDTO articleOutputDTO = new ArticleOutputDTO();
+        articleOutputDTO = articleOutputDTO.convertFor(articleDAO.findByEnArticle(article));
+        return articleOutputDTO;
+    }
+
+    @Override
     public ArrayList<ArticleOutputDTO> clientFindByCateTag(ArticleCateTagInputDTO articleCateTagInputDTO) {
         Article article = articleCateTagInputDTO.convertToArticle();
         Iterator iterator = articleDAO.findUsingByEnCategoryEnTags(article).iterator();

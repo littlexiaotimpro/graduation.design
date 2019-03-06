@@ -1,0 +1,82 @@
+package cn.hc.xiaosi.service.imp;
+
+import cn.hc.xiaosi.bean.Message;
+import cn.hc.xiaosi.dao.BookDAO;
+import cn.hc.xiaosi.dto.BookCateTagInputDTO;
+import cn.hc.xiaosi.dto.BookInputDTO;
+import cn.hc.xiaosi.dto.BookOutputDTO;
+import cn.hc.xiaosi.dto.BookStatusInputDTO;
+import cn.hc.xiaosi.entity.Book;
+import cn.hc.xiaosi.service.BookService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+
+/**
+ * @ClassName BookServiceImp
+ * @Description TODO
+ * @Author XiaoSi
+ * @Date 2019/3/615:32
+ */
+@Service
+public class BookServiceImp implements BookService {
+
+    @Autowired
+    private BookDAO bookDAO;
+
+    @Override
+    public ArrayList<Book> controlFindAll() {
+        return bookDAO.findAll();
+    }
+
+    @Override
+    public Message controlSaveBook(BookInputDTO bookInputDTO) {
+        Book book = bookInputDTO.convertToBook();
+        Integer result = bookDAO.saveBook(book);
+        Message message = new Message();
+        if (result == null || result == 0) {
+            return message.setCode(-1).setMsg("添加失败!");
+        } else {
+            return message.setCode(1).setMsg("添加成功!");
+        }
+    }
+
+    @Override
+    public Message controlDeleteBook(BookStatusInputDTO bookStatusInputDTO) {
+        Book book = bookStatusInputDTO.convertToBook();
+        Integer result = bookDAO.deleteBook(book);
+        Message message = new Message();
+        if (result == null || result == 0) {
+            return message.setCode(-1).setMsg("操作失败!");
+        } else {
+            return message.setCode(1).setMsg("操作成功!");
+        }
+    }
+
+    @Override
+    public Message controlUpdateBook(BookInputDTO bookInputDTO) {
+        Book book = bookInputDTO.convertToBook();
+        Integer result = bookDAO.updateBook(book);
+        Message message = new Message();
+        if (result == null || result == 0) {
+            return message.setCode(-1).setMsg("操作失败!");
+        } else {
+            return message.setCode(1).setMsg("操作成功!");
+        }
+    }
+
+    @Override
+    public ArrayList<BookOutputDTO> clientFindByEnCateTag(BookCateTagInputDTO bookCateTagInputDTO) {
+        Book book = bookCateTagInputDTO.convertToBook();
+        ArrayList<BookOutputDTO> arrayList = new ArrayList<BookOutputDTO>();
+        Iterator iterator = bookDAO.findUsingByEnCateTag(book).iterator();
+        while (iterator.hasNext()) {
+            BookOutputDTO bookOutputDTO = new BookOutputDTO();
+            bookOutputDTO = bookOutputDTO.convertFor((Book) iterator.next());
+            arrayList.add(bookOutputDTO);
+        }
+        return arrayList;
+    }
+}

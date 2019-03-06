@@ -52,6 +52,14 @@ public interface ArticleDAO extends MyBatisBaseDao<Article, String> {
     ArrayList<Article> findAllUsing();
 
     /**
+     * 通过主键查询文章
+     *
+     * @param article
+     * @return
+     */
+    Article findByEnArticle(@Param("article") Article article);
+
+    /**
      * 通过分类查询其下的所有文章
      *
      * @param article

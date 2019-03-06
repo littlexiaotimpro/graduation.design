@@ -27,6 +27,11 @@ public class ArticleOutputDTO {
 
     private String summary;
 
+    /**
+     * 文件路径
+     */
+    private String fileurl;
+
     private Integer readnum;
 
     private Date createtime;

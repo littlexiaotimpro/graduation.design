@@ -21,6 +21,14 @@ public interface ArticleService {
     ArrayList<ArticleOutputDTO> clientFindAll();
 
     /**
+     * 客户端通过主键查询文章
+     *
+     * @param articlePrimaryKeyInputDTO
+     * @return
+     */
+    ArticleOutputDTO clientFindByEnArticle(ArticlePrimaryKeyInputDTO articlePrimaryKeyInputDTO);
+
+    /**
      * 客户端通过分类，标签查询文章
      *
      * @param articleCateTagInputDTO

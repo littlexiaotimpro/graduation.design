@@ -65,6 +65,12 @@ public class ArticleController {
         return articleService.clientFindAll();
     }
 
+    @RequestMapping(value = "primary")
+    @ApiOperation(value = "客户端主键查询")
+    public ArticleOutputDTO articlePrimaryKey(@RequestBody ArticlePrimaryKeyInputDTO articlePrimaryKeyInputDTO) {
+        return articleService.clientFindByEnArticle(articlePrimaryKeyInputDTO);
+    }
+
     @RequestMapping(value = "cate_tag")
     @ApiOperation(value = "客户端根据分类标签输出")
     public ArrayList<ArticleOutputDTO> articleOutputByCateTag(@RequestBody ArticleCateTagInputDTO articleCateTagInputDTO) {
