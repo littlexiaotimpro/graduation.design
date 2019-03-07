@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.hc.xiaosi.dao.MediaDAO">
-  <resultMap id="BaseResultMap" type="cn.hc.xiaosi.entity.Media">
-    <id column="enMedia" jdbcType="VARCHAR" property="enmedia" />
-    <result column="enArticle" jdbcType="VARCHAR" property="enarticle" />
-    <result column="enNav" jdbcType="VARCHAR" property="ennav" />
-    <result column="enCategory" jdbcType="VARCHAR" property="encategory" />
-    <result column="enTag" jdbcType="VARCHAR" property="entag" />
-    <result column="adminID" jdbcType="VARCHAR" property="adminid" />
-    <result column="IMGMedia" jdbcType="VARCHAR" property="imgmedia" />
-    <result column="caption" jdbcType="VARCHAR" property="caption" />
-    <result column="showtime" jdbcType="VARCHAR" property="showtime" />
-    <result column="summary" jdbcType="VARCHAR" property="summary" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
-    <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="cn.hc.xiaosi.entity.Media">
+        <id column="enMedia" jdbcType="VARCHAR" property="enmedia"/>
+        <result column="enArticle" jdbcType="VARCHAR" property="enarticle"/>
+        <result column="enNav" jdbcType="VARCHAR" property="ennav"/>
+        <result column="enCategory" jdbcType="VARCHAR" property="encategory"/>
+        <result column="enTag" jdbcType="VARCHAR" property="entag"/>
+        <result column="adminID" jdbcType="VARCHAR" property="adminid"/>
+        <result column="IMGMedia" jdbcType="VARCHAR" property="imgmedia"/>
+        <result column="caption" jdbcType="VARCHAR" property="caption"/>
+        <result column="showtime" jdbcType="VARCHAR" property="showtime"/>
+        <result column="summary" jdbcType="VARCHAR" property="summary"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="createtime" jdbcType="TIMESTAMP" property="createtime"/>
+        <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     enMedia, enArticle, enNav, enCategory, enTag, adminID, IMGMedia, caption, showtime, 
     summary, `status`, createtime, updatetime
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from tb_media
-    where enMedia = #{enmedia,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_media
+        where enMedia = #{enmedia,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from tb_media
     where enMedia = #{enmedia,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="cn.hc.xiaosi.entity.Media">
+    <insert id="insert" parameterType="cn.hc.xiaosi.entity.Media">
     insert into tb_media (enMedia, enArticle, enNav, 
       enCategory, enTag, adminID, 
       IMGMedia, caption, showtime, 
@@ -42,134 +42,134 @@
       #{summary,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, 
       #{updatetime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="cn.hc.xiaosi.entity.Media">
-    insert into tb_media
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="enmedia != null">
-        enMedia,
-      </if>
-      <if test="enarticle != null">
-        enArticle,
-      </if>
-      <if test="ennav != null">
-        enNav,
-      </if>
-      <if test="encategory != null">
-        enCategory,
-      </if>
-      <if test="entag != null">
-        enTag,
-      </if>
-      <if test="adminid != null">
-        adminID,
-      </if>
-      <if test="imgmedia != null">
-        IMGMedia,
-      </if>
-      <if test="caption != null">
-        caption,
-      </if>
-      <if test="showtime != null">
-        showtime,
-      </if>
-      <if test="summary != null">
-        summary,
-      </if>
-      <if test="status != null">
-        `status`,
-      </if>
-      <if test="createtime != null">
-        createtime,
-      </if>
-      <if test="updatetime != null">
-        updatetime,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="enmedia != null">
-        #{enmedia,jdbcType=VARCHAR},
-      </if>
-      <if test="enarticle != null">
-        #{enarticle,jdbcType=VARCHAR},
-      </if>
-      <if test="ennav != null">
-        #{ennav,jdbcType=VARCHAR},
-      </if>
-      <if test="encategory != null">
-        #{encategory,jdbcType=VARCHAR},
-      </if>
-      <if test="entag != null">
-        #{entag,jdbcType=VARCHAR},
-      </if>
-      <if test="adminid != null">
-        #{adminid,jdbcType=VARCHAR},
-      </if>
-      <if test="imgmedia != null">
-        #{imgmedia,jdbcType=VARCHAR},
-      </if>
-      <if test="caption != null">
-        #{caption,jdbcType=VARCHAR},
-      </if>
-      <if test="showtime != null">
-        #{showtime,jdbcType=VARCHAR},
-      </if>
-      <if test="summary != null">
-        #{summary,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=INTEGER},
-      </if>
-      <if test="createtime != null">
-        #{createtime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updatetime != null">
-        #{updatetime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.hc.xiaosi.entity.Media">
-    update tb_media
-    <set>
-      <if test="enarticle != null">
-        enArticle = #{enarticle,jdbcType=VARCHAR},
-      </if>
-      <if test="ennav != null">
-        enNav = #{ennav,jdbcType=VARCHAR},
-      </if>
-      <if test="encategory != null">
-        enCategory = #{encategory,jdbcType=VARCHAR},
-      </if>
-      <if test="entag != null">
-        enTag = #{entag,jdbcType=VARCHAR},
-      </if>
-      <if test="adminid != null">
-        adminID = #{adminid,jdbcType=VARCHAR},
-      </if>
-      <if test="imgmedia != null">
-        IMGMedia = #{imgmedia,jdbcType=VARCHAR},
-      </if>
-      <if test="caption != null">
-        caption = #{caption,jdbcType=VARCHAR},
-      </if>
-      <if test="showtime != null">
-        showtime = #{showtime,jdbcType=VARCHAR},
-      </if>
-      <if test="summary != null">
-        summary = #{summary,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        `status` = #{status,jdbcType=INTEGER},
-      </if>
-      <if test="createtime != null">
-        createtime = #{createtime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updatetime != null">
-        updatetime = #{updatetime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where enMedia = #{enmedia,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="cn.hc.xiaosi.entity.Media">
+    <insert id="insertSelective" parameterType="cn.hc.xiaosi.entity.Media">
+        insert into tb_media
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="enmedia != null">
+                enMedia,
+            </if>
+            <if test="enarticle != null">
+                enArticle,
+            </if>
+            <if test="ennav != null">
+                enNav,
+            </if>
+            <if test="encategory != null">
+                enCategory,
+            </if>
+            <if test="entag != null">
+                enTag,
+            </if>
+            <if test="adminid != null">
+                adminID,
+            </if>
+            <if test="imgmedia != null">
+                IMGMedia,
+            </if>
+            <if test="caption != null">
+                caption,
+            </if>
+            <if test="showtime != null">
+                showtime,
+            </if>
+            <if test="summary != null">
+                summary,
+            </if>
+            <if test="status != null">
+                `status`,
+            </if>
+            <if test="createtime != null">
+                createtime,
+            </if>
+            <if test="updatetime != null">
+                updatetime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="enmedia != null">
+                #{enmedia,jdbcType=VARCHAR},
+            </if>
+            <if test="enarticle != null">
+                #{enarticle,jdbcType=VARCHAR},
+            </if>
+            <if test="ennav != null">
+                #{ennav,jdbcType=VARCHAR},
+            </if>
+            <if test="encategory != null">
+                #{encategory,jdbcType=VARCHAR},
+            </if>
+            <if test="entag != null">
+                #{entag,jdbcType=VARCHAR},
+            </if>
+            <if test="adminid != null">
+                #{adminid,jdbcType=VARCHAR},
+            </if>
+            <if test="imgmedia != null">
+                #{imgmedia,jdbcType=VARCHAR},
+            </if>
+            <if test="caption != null">
+                #{caption,jdbcType=VARCHAR},
+            </if>
+            <if test="showtime != null">
+                #{showtime,jdbcType=VARCHAR},
+            </if>
+            <if test="summary != null">
+                #{summary,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createtime != null">
+                #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatetime != null">
+                #{updatetime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.hc.xiaosi.entity.Media">
+        update tb_media
+        <set>
+            <if test="enarticle != null">
+                enArticle = #{enarticle,jdbcType=VARCHAR},
+            </if>
+            <if test="ennav != null">
+                enNav = #{ennav,jdbcType=VARCHAR},
+            </if>
+            <if test="encategory != null">
+                enCategory = #{encategory,jdbcType=VARCHAR},
+            </if>
+            <if test="entag != null">
+                enTag = #{entag,jdbcType=VARCHAR},
+            </if>
+            <if test="adminid != null">
+                adminID = #{adminid,jdbcType=VARCHAR},
+            </if>
+            <if test="imgmedia != null">
+                IMGMedia = #{imgmedia,jdbcType=VARCHAR},
+            </if>
+            <if test="caption != null">
+                caption = #{caption,jdbcType=VARCHAR},
+            </if>
+            <if test="showtime != null">
+                showtime = #{showtime,jdbcType=VARCHAR},
+            </if>
+            <if test="summary != null">
+                summary = #{summary,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                `status` = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createtime != null">
+                createtime = #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatetime != null">
+                updatetime = #{updatetime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where enMedia = #{enmedia,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.hc.xiaosi.entity.Media">
     update tb_media
     set enArticle = #{enarticle,jdbcType=VARCHAR},
       enNav = #{ennav,jdbcType=VARCHAR},
@@ -185,4 +185,73 @@
       updatetime = #{updatetime,jdbcType=TIMESTAMP}
     where enMedia = #{enmedia,jdbcType=VARCHAR}
   </update>
+    <select id="findAll" resultMap="BaseResultMap">
+    select * from tb_media;
+  </select>
+    <select id="findUsingByEnCateTag" parameterType="cn.hc.xiaosi.entity.Media" resultMap="BaseResultMap">
+        select * from tb_media
+        <where>
+            <if test="media.encategory!=null">and enCategory = #{media.encategory}</if>
+            <if test="media.entag!=null">and enTag = #{media.entag}</if>
+            and status = 1
+        </where>
+    </select>
+    <insert id="saveMedia" parameterType="cn.hc.xiaosi.entity.Media">
+        insert into tb_media
+        <trim suffixOverrides="," prefix="(" suffix=")">
+            <if test="media.enmedia!=null">enMedia,createtime,</if>
+            <if test="media.ennav!=null">enNav,</if>
+            <if test="media.enarticle!=null">enArticle,</if>
+            <if test="media.encategory!=null">enCateory,</if>
+            <if test="media.entag!=null">enTag,</if>
+            <if test="media.adminid!=null">adminID,</if>
+            <if test="media.imgmedia!=null">IMGMedia,</if>
+            <if test="media.caption!=null">caption,</if>
+            <if test="media.showtime!=null">showtime,</if>
+            <if test="media.summary!=null">summary,</if>
+            <if test="media.status!=null">status,</if>
+        </trim>
+        <trim suffixOverrides="," prefix="values(" suffix=")">
+            <if test="media.enmedia!=null">#{media.enmedia},NOW(),</if>
+            <if test="media.ennav!=null">#{media.ennav},</if>
+            <if test="media.enarticle!=null">#{media.enarticle},</if>
+            <if test="media.encategory!=null">#{media.encategory},</if>
+            <if test="media.entag!=null">#{media.entag},</if>
+            <if test="media.adminid!=null">#{media.adminid},</if>
+            <if test="media.imgmedia!=null">#{media.imgmedia},</if>
+            <if test="media.caption!=null">#{media.caption},</if>
+            <if test="media.showtime!=null">#{media.showtime},</if>
+            <if test="media.summary!=null">#{media.summary},</if>
+            <if test="media.status!=null">#{media.status},</if>
+        </trim>
+    </insert>
+    <update id="deleteMedia" parameterType="cn.hc.xiaosi.entity.Media">
+        update tb_media
+        <set>
+            <if test="media.status!=null">status = #{media.status},</if>
+            <if test="media.enmedia!=null">updatetime = NOW()</if>
+        </set>
+        <where>
+            <if test="media.enmedia!=null">and enMedia = #{media.enmedia}</if>
+        </where>
+    </update>
+    <update id="updateMedia" parameterType="cn.hc.xiaosi.entity.Media">
+        update tb_media
+        <set>
+            <if test="media.ennav!=null">enNav = #{media.ennav},</if>
+            <if test="media.enarticle!=null">enArticle = #{media.enarticle},</if>
+            <if test="media.encategory!=null">enCateory = #{media.encategory},</if>
+            <if test="media.entag!=null">enTag = #{media.entag},</if>
+            <if test="media.adminid!=null">adminID = #{media.adminid},</if>
+            <if test="media.imgmedia!=null">IMGMedia = #{media.imgmedia},</if>
+            <if test="media.caption!=null">caption = #{media.caption},</if>
+            <if test="media.showtime!=null">showtime = #{media.showtime},</if>
+            <if test="media.summary!=null">summary = #{media.summary},</if>
+            <if test="media.status!=null">status = #{media.status},</if>
+            <if test="media.enmedia!=null">updatetime = NOW(),</if>
+        </set>
+        <where>
+            <if test="media.enmedia!=null">and enMedia = #{media.enmedia}</if>
+        </where>
+    </update>
 </mapper>
