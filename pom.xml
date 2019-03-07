@@ -153,4 +153,16 @@
 
     </dependencies>
 
+    <build>
+        <!-- 打成jar包的名称 -->
+        <finalName>access</finalName>
+        <plugins>
+            <!-- 需要引用的jar包 -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
