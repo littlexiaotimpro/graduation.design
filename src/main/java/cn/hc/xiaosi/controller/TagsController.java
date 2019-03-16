@@ -39,6 +39,12 @@ public class TagsController {
         return tagsService.controlFindAll();
     }
 
+    @RequestMapping(value = "caption")
+    @ApiOperation(value = "名称输出")
+    public ArrayList<TagsOutputDTO> getCaption() {
+        return tagsService.controlFindAllCaption();
+    }
+
     @RequestMapping(value = "save")
     @ApiOperation(value = "新增标签")
     public Message saveTags(@RequestBody TagsInputDTO tagsInputDTO) {

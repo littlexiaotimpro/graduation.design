@@ -38,6 +38,12 @@ public class NavbarController {
         return navbarService.controlFindAll();
     }
 
+    @RequestMapping(value = "caption")
+    @ApiOperation(value = "名称输出")
+    public ArrayList<NavbarOutputDTO> getCaption() {
+        return navbarService.controlFindAllCaption();
+    }
+
     @RequestMapping(value = "save")
     @ApiOperation(value = "新增导航栏")
     public Message saveNavbar(@RequestBody NavbarInputDTO navbarInputDTO) {

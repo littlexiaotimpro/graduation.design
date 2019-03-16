@@ -39,6 +39,12 @@ public class CategoryController {
         return categoryService.controlFindAll();
     }
 
+    @RequestMapping(value = "caption")
+    @ApiOperation(value = "管理端名称输出")
+    public ArrayList<CategoryOutputDTO> getCaption() {
+        return categoryService.controlFindAllCaption();
+    }
+
     @RequestMapping(value = "save")
     @ApiOperation(value = "新增分类")
     public Message saveCategory(@RequestBody CategoryInputDTO categoryInputDTO) {
