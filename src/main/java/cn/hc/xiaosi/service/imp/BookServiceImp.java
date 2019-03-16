@@ -8,11 +8,17 @@ import cn.hc.xiaosi.dto.BookOutputDTO;
 import cn.hc.xiaosi.dto.BookStatusInputDTO;
 import cn.hc.xiaosi.entity.Book;
 import cn.hc.xiaosi.service.BookService;
+import cn.hc.xiaosi.utils.OSSClientUtil;
+import com.aliyun.oss.OSSClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import static cn.hc.xiaosi.bean.OSSClientConstants.BACKET_NAME;
+import static cn.hc.xiaosi.bean.OSSClientConstants.FOLDER;
 
 /**
  * @ClassName BookServiceImp
@@ -33,6 +39,19 @@ public class BookServiceImp implements BookService {
 
     @Override
     public Message controlSaveBook(BookInputDTO bookInputDTO) {
+
+        /**
+         * 调用图片上传工具类，上传图片
+         */
+        OSSClient ossClient = OSSClientUtil.getOSSClient();
+        File file = new File(bookInputDTO.getImgbook());
+        String category = bookInputDTO.getEncategory() + "/";
+        String md5key = OSSClientUtil.uploadObject2OSS(ossClient, file, BACKET_NAME, FOLDER, category);
+        System.out.println("上传后的文件MD5数字唯一签名:" + md5key);
+
+        /**
+         * 向数据库添加新数据
+         */
         Book book = bookInputDTO.convertToBook();
         Integer result = bookDAO.saveBook(book);
         Message message = new Message();
@@ -57,6 +76,19 @@ public class BookServiceImp implements BookService {
 
     @Override
     public Message controlUpdateBook(BookInputDTO bookInputDTO) {
+
+        /**
+         * 调用图片上传工具类，上传图片
+         */
+        OSSClient ossClient = OSSClientUtil.getOSSClient();
+        File file = new File(bookInputDTO.getImgbook());
+        String category = bookInputDTO.getEncategory() + "/";
+        String md5key = OSSClientUtil.uploadObject2OSS(ossClient, file, BACKET_NAME, FOLDER, category);
+        System.out.println("上传后的文件MD5数字唯一签名:" + md5key);
+
+        /**
+         * 更新数据
+         */
         Book book = bookInputDTO.convertToBook();
         Integer result = bookDAO.updateBook(book);
         Message message = new Message();

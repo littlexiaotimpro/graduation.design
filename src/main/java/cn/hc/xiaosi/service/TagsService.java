@@ -33,6 +33,13 @@ public interface TagsService {
     ArrayList<Tags> controlFindAll();
 
     /**
+     * 管理端获取所有的 标识--名称 的集合
+     *
+     * @return
+     */
+    ArrayList<TagsOutputDTO> controlFindAllCaption();
+
+    /**
      * 新增标签
      *
      * @param tagsInputDTO

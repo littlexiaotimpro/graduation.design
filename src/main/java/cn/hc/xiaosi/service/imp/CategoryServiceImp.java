@@ -45,6 +45,18 @@ public class CategoryServiceImp implements CategoryService {
     }
 
     @Override
+    public ArrayList<CategoryOutputDTO> controlFindAllCaption() {
+        ArrayList<CategoryOutputDTO> arrayList = new ArrayList<CategoryOutputDTO>();
+        Iterator iterator = categoryDAO.findAll().iterator();
+        while (iterator.hasNext()) {
+            CategoryOutputDTO categoryOutputDTO = new CategoryOutputDTO();
+            categoryOutputDTO = categoryOutputDTO.convertFor((Category) iterator.next());
+            arrayList.add(categoryOutputDTO);
+        }
+        return arrayList;
+    }
+
+    @Override
     public Message controlSaveCategory(CategoryInputDTO categoryInputDTO) {
         Category category = categoryInputDTO.convertToCategory();
         Integer result = categoryDAO.saveCategory(category);

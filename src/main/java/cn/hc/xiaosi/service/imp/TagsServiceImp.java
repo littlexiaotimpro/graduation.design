@@ -45,6 +45,18 @@ public class TagsServiceImp implements TagsService {
     }
 
     @Override
+    public ArrayList<TagsOutputDTO> controlFindAllCaption() {
+        ArrayList<TagsOutputDTO> arrayList = new ArrayList<TagsOutputDTO>();
+        Iterator iterator = tagsDAO.findAll().iterator();
+        while (iterator.hasNext()) {
+            TagsOutputDTO tagsOutputDTO = new TagsOutputDTO();
+            tagsOutputDTO = tagsOutputDTO.convertFor((Tags) iterator.next());
+            arrayList.add(tagsOutputDTO);
+        }
+        return arrayList;
+    }
+
+    @Override
     public Message controlSaveTags(TagsInputDTO tagsInputDTO) {
         Tags tags = tagsInputDTO.convertToTags();
         Integer result = tagsDAO.saveTags(tags);

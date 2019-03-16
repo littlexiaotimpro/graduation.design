@@ -33,6 +33,13 @@ public interface CategoryService {
     ArrayList<Category> controlFindAll();
 
     /**
+     * 管理端获取所有的 标识--名称 的集合
+     *
+     * @return
+     */
+    ArrayList<CategoryOutputDTO> controlFindAllCaption();
+
+    /**
      * 新增分类
      *
      * @param categoryInputDTO

@@ -31,6 +31,13 @@ public interface NavbarService {
     ArrayList<Navbar> controlFindAll();
 
     /**
+     * 管理端获取所有的 标识--名称 的集合
+     *
+     * @return
+     */
+    ArrayList<NavbarOutputDTO> controlFindAllCaption();
+
+    /**
      * 前台管理端新增导航
      *
      * @param navbarInputDTO

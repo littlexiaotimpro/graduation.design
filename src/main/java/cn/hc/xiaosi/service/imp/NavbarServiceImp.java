@@ -43,6 +43,18 @@ public class NavbarServiceImp implements NavbarService {
     }
 
     @Override
+    public ArrayList<NavbarOutputDTO> controlFindAllCaption() {
+        ArrayList<NavbarOutputDTO> arrayList = new ArrayList<NavbarOutputDTO>();
+        Iterator iterator = navbarDAO.findAll().iterator();
+        while (iterator.hasNext()) {
+            NavbarOutputDTO navbarOutputDTO = new NavbarOutputDTO();
+            navbarOutputDTO = navbarOutputDTO.convertFor((Navbar) iterator.next());
+            arrayList.add(navbarOutputDTO);
+        }
+        return arrayList;
+    }
+
+    @Override
     public Message controlSaveNavbar(NavbarInputDTO navbarInputDTO) {
         Navbar navbar = navbarInputDTO.convertToNavbar();
         Integer result = navbarDAO.saveNavbar(navbar);
