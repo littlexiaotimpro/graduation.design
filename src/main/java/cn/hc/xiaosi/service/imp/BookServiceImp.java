@@ -41,15 +41,6 @@ public class BookServiceImp implements BookService {
     public Message controlSaveBook(BookInputDTO bookInputDTO) {
 
         /**
-         * 调用图片上传工具类，上传图片
-         */
-        OSSClient ossClient = OSSClientUtil.getOSSClient();
-        File file = new File(bookInputDTO.getImgbook());
-        String category = bookInputDTO.getEncategory() + "/";
-        String md5key = OSSClientUtil.uploadObject2OSS(ossClient, file, BACKET_NAME, FOLDER, category);
-        System.out.println("上传后的文件MD5数字唯一签名:" + md5key);
-
-        /**
          * 向数据库添加新数据
          */
         Book book = bookInputDTO.convertToBook();
@@ -76,15 +67,6 @@ public class BookServiceImp implements BookService {
 
     @Override
     public Message controlUpdateBook(BookInputDTO bookInputDTO) {
-
-        /**
-         * 调用图片上传工具类，上传图片
-         */
-        OSSClient ossClient = OSSClientUtil.getOSSClient();
-        File file = new File(bookInputDTO.getImgbook());
-        String category = bookInputDTO.getEncategory() + "/";
-        String md5key = OSSClientUtil.uploadObject2OSS(ossClient, file, BACKET_NAME, FOLDER, category);
-        System.out.println("上传后的文件MD5数字唯一签名:" + md5key);
 
         /**
          * 更新数据

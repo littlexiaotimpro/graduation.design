@@ -19,6 +19,11 @@ public class TagsOutputDTO {
     private String entag;
 
     /**
+     * 类别标识
+     */
+    private String encategory;
+
+    /**
      * 名称
      */
     private String caption;

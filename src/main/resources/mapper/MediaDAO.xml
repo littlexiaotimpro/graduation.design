@@ -202,7 +202,7 @@
             <if test="media.enmedia!=null">enMedia,createtime,</if>
             <if test="media.ennav!=null">enNav,</if>
             <if test="media.enarticle!=null">enArticle,</if>
-            <if test="media.encategory!=null">enCateory,</if>
+            <if test="media.encategory!=null">enCategory,</if>
             <if test="media.entag!=null">enTag,</if>
             <if test="media.adminid!=null">adminID,</if>
             <if test="media.imgmedia!=null">IMGMedia,</if>
@@ -240,7 +240,7 @@
         <set>
             <if test="media.ennav!=null">enNav = #{media.ennav},</if>
             <if test="media.enarticle!=null">enArticle = #{media.enarticle},</if>
-            <if test="media.encategory!=null">enCateory = #{media.encategory},</if>
+            <if test="media.encategory!=null">enCategory = #{media.encategory},</if>
             <if test="media.entag!=null">enTag = #{media.entag},</if>
             <if test="media.adminid!=null">adminID = #{media.adminid},</if>
             <if test="media.imgmedia!=null">IMGMedia = #{media.imgmedia},</if>

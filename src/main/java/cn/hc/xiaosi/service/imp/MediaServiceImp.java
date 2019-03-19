@@ -2,16 +2,14 @@ package cn.hc.xiaosi.service.imp;
 
 import cn.hc.xiaosi.bean.Message;
 import cn.hc.xiaosi.dao.MediaDAO;
-import cn.hc.xiaosi.dto.MediaCateTagInputDTO;
-import cn.hc.xiaosi.dto.MediaInputDTO;
-import cn.hc.xiaosi.dto.MediaOutputDTO;
-import cn.hc.xiaosi.dto.MediaStatusInputDTO;
+import cn.hc.xiaosi.dto.*;
 import cn.hc.xiaosi.entity.Media;
 import cn.hc.xiaosi.service.MediaService;
 import cn.hc.xiaosi.utils.OSSClientUtil;
 import com.aliyun.oss.OSSClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -38,16 +36,21 @@ public class MediaServiceImp implements MediaService {
     }
 
     @Override
-    public Message controlSaveMedia(MediaInputDTO mediaInputDTO) {
+    public String controlSaveIMG(MultipartFile file, String category) {
         /**
          * 调用图片上传工具类，上传图片
          */
         OSSClient ossClient = OSSClientUtil.getOSSClient();
-        File file = new File(mediaInputDTO.getImgmedia());
-        String category = mediaInputDTO.getEncategory() + "/";
-        String md5key = OSSClientUtil.uploadObject2OSS(ossClient, file, BACKET_NAME, FOLDER, category);
+        String imgUrl = category + "/";
+        String md5key = OSSClientUtil.uploadObject2OSS(ossClient, file, BACKET_NAME, FOLDER, imgUrl);
         System.out.println("上传后的文件MD5数字唯一签名:" + md5key);
+        String url = "https://rerouter.oss-cn-hangzhou.aliyuncs.com/" + FOLDER + imgUrl + file.getOriginalFilename();
+        System.out.println("上传图片的地址url：" + url);
+        return url;
+    }
 
+    @Override
+    public Message controlSaveMedia(MediaInputDTO mediaInputDTO) {
         /**
          * 向数据库添加新数据
          */
@@ -75,15 +78,6 @@ public class MediaServiceImp implements MediaService {
 
     @Override
     public Message controlUpdateMedia(MediaInputDTO mediaInputDTO) {
-        /**
-         * 调用图片上传工具类，上传图片
-         */
-        OSSClient ossClient = OSSClientUtil.getOSSClient();
-        File file = new File(mediaInputDTO.getImgmedia());
-        String category = mediaInputDTO.getEncategory() + "/";
-        String md5key = OSSClientUtil.uploadObject2OSS(ossClient, file, BACKET_NAME, FOLDER, category);
-        System.out.println("上传后的文件MD5数字唯一签名:" + md5key);
-
         /**
          * 更新数据
          */

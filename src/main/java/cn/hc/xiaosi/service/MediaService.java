@@ -1,11 +1,9 @@
 package cn.hc.xiaosi.service;
 
 import cn.hc.xiaosi.bean.Message;
-import cn.hc.xiaosi.dto.MediaCateTagInputDTO;
-import cn.hc.xiaosi.dto.MediaInputDTO;
-import cn.hc.xiaosi.dto.MediaOutputDTO;
-import cn.hc.xiaosi.dto.MediaStatusInputDTO;
+import cn.hc.xiaosi.dto.*;
 import cn.hc.xiaosi.entity.Media;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 
@@ -23,6 +21,15 @@ public interface MediaService {
      * @return
      */
     ArrayList<Media> controlFindAll();
+
+    /**
+     * 添加图片
+     *
+     * @param file
+     * @param category
+     * @return
+     */
+    String controlSaveIMG(MultipartFile file, String category);
 
     /**
      * 新增数据

@@ -8,6 +8,7 @@ import com.aliyun.oss.model.ObjectMetadata;
 import com.aliyun.oss.model.PutObjectResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -136,15 +137,15 @@ public class OSSClientUtil {
      * @param category   分类文件夹名 如"MCU/"
      * @return String 返回的唯一MD5数字签名
      */
-    public static String uploadObject2OSS(OSSClient ossClient, File file, String bucketName, String folder, String category) {
+    public static String uploadObject2OSS(OSSClient ossClient, MultipartFile file, String bucketName, String folder, String category) {
         String resultStr = null;
         try {
             //以输入流的形式上传文件
-            InputStream is = new FileInputStream(file);
+            InputStream is = file.getInputStream();//new FileInputStream(file);
             //文件名
-            String fileName = file.getName();
+            String fileName = file.getOriginalFilename();
             //文件大小
-            Long fileSize = file.length();
+            Long fileSize = file.getSize();
             //创建上传Object的Metadata
             ObjectMetadata metadata = new ObjectMetadata();
             //上传的文件的长度
