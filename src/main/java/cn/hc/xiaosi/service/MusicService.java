@@ -6,6 +6,7 @@ import cn.hc.xiaosi.dto.MusicInputDTO;
 import cn.hc.xiaosi.dto.MusicOutputDTO;
 import cn.hc.xiaosi.dto.MusicStatusInputDTO;
 import cn.hc.xiaosi.entity.Music;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 
@@ -23,6 +24,15 @@ public interface MusicService {
      * @return
      */
     ArrayList<Music> controlFindAll();
+
+    /**
+     * 上传图片
+     *
+     * @param file
+     * @param category
+     * @return
+     */
+    String controlSaveIMG(MultipartFile file, String category);
 
     /**
      * 新增数据

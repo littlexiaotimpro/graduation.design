@@ -9,9 +9,11 @@ import cn.hc.xiaosi.dto.BookStatusInputDTO;
 import cn.hc.xiaosi.entity.Book;
 import cn.hc.xiaosi.service.BookService;
 import cn.hc.xiaosi.utils.OSSClientUtil;
+import cn.hc.xiaosi.utils.UploadUtil;
 import com.aliyun.oss.OSSClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -35,6 +37,11 @@ public class BookServiceImp implements BookService {
     @Override
     public ArrayList<Book> controlFindAll() {
         return bookDAO.findAll();
+    }
+
+    @Override
+    public String controlSaveIMG(MultipartFile file, String category) {
+        return UploadUtil.getImgUrl(file, category);
     }
 
     @Override

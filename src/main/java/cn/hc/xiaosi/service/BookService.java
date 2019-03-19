@@ -6,6 +6,7 @@ import cn.hc.xiaosi.dto.BookInputDTO;
 import cn.hc.xiaosi.dto.BookOutputDTO;
 import cn.hc.xiaosi.dto.BookStatusInputDTO;
 import cn.hc.xiaosi.entity.Book;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 
@@ -23,6 +24,15 @@ public interface BookService {
      * @return
      */
     ArrayList<Book> controlFindAll();
+
+    /**
+     * 上传图片
+     *
+     * @param file
+     * @param category
+     * @return
+     */
+    String controlSaveIMG(MultipartFile file, String category);
 
     /**
      * 新增书籍

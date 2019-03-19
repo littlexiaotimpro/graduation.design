@@ -38,13 +38,6 @@ public class MediaController {
         return mediaService.controlFindAll();
     }
 
-    @RequestMapping(value = "images")
-    @ApiOperation(value = "测试图片图片数据")
-    public String IMGMedia(@PathParam("imgmedia") MultipartFile file) {
-        System.out.println(file.getOriginalFilename());
-        return "test";
-    }
-
     @RequestMapping(value = "img")
     @ApiOperation(value = "添加图片数据")
     public String saveIMG(@PathParam("imgmedia") MultipartFile file, @PathParam("category") String category) {

@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 
 /**
@@ -37,6 +39,12 @@ public class BookController {
     @ApiOperation(value = "管理端输出")
     public ArrayList<Book> books() {
         return bookService.controlFindAll();
+    }
+
+    @RequestMapping(value = "img")
+    @ApiOperation(value = "添加图片数据")
+    public String saveIMG(@PathParam("imgmedia") MultipartFile file, @PathParam("category") String category) {
+        return bookService.controlSaveIMG(file, category);
     }
 
     @RequestMapping(value = "save")

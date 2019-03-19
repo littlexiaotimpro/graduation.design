@@ -8,8 +8,10 @@ import cn.hc.xiaosi.dto.MusicOutputDTO;
 import cn.hc.xiaosi.dto.MusicStatusInputDTO;
 import cn.hc.xiaosi.entity.Music;
 import cn.hc.xiaosi.service.MusicService;
+import cn.hc.xiaosi.utils.UploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -29,6 +31,11 @@ public class MusicServiceImp implements MusicService {
     @Override
     public ArrayList<Music> controlFindAll() {
         return musicDAO.findAll();
+    }
+
+    @Override
+    public String controlSaveIMG(MultipartFile file, String category) {
+        return UploadUtil.getImgUrl(file, category);
     }
 
     @Override

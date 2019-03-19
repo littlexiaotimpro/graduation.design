@@ -6,6 +6,7 @@ import cn.hc.xiaosi.dto.*;
 import cn.hc.xiaosi.entity.Media;
 import cn.hc.xiaosi.service.MediaService;
 import cn.hc.xiaosi.utils.OSSClientUtil;
+import cn.hc.xiaosi.utils.UploadUtil;
 import com.aliyun.oss.OSSClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,16 +38,7 @@ public class MediaServiceImp implements MediaService {
 
     @Override
     public String controlSaveIMG(MultipartFile file, String category) {
-        /**
-         * 调用图片上传工具类，上传图片
-         */
-        OSSClient ossClient = OSSClientUtil.getOSSClient();
-        String imgUrl = category + "/";
-        String md5key = OSSClientUtil.uploadObject2OSS(ossClient, file, BACKET_NAME, FOLDER, imgUrl);
-        System.out.println("上传后的文件MD5数字唯一签名:" + md5key);
-        String url = "https://rerouter.oss-cn-hangzhou.aliyuncs.com/" + FOLDER + imgUrl + file.getOriginalFilename();
-        System.out.println("上传图片的地址url：" + url);
-        return url;
+        return UploadUtil.getImgUrl(file, category);
     }
 
     @Override
