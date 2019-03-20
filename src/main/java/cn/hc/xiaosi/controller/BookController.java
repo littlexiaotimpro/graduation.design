@@ -43,7 +43,7 @@ public class BookController {
 
     @RequestMapping(value = "img")
     @ApiOperation(value = "添加图片数据")
-    public String saveIMG(@PathParam("imgmedia") MultipartFile file, @PathParam("category") String category) {
+    public String saveIMG(@PathParam("imgbook") MultipartFile file, @PathParam("category") String category) {
         return bookService.controlSaveIMG(file, category);
     }
 

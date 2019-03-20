@@ -43,7 +43,7 @@ public class MusicController {
 
     @RequestMapping(value = "img")
     @ApiOperation(value = "添加图片数据")
-    public String saveIMG(@PathParam("imgmedia") MultipartFile file, @PathParam("category") String category) {
+    public String saveIMG(@PathParam("imgmusic") MultipartFile file, @PathParam("category") String category) {
         return musicService.controlSaveIMG(file, category);
     }
 

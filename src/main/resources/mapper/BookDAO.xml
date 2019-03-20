@@ -265,7 +265,7 @@
             <if test="book.enbook!=null">updatetime = NOW()</if>
         </set>
         <where>
-            <if test="book.enbook!=null">and enBook = #{book.enbook},</if>
+            <if test="book.enbook!=null">and enBook = #{book.enbook}</if>
         </where>
     </update>
 </mapper>
