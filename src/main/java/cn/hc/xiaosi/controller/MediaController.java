@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.websocket.server.PathParam;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * @ClassName MediaController
@@ -70,7 +71,7 @@ public class MediaController {
      */
     @RequestMapping(value = "client")
     @ApiOperation(value = "客户端输出")
-    public ArrayList<MediaOutputDTO> mediaOutputDTOS(@RequestBody MediaCateTagInputDTO mediaCateTagInputDTO) {
+    public ArrayList mediaOutputDTOS(@RequestBody MediaCateTagInputDTO mediaCateTagInputDTO) {
         return mediaService.clientFindUsingByEnCateTag(mediaCateTagInputDTO);
     }
 

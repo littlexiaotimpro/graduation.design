@@ -193,7 +193,7 @@
         <where>
             <if test="media.encategory!=null">and enCategory = #{media.encategory}</if>
             <if test="media.entag!=null">and enTag = #{media.entag}</if>
-            and status = 1
+            and status = 1 order by showtime
         </where>
     </select>
     <insert id="saveMedia" parameterType="cn.hc.xiaosi.entity.Media">

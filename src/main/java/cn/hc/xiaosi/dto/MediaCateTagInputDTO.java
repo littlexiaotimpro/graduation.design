@@ -3,6 +3,7 @@ package cn.hc.xiaosi.dto;
 import cn.hc.xiaosi.entity.Media;
 import com.google.common.base.Converter;
 import lombok.Data;
+import lombok.experimental.Accessors;
 import org.springframework.beans.BeanUtils;
 
 /**
@@ -11,6 +12,7 @@ import org.springframework.beans.BeanUtils;
  * @Author XiaoSi
  * @Date 2019/3/715:21
  */
+@Accessors(chain = true)
 @Data
 public class MediaCateTagInputDTO {
     private String encategory;

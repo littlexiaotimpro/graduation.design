@@ -5,19 +5,16 @@ import cn.hc.xiaosi.dao.MediaDAO;
 import cn.hc.xiaosi.dto.*;
 import cn.hc.xiaosi.entity.Media;
 import cn.hc.xiaosi.service.MediaService;
-import cn.hc.xiaosi.utils.OSSClientUtil;
 import cn.hc.xiaosi.utils.UploadUtil;
-import com.aliyun.oss.OSSClient;
+import net.sf.json.JSON;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.text.ParseException;
+import java.util.*;
 
-import static cn.hc.xiaosi.bean.OSSClientConstants.BACKET_NAME;
-import static cn.hc.xiaosi.bean.OSSClientConstants.FOLDER;
 
 /**
  * @ClassName MediaServiceImp
@@ -83,15 +80,41 @@ public class MediaServiceImp implements MediaService {
         }
     }
 
+    /**
+     * 将取出的数据转为指定格式的json数组对象
+     * 为了有序的排列数据，选择使用LinkedHashMap
+     *
+     * @param mediaCateTagInputDTO
+     * @return
+     */
     @Override
-    public ArrayList<MediaOutputDTO> clientFindUsingByEnCateTag(MediaCateTagInputDTO mediaCateTagInputDTO) {
+    public ArrayList clientFindUsingByEnCateTag(MediaCateTagInputDTO mediaCateTagInputDTO) {
         Media media = mediaCateTagInputDTO.convertToMedia();
-        ArrayList<MediaOutputDTO> arrayList = new ArrayList<MediaOutputDTO>();
         Iterator iterator = mediaDAO.findUsingByEnCateTag(media).iterator();
+        Map<String, ArrayList<MediaOutputDTO>> map = new LinkedHashMap<String, ArrayList<MediaOutputDTO>>();
         while (iterator.hasNext()) {
             MediaOutputDTO mediaOutputDTO = new MediaOutputDTO();
             mediaOutputDTO = mediaOutputDTO.convertFor((Media) iterator.next());
-            arrayList.add(mediaOutputDTO);
+            String key = mediaOutputDTO.getShowtime().split("-")[0];
+            ArrayList<MediaOutputDTO> arrayList;
+            if (map.get(key) == null) {
+                arrayList = new ArrayList<MediaOutputDTO>();
+                arrayList.add(mediaOutputDTO);
+                map.put(key, arrayList);
+            } else {
+                arrayList = map.get(key);
+                arrayList.add(mediaOutputDTO);
+                map.put(key, arrayList);
+            }
+        }
+        Iterator iter = map.keySet().iterator();
+        ArrayList arrayList = new ArrayList();
+        while (iter.hasNext()) {
+            Map<String, Object> result = new LinkedHashMap<String, Object>();
+            String key = iter.next().toString();
+            result.put("key", key);
+            result.put("value", map.get(key));
+            arrayList.add(result);
         }
         return arrayList;
     }

@@ -6,6 +6,7 @@ import cn.hc.xiaosi.entity.Media;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * @ClassName MediaService
@@ -61,6 +62,6 @@ public interface MediaService {
      * @param mediaCateTagInputDTO
      * @return
      */
-    ArrayList<MediaOutputDTO> clientFindUsingByEnCateTag(MediaCateTagInputDTO mediaCateTagInputDTO);
+    ArrayList clientFindUsingByEnCateTag(MediaCateTagInputDTO mediaCateTagInputDTO);
 
 }
