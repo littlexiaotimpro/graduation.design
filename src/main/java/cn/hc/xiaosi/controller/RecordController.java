@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * @ClassName RecordController
@@ -27,23 +28,36 @@ public class RecordController {
 
     /**
      * 管理端
+     *
      * @return
      */
     @RequestMapping(value = "control")
     @ApiOperation(value = "管理端输出")
-    public ArrayList<Record> records(){
+    public ArrayList<Record> records() {
         return recordService.controlFindAll();
     }
 
     /**
      * 客户端新增搜索记录
+     *
      * @param recordInputDTO
      * @return
      */
     @RequestMapping(value = "save")
     @ApiOperation(value = "新增搜索记录")
-    public Message saveRecord(@RequestBody RecordInputDTO recordInputDTO){
+    public Message saveRecord(@RequestBody RecordInputDTO recordInputDTO) {
         return recordService.saveReocrd(recordInputDTO);
+    }
+
+    /**
+     * 客户端自动填充搜索记录
+     *
+     * @return
+     */
+    @RequestMapping(value = "auto")
+    @ApiOperation(value = "自动填充搜索记录")
+    public ArrayList autoRecord() {
+        return recordService.autoComplete();
     }
 
 }

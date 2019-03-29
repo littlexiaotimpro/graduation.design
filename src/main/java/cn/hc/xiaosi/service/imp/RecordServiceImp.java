@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * @ClassName RecordServiceImp
@@ -37,5 +40,10 @@ public class RecordServiceImp implements RecordService {
         } else {
             return message.setCode(1).setMsg("添加成功!");
         }
+    }
+
+    @Override
+    public ArrayList autoComplete() {
+        return recordDAO.autoCompleteFind();
     }
 }
