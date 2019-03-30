@@ -56,8 +56,8 @@ public class RecordController {
      */
     @RequestMapping(value = "auto")
     @ApiOperation(value = "自动填充搜索记录")
-    public ArrayList autoRecord() {
-        return recordService.autoComplete();
+    public ArrayList autoRecord(@RequestBody RecordInputDTO recordInputDTO) {
+        return recordService.autoComplete(recordInputDTO);
     }
 
 }

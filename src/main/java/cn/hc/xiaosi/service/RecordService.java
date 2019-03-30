@@ -36,6 +36,6 @@ public interface RecordService {
      *
      * @return
      */
-    ArrayList autoComplete();
+    ArrayList autoComplete(RecordInputDTO recordInputDTO);
 
 }
