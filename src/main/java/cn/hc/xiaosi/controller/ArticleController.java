@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 
 /**
@@ -34,6 +36,12 @@ public class ArticleController {
     @ApiOperation(value = "管理端输出")
     public ArrayList<Article> articles() {
         return articleService.controlFindAll();
+    }
+
+    @RequestMapping(value = "file")
+    @ApiOperation(value = "上传文件")
+    public String saveFile(@PathParam("articleUrl") MultipartFile file, @PathParam("category") String category) {
+        return articleService.controlSaveFile(file, category);
     }
 
     @RequestMapping(value = "save")
@@ -67,7 +75,7 @@ public class ArticleController {
 
     @RequestMapping(value = "primary")
     @ApiOperation(value = "客户端主键查询")
-    public ArticleOutputDTO articlePrimaryKey(@RequestBody ArticlePrimaryKeyInputDTO articlePrimaryKeyInputDTO) {
+    public String articlePrimaryKey(@RequestBody ArticlePrimaryKeyInputDTO articlePrimaryKeyInputDTO) {
         return articleService.clientFindByEnArticle(articlePrimaryKeyInputDTO);
     }
 

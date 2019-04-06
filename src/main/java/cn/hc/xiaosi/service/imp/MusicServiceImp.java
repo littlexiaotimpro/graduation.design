@@ -35,7 +35,7 @@ public class MusicServiceImp implements MusicService {
 
     @Override
     public String controlSaveIMG(MultipartFile file, String category) {
-        return UploadUtil.getImgUrl(file, category);
+        return UploadUtil.getFileUrl(file, category);
     }
 
     @Override

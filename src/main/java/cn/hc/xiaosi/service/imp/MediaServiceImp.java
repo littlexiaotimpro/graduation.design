@@ -35,7 +35,7 @@ public class MediaServiceImp implements MediaService {
 
     @Override
     public String controlSaveIMG(MultipartFile file, String category) {
-        return UploadUtil.getImgUrl(file, category);
+        return UploadUtil.getFileUrl(file, category);
     }
 
     @Override

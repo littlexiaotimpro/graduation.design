@@ -3,6 +3,7 @@ package cn.hc.xiaosi.service;
 import cn.hc.xiaosi.bean.Message;
 import cn.hc.xiaosi.dto.*;
 import cn.hc.xiaosi.entity.Article;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 
@@ -22,11 +23,12 @@ public interface ArticleService {
 
     /**
      * 客户端通过主键查询文章
+     * 解析md文件地址，展示文章内容
      *
      * @param articlePrimaryKeyInputDTO
      * @return
      */
-    ArticleOutputDTO clientFindByEnArticle(ArticlePrimaryKeyInputDTO articlePrimaryKeyInputDTO);
+    String clientFindByEnArticle(ArticlePrimaryKeyInputDTO articlePrimaryKeyInputDTO);
 
     /**
      * 客户端通过分类，标签查询文章
@@ -50,6 +52,15 @@ public interface ArticleService {
      * @return
      */
     ArrayList<Article> controlFindAll();
+
+    /**
+     * 上传文件
+     *
+     * @param file
+     * @param category
+     * @return
+     */
+    String controlSaveFile(MultipartFile file, String category);
 
     /**
      * 新增文章

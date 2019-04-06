@@ -6,9 +6,13 @@ import cn.hc.xiaosi.dto.*;
 import cn.hc.xiaosi.entity.Article;
 import cn.hc.xiaosi.entity.Record;
 import cn.hc.xiaosi.service.ArticleService;
+import cn.hc.xiaosi.utils.MDUtil;
+import cn.hc.xiaosi.utils.UploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -36,12 +40,17 @@ public class ArticleServiceImp implements ArticleService {
         return arrayList;
     }
 
+
     @Override
-    public ArticleOutputDTO clientFindByEnArticle(ArticlePrimaryKeyInputDTO articlePrimaryKeyInputDTO) {
+    public String clientFindByEnArticle(ArticlePrimaryKeyInputDTO articlePrimaryKeyInputDTO) {
         Article article = articlePrimaryKeyInputDTO.convertToArticle();
-        ArticleOutputDTO articleOutputDTO = new ArticleOutputDTO();
-        articleOutputDTO = articleOutputDTO.convertFor(articleDAO.findByEnArticle(article));
-        return articleOutputDTO;
+        String html = null;
+        try {
+            html = MDUtil.changeMDToHtml(article.getFileurl());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return html;
     }
 
     @Override
@@ -73,6 +82,11 @@ public class ArticleServiceImp implements ArticleService {
     @Override
     public ArrayList<Article> controlFindAll() {
         return articleDAO.findAll();
+    }
+
+    @Override
+    public String controlSaveFile(MultipartFile file, String category) {
+        return UploadUtil.getFileUrl(file, category);
     }
 
     @Override
