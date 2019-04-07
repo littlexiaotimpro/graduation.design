@@ -10,10 +10,7 @@ import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @ClassName RecordServiceImp
@@ -52,13 +49,20 @@ public class RecordServiceImp implements RecordService {
         ArrayList arrayList = new ArrayList();
         Record record = recordInputDTO.convertToRecord();
         Iterator iterator = recordDAO.autoCompleteFind().iterator();
+        Map hashMap = new HashMap();
+        int count = articleDAO.findUsingByRecord(record).size();
+        hashMap.put("keyword", recordInputDTO.getKeyword());
+        hashMap.put("count", count);
+        arrayList.add(hashMap);
         while (iterator.hasNext()) {
-            Map map = (Map) iterator.next();
-            String key = JSONObject.fromObject(map).getString("keyword");
-            if (key.indexOf(recordInputDTO.getKeyword()) < 0) {
+            Map map = (HashMap) iterator.next();
+            String key = map.get("keyword").toString();
+            Record r = new Record();
+            r.setKeyword(key);
+            if (key.indexOf(recordInputDTO.getKeyword()) < 0 || key.equals(recordInputDTO.getKeyword())) {
                 continue;
             } else {
-                int count = articleDAO.findUsingByRecord(record).size();
+                count = articleDAO.findUsingByRecord(r).size();
                 map.put("count", count);
                 arrayList.add(map);
             }
