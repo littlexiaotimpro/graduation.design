@@ -44,9 +44,10 @@ public class ArticleServiceImp implements ArticleService {
     @Override
     public String clientFindByEnArticle(ArticlePrimaryKeyInputDTO articlePrimaryKeyInputDTO) {
         Article article = articlePrimaryKeyInputDTO.convertToArticle();
+        Article articleHtml = articleDAO.findByEnArticle(article);
         String html = null;
         try {
-            html = MDUtil.changeMDToHtml(article.getFileurl());
+            html = MDUtil.changeMDToHtml(articleHtml.getFileurl());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -56,7 +57,12 @@ public class ArticleServiceImp implements ArticleService {
     @Override
     public ArrayList<ArticleOutputDTO> clientFindByCateTag(ArticleCateTagInputDTO articleCateTagInputDTO) {
         Article article = articleCateTagInputDTO.convertToArticle();
-        Iterator iterator = articleDAO.findUsingByEnCategoryEnTags(article).iterator();
+        Iterator iterator;
+        if (articleCateTagInputDTO.getEncategory().equals("recommend")) {
+            iterator = articleDAO.findAllUsing().iterator();
+        } else {
+            iterator = articleDAO.findUsingByEnCategoryEnTags(article).iterator();
+        }
         ArrayList<ArticleOutputDTO> arrayList = new ArrayList<ArticleOutputDTO>();
         while (iterator.hasNext()) {
             ArticleOutputDTO articleOutputDTO = new ArticleOutputDTO();

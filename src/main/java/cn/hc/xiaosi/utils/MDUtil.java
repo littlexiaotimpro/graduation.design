@@ -27,7 +27,6 @@ public class MDUtil {
                 sb.append((char) cp);
             }
             String jsonText = sb.toString();
-            System.out.println(jsonText);
             PegDownProcessor pdp = new PegDownProcessor(Integer.MAX_VALUE);
             String htmlContent = pdp.markdownToHtml(jsonText);
             return htmlContent;

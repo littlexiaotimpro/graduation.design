@@ -186,7 +186,7 @@
     where enMedia = #{enmedia,jdbcType=VARCHAR}
   </update>
     <select id="findAll" resultMap="BaseResultMap">
-    select * from tb_media;
+    select * from tb_media order by showtime;
   </select>
     <select id="findUsingByEnCateTag" parameterType="cn.hc.xiaosi.entity.Media" resultMap="BaseResultMap">
         select * from tb_media
