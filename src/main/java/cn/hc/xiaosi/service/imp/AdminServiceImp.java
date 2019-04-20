@@ -7,9 +7,13 @@ import cn.hc.xiaosi.entity.Admin;
 import cn.hc.xiaosi.entity.LogBean;
 import cn.hc.xiaosi.service.AdminService;
 import cn.hc.xiaosi.service.LogService;
+import cn.hc.xiaosi.utils.JWTUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -29,7 +33,7 @@ public class AdminServiceImp implements AdminService {
     private LogService logService;
 
     @Override
-    public Message checkLogin(AdminDTO adminDTO) {
+    public Message checkLogin(AdminDTO adminDTO, HttpServletResponse response) {
         boolean debug = log.isDebugEnabled();
         LogBean logBean = new LogBean();
         log.info("管理员[{}]尝试登录系统。", adminDTO.getAccount());
@@ -43,7 +47,14 @@ public class AdminServiceImp implements AdminService {
                 if (debug) {
                     log.debug("管理员[{}]登录成功", checker.getAccount());
                 }
+                log.info("将用户信息使用JWT保存。");
+                String jwt = JWTUtil.createJWT("1", checker.getAccount(), checker.getAccount(), 30 * 60 * 1000);
                 message.setCode(1).setMsg("登录成功");
+                Cookie cookie = new Cookie("access_token", jwt);
+                cookie.setMaxAge(3600);
+                cookie.setPath("/");
+                cookie.setHttpOnly(false);
+                response.addCookie(cookie);
             } else {
                 if (debug) {
                     log.debug("管理员[{}]已禁用", checker.getAccount());

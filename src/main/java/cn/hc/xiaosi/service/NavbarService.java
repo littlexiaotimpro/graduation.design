@@ -6,6 +6,7 @@ import cn.hc.xiaosi.dto.NavbarOutputDTO;
 import cn.hc.xiaosi.dto.NavbarStatusInputDTO;
 import cn.hc.xiaosi.entity.Navbar;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
 /**
@@ -43,7 +44,7 @@ public interface NavbarService {
      * @param navbarInputDTO
      * @return
      */
-    Message controlSaveNavbar(NavbarInputDTO navbarInputDTO);
+    Message controlSaveNavbar(NavbarInputDTO navbarInputDTO, HttpServletRequest request);
 
     /**
      * 前台管理端启用，禁用导航
@@ -51,7 +52,7 @@ public interface NavbarService {
      * @param navbarStatusInputDTO
      * @return
      */
-    Message controlDeleteNavbar(NavbarStatusInputDTO navbarStatusInputDTO);
+    Message controlDeleteNavbar(NavbarStatusInputDTO navbarStatusInputDTO, HttpServletRequest request);
 
     /**
      * 前台管理端编辑导航信息
@@ -59,6 +60,6 @@ public interface NavbarService {
      * @param navbarInputDTO
      * @return
      */
-    Message controlUpdateNavbar(NavbarInputDTO navbarInputDTO);
+    Message controlUpdateNavbar(NavbarInputDTO navbarInputDTO, HttpServletRequest request);
 
 }

@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * @ClassName AdminController
  * @Description TODO
@@ -24,8 +26,8 @@ public class AdminController {
 
     @RequestMapping(value = "login")
     @ApiOperation(value = "登录验证")
-    public Message checkLogin(@RequestBody AdminDTO adminDTO) {
-        return adminService.checkLogin(adminDTO);
+    public Message checkLogin(@RequestBody AdminDTO adminDTO, HttpServletResponse response) {
+        return adminService.checkLogin(adminDTO, response);
     }
 
 }

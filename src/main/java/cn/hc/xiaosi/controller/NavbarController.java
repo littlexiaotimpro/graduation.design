@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
 /**
@@ -46,20 +47,20 @@ public class NavbarController {
 
     @RequestMapping(value = "save")
     @ApiOperation(value = "新增导航栏")
-    public Message saveNavbar(@RequestBody NavbarInputDTO navbarInputDTO) {
-        return navbarService.controlSaveNavbar(navbarInputDTO);
+    public Message saveNavbar(@RequestBody NavbarInputDTO navbarInputDTO, HttpServletRequest request) {
+        return navbarService.controlSaveNavbar(navbarInputDTO, request);
     }
 
     @RequestMapping(value = "delete")
     @ApiOperation(value = "启用，禁用导航")
-    public Message deleteNavbar(@RequestBody NavbarStatusInputDTO navbarStatusInputDTO) {
-        return navbarService.controlDeleteNavbar(navbarStatusInputDTO);
+    public Message deleteNavbar(@RequestBody NavbarStatusInputDTO navbarStatusInputDTO, HttpServletRequest request) {
+        return navbarService.controlDeleteNavbar(navbarStatusInputDTO, request);
     }
 
     @RequestMapping(value = "update")
     @ApiOperation(value = "编辑导航信息")
-    public Message updateNavbar(@RequestBody NavbarInputDTO navbarInputDTO) {
-        return navbarService.controlUpdateNavbar(navbarInputDTO);
+    public Message updateNavbar(@RequestBody NavbarInputDTO navbarInputDTO, HttpServletRequest request) {
+        return navbarService.controlUpdateNavbar(navbarInputDTO, request);
     }
 
     /**
