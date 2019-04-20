@@ -7,6 +7,7 @@ import cn.hc.xiaosi.dto.CategoryOutputDTO;
 import cn.hc.xiaosi.dto.CategoryStatusInputDTO;
 import cn.hc.xiaosi.entity.Category;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
 /**
@@ -45,7 +46,7 @@ public interface CategoryService {
      * @param categoryInputDTO
      * @return
      */
-    Message controlSaveCategory(CategoryInputDTO categoryInputDTO);
+    Message controlSaveCategory(CategoryInputDTO categoryInputDTO, HttpServletRequest request);
 
 
     /**
@@ -54,7 +55,7 @@ public interface CategoryService {
      * @param categoryStatusInputDTO
      * @return
      */
-    Message controlDeleteCategory(CategoryStatusInputDTO categoryStatusInputDTO);
+    Message controlDeleteCategory(CategoryStatusInputDTO categoryStatusInputDTO, HttpServletRequest request);
 
     /**
      * 编辑分类信息
@@ -62,7 +63,7 @@ public interface CategoryService {
      * @param categoryInputDTO
      * @return
      */
-    Message controlUpdateCategory(CategoryInputDTO categoryInputDTO);
+    Message controlUpdateCategory(CategoryInputDTO categoryInputDTO, HttpServletRequest request);
 
 
 }

@@ -7,6 +7,7 @@ import cn.hc.xiaosi.dto.TagsOutputDTO;
 import cn.hc.xiaosi.dto.TagsStatusInputDTO;
 import cn.hc.xiaosi.entity.Tags;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
 /**
@@ -45,7 +46,7 @@ public interface TagsService {
      * @param tagsInputDTO
      * @return
      */
-    Message controlSaveTags(TagsInputDTO tagsInputDTO);
+    Message controlSaveTags(TagsInputDTO tagsInputDTO, HttpServletRequest request);
 
     /**
      * 启用，禁用标签
@@ -53,7 +54,7 @@ public interface TagsService {
      * @param tagsStatusInputDTO
      * @return
      */
-    Message controlDeleteTags(TagsStatusInputDTO tagsStatusInputDTO);
+    Message controlDeleteTags(TagsStatusInputDTO tagsStatusInputDTO, HttpServletRequest request);
 
     /**
      * 编辑标签信息
@@ -61,6 +62,6 @@ public interface TagsService {
      * @param tagsInputDTO
      * @return
      */
-    Message controlUpdateTags(TagsInputDTO tagsInputDTO);
+    Message controlUpdateTags(TagsInputDTO tagsInputDTO, HttpServletRequest request);
 
 }

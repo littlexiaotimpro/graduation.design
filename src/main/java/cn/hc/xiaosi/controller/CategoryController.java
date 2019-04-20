@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
 /**
@@ -47,20 +48,20 @@ public class CategoryController {
 
     @RequestMapping(value = "save")
     @ApiOperation(value = "新增分类")
-    public Message saveCategory(@RequestBody CategoryInputDTO categoryInputDTO) {
-        return categoryService.controlSaveCategory(categoryInputDTO);
+    public Message saveCategory(@RequestBody CategoryInputDTO categoryInputDTO, HttpServletRequest request) {
+        return categoryService.controlSaveCategory(categoryInputDTO, request);
     }
 
     @RequestMapping(value = "delete")
     @ApiOperation(value = "启用，禁用分类")
-    public Message deleteCategory(@RequestBody CategoryStatusInputDTO categoryStatusInputDTO) {
-        return categoryService.controlDeleteCategory(categoryStatusInputDTO);
+    public Message deleteCategory(@RequestBody CategoryStatusInputDTO categoryStatusInputDTO, HttpServletRequest request) {
+        return categoryService.controlDeleteCategory(categoryStatusInputDTO, request);
     }
 
     @RequestMapping(value = "update")
     @ApiOperation(value = "编辑分类信息")
-    public Message updateCategory(@RequestBody CategoryInputDTO categoryInputDTO) {
-        return categoryService.controlUpdateCategory(categoryInputDTO);
+    public Message updateCategory(@RequestBody CategoryInputDTO categoryInputDTO, HttpServletRequest request) {
+        return categoryService.controlUpdateCategory(categoryInputDTO, request);
     }
 
     /**

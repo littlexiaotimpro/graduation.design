@@ -7,6 +7,8 @@ import io.jsonwebtoken.*;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 /**
@@ -124,4 +126,26 @@ public class JWTUtil {
             return null;
         }
     }
+
+    /**
+     * 操作公有的方法，用来解析Cookies中token，解析成用户数据
+     *
+     * @param request
+     * @return
+     */
+    public static String parseCookies(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        if (null != cookies) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("access_token")) {
+                    JWTResult jwtResult = JWTUtil.validateJWT(cookie.getValue());
+                    return jwtResult.isSuccess() ? jwtResult.getClaims().getSubject() : null;
+                } else {
+                    continue;
+                }
+            }
+        }
+        return null;
+    }
+
 }

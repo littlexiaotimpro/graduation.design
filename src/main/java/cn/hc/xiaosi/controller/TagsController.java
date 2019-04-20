@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
 /**
@@ -47,20 +48,20 @@ public class TagsController {
 
     @RequestMapping(value = "save")
     @ApiOperation(value = "新增标签")
-    public Message saveTags(@RequestBody TagsInputDTO tagsInputDTO) {
-        return tagsService.controlSaveTags(tagsInputDTO);
+    public Message saveTags(@RequestBody TagsInputDTO tagsInputDTO, HttpServletRequest request) {
+        return tagsService.controlSaveTags(tagsInputDTO, request);
     }
 
     @RequestMapping(value = "delete")
     @ApiOperation(value = "启用，禁用标签")
-    public Message deleteTags(@RequestBody TagsStatusInputDTO tagsStatusInputDTO) {
-        return tagsService.controlDeleteTags(tagsStatusInputDTO);
+    public Message deleteTags(@RequestBody TagsStatusInputDTO tagsStatusInputDTO, HttpServletRequest request) {
+        return tagsService.controlDeleteTags(tagsStatusInputDTO, request);
     }
 
     @RequestMapping(value = "update")
     @ApiOperation(value = "编辑标签信息")
-    public Message updateTags(@RequestBody TagsInputDTO tagsInputDTO) {
-        return tagsService.controlUpdateTags(tagsInputDTO);
+    public Message updateTags(@RequestBody TagsInputDTO tagsInputDTO, HttpServletRequest request) {
+        return tagsService.controlUpdateTags(tagsInputDTO, request);
     }
 
     /**
