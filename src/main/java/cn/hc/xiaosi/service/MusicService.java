@@ -8,6 +8,7 @@ import cn.hc.xiaosi.dto.MusicStatusInputDTO;
 import cn.hc.xiaosi.entity.Music;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
 /**
@@ -30,33 +31,37 @@ public interface MusicService {
      *
      * @param file
      * @param category
+     * @param request
      * @return
      */
-    String controlSaveIMG(MultipartFile file, String category);
+    String controlSaveIMG(MultipartFile file, String category, HttpServletRequest request);
 
     /**
      * 新增数据
      *
      * @param musicInputDTO
+     * @param request
      * @return
      */
-    Message controlSaveMusic(MusicInputDTO musicInputDTO);
+    Message controlSaveMusic(MusicInputDTO musicInputDTO, HttpServletRequest request);
 
     /**
      * 启用，禁用数据
      *
      * @param musicStatusInputDTO
+     * @param request
      * @return
      */
-    Message controlDeleteMusic(MusicStatusInputDTO musicStatusInputDTO);
+    Message controlDeleteMusic(MusicStatusInputDTO musicStatusInputDTO, HttpServletRequest request);
 
     /**
      * 编辑数据
      *
      * @param musicInputDTO
+     * @param request
      * @return
      */
-    Message controlUpdateMusic(MusicInputDTO musicInputDTO);
+    Message controlUpdateMusic(MusicInputDTO musicInputDTO, HttpServletRequest request);
 
     /**
      * 客户端获取数据

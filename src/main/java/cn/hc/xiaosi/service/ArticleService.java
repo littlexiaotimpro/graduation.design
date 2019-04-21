@@ -5,6 +5,7 @@ import cn.hc.xiaosi.dto.*;
 import cn.hc.xiaosi.entity.Article;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
 /**
@@ -58,32 +59,36 @@ public interface ArticleService {
      *
      * @param file
      * @param category
+     * @param request
      * @return
      */
-    String controlSaveFile(MultipartFile file, String category);
+    String controlSaveFile(MultipartFile file, String category, HttpServletRequest request);
 
     /**
      * 新增文章
      *
      * @param articleInputDTO
+     * @param request
      * @return
      */
-    Message controlSaveArticle(ArticleInputDTO articleInputDTO);
+    Message controlSaveArticle(ArticleInputDTO articleInputDTO, HttpServletRequest request);
 
     /**
      * 启用，禁用文章
      *
      * @param articleStatusInputDTO
+     * @param request
      * @return
      */
-    Message controlDeleteArticle(ArticleStatusInputDTO articleStatusInputDTO);
+    Message controlDeleteArticle(ArticleStatusInputDTO articleStatusInputDTO, HttpServletRequest request);
 
     /**
      * 编辑文章信息
      *
      * @param articleInputDTO
+     * @param request
      * @return
      */
-    Message controlUpdateArticle(ArticleInputDTO articleInputDTO);
+    Message controlUpdateArticle(ArticleInputDTO articleInputDTO, HttpServletRequest request);
 
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 
@@ -43,26 +44,26 @@ public class MusicController {
 
     @RequestMapping(value = "img")
     @ApiOperation(value = "添加图片数据")
-    public String saveIMG(@PathParam("imgmusic") MultipartFile file, @PathParam("category") String category) {
-        return musicService.controlSaveIMG(file, category);
+    public String saveIMG(@PathParam("imgmusic") MultipartFile file, @PathParam("category") String category, HttpServletRequest request) {
+        return musicService.controlSaveIMG(file, category, request);
     }
 
     @RequestMapping(value = "save")
     @ApiOperation(value = "新增音乐")
-    public Message saveMusic(@RequestBody MusicInputDTO musicInputDTO) {
-        return musicService.controlSaveMusic(musicInputDTO);
+    public Message saveMusic(@RequestBody MusicInputDTO musicInputDTO, HttpServletRequest request) {
+        return musicService.controlSaveMusic(musicInputDTO, request);
     }
 
     @RequestMapping(value = "delete")
     @ApiOperation(value = "启用，禁用音乐")
-    public Message deleteMusic(@RequestBody MusicStatusInputDTO musicStatusInputDTO) {
-        return musicService.controlDeleteMusic(musicStatusInputDTO);
+    public Message deleteMusic(@RequestBody MusicStatusInputDTO musicStatusInputDTO, HttpServletRequest request) {
+        return musicService.controlDeleteMusic(musicStatusInputDTO, request);
     }
 
     @RequestMapping(value = "update")
     @ApiOperation(value = "编辑音乐信息")
-    public Message updateMusci(@RequestBody MusicInputDTO musicInputDTO) {
-        return musicService.controlUpdateMusic(musicInputDTO);
+    public Message updateMusci(@RequestBody MusicInputDTO musicInputDTO, HttpServletRequest request) {
+        return musicService.controlUpdateMusic(musicInputDTO, request);
     }
 
     /**

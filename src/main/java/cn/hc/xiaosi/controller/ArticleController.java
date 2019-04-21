@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 
@@ -40,26 +41,26 @@ public class ArticleController {
 
     @RequestMapping(value = "file")
     @ApiOperation(value = "上传文件")
-    public String saveFile(@PathParam("articleUrl") MultipartFile file, @PathParam("category") String category) {
-        return articleService.controlSaveFile(file, category);
+    public String saveFile(@PathParam("articleUrl") MultipartFile file, @PathParam("category") String category, HttpServletRequest request) {
+        return articleService.controlSaveFile(file, category, request);
     }
 
     @RequestMapping(value = "save")
     @ApiOperation(value = "新增文章")
-    public Message saveArticle(@RequestBody ArticleInputDTO articleInputDTO) {
-        return articleService.controlSaveArticle(articleInputDTO);
+    public Message saveArticle(@RequestBody ArticleInputDTO articleInputDTO, HttpServletRequest request) {
+        return articleService.controlSaveArticle(articleInputDTO, request);
     }
 
     @RequestMapping(value = "delete")
     @ApiOperation(value = "启用，禁用文章")
-    public Message deleteArticle(@RequestBody ArticleStatusInputDTO articleStatusInputDTO) {
-        return articleService.controlDeleteArticle(articleStatusInputDTO);
+    public Message deleteArticle(@RequestBody ArticleStatusInputDTO articleStatusInputDTO, HttpServletRequest request) {
+        return articleService.controlDeleteArticle(articleStatusInputDTO, request);
     }
 
     @RequestMapping(value = "update")
     @ApiOperation(value = "编辑文章信息")
-    public Message updateArticle(@RequestBody ArticleInputDTO articleInputDTO) {
-        return articleService.controlUpdateArticle(articleInputDTO);
+    public Message updateArticle(@RequestBody ArticleInputDTO articleInputDTO, HttpServletRequest request) {
+        return articleService.controlUpdateArticle(articleInputDTO, request);
     }
 
     /**

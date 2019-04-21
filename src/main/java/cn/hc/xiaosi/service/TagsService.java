@@ -44,6 +44,7 @@ public interface TagsService {
      * 新增标签
      *
      * @param tagsInputDTO
+     * @param request
      * @return
      */
     Message controlSaveTags(TagsInputDTO tagsInputDTO, HttpServletRequest request);
@@ -52,6 +53,7 @@ public interface TagsService {
      * 启用，禁用标签
      *
      * @param tagsStatusInputDTO
+     * @param request
      * @return
      */
     Message controlDeleteTags(TagsStatusInputDTO tagsStatusInputDTO, HttpServletRequest request);
@@ -60,6 +62,7 @@ public interface TagsService {
      * 编辑标签信息
      *
      * @param tagsInputDTO
+     * @param request
      * @return
      */
     Message controlUpdateTags(TagsInputDTO tagsInputDTO, HttpServletRequest request);

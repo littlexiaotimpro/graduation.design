@@ -44,6 +44,7 @@ public interface CategoryService {
      * 新增分类
      *
      * @param categoryInputDTO
+     * @param request
      * @return
      */
     Message controlSaveCategory(CategoryInputDTO categoryInputDTO, HttpServletRequest request);
@@ -53,6 +54,7 @@ public interface CategoryService {
      * 启用，禁用分类
      *
      * @param categoryStatusInputDTO
+     * @param request
      * @return
      */
     Message controlDeleteCategory(CategoryStatusInputDTO categoryStatusInputDTO, HttpServletRequest request);
@@ -61,6 +63,7 @@ public interface CategoryService {
      * 编辑分类信息
      *
      * @param categoryInputDTO
+     * @param request
      * @return
      */
     Message controlUpdateCategory(CategoryInputDTO categoryInputDTO, HttpServletRequest request);

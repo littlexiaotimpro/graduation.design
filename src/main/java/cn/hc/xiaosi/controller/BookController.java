@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 
@@ -43,26 +44,26 @@ public class BookController {
 
     @RequestMapping(value = "img")
     @ApiOperation(value = "添加图片数据")
-    public String saveIMG(@PathParam("imgbook") MultipartFile file, @PathParam("category") String category) {
-        return bookService.controlSaveIMG(file, category);
+    public String saveIMG(@PathParam("imgbook") MultipartFile file, @PathParam("category") String category, HttpServletRequest request) {
+        return bookService.controlSaveIMG(file, category, request);
     }
 
     @RequestMapping(value = "save")
     @ApiOperation(value = "新增书籍")
-    public Message saveBook(@RequestBody BookInputDTO bookInputDTO) {
-        return bookService.controlSaveBook(bookInputDTO);
+    public Message saveBook(@RequestBody BookInputDTO bookInputDTO, HttpServletRequest request) {
+        return bookService.controlSaveBook(bookInputDTO, request);
     }
 
     @RequestMapping(value = "delete")
     @ApiOperation(value = "启用，禁用书籍")
-    public Message deleteBook(@RequestBody BookStatusInputDTO bookStatusInputDTO) {
-        return bookService.controlDeleteBook(bookStatusInputDTO);
+    public Message deleteBook(@RequestBody BookStatusInputDTO bookStatusInputDTO, HttpServletRequest request) {
+        return bookService.controlDeleteBook(bookStatusInputDTO, request);
     }
 
     @RequestMapping(value = "update")
     @ApiOperation(value = "编辑书籍信息")
-    public Message updateBook(@RequestBody BookInputDTO bookInputDTO) {
-        return bookService.controlUpdateBook(bookInputDTO);
+    public Message updateBook(@RequestBody BookInputDTO bookInputDTO, HttpServletRequest request) {
+        return bookService.controlUpdateBook(bookInputDTO, request);
     }
 
     @RequestMapping(value = "client")

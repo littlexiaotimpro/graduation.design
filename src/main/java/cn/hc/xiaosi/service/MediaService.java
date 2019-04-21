@@ -5,6 +5,7 @@ import cn.hc.xiaosi.dto.*;
 import cn.hc.xiaosi.entity.Media;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -28,33 +29,37 @@ public interface MediaService {
      *
      * @param file
      * @param category
+     * @param request
      * @return
      */
-    String controlSaveIMG(MultipartFile file, String category);
+    String controlSaveIMG(MultipartFile file, String category, HttpServletRequest request);
 
     /**
      * 新增数据
      *
      * @param mediaInputDTO
+     * @param request
      * @return
      */
-    Message controlSaveMedia(MediaInputDTO mediaInputDTO);
+    Message controlSaveMedia(MediaInputDTO mediaInputDTO, HttpServletRequest request);
 
     /**
      * 启用，禁用数据
      *
      * @param mediaStatusInputDTO
+     * @param request
      * @return
      */
-    Message controlDeleteMedia(MediaStatusInputDTO mediaStatusInputDTO);
+    Message controlDeleteMedia(MediaStatusInputDTO mediaStatusInputDTO, HttpServletRequest request);
 
     /**
      * 编辑数据
      *
      * @param mediaInputDTO
+     * @param request
      * @return
      */
-    Message controlUpdateMedia(MediaInputDTO mediaInputDTO);
+    Message controlUpdateMedia(MediaInputDTO mediaInputDTO, HttpServletRequest request);
 
     /**
      * 客户端获取数据

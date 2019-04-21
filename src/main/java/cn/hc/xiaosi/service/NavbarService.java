@@ -42,6 +42,7 @@ public interface NavbarService {
      * 前台管理端新增导航
      *
      * @param navbarInputDTO
+     * @param request
      * @return
      */
     Message controlSaveNavbar(NavbarInputDTO navbarInputDTO, HttpServletRequest request);
@@ -50,6 +51,7 @@ public interface NavbarService {
      * 前台管理端启用，禁用导航
      *
      * @param navbarStatusInputDTO
+     * @param request
      * @return
      */
     Message controlDeleteNavbar(NavbarStatusInputDTO navbarStatusInputDTO, HttpServletRequest request);
@@ -58,6 +60,7 @@ public interface NavbarService {
      * 前台管理端编辑导航信息
      *
      * @param navbarInputDTO
+     * @param request
      * @return
      */
     Message controlUpdateNavbar(NavbarInputDTO navbarInputDTO, HttpServletRequest request);

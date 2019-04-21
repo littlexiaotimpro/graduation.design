@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
 import java.util.ArrayList;
-import java.util.Map;
 
 /**
  * @ClassName MediaController
@@ -41,26 +41,26 @@ public class MediaController {
 
     @RequestMapping(value = "img")
     @ApiOperation(value = "添加图片数据")
-    public String saveIMG(@PathParam("imgmedia") MultipartFile file, @PathParam("category") String category) {
-        return mediaService.controlSaveIMG(file, category);
+    public String saveIMG(@PathParam("imgmedia") MultipartFile file, @PathParam("category") String category, HttpServletRequest request) {
+        return mediaService.controlSaveIMG(file, category, request);
     }
 
     @RequestMapping(value = "save")
     @ApiOperation(value = "新增数据")
-    public Message saveMedia(@RequestBody MediaInputDTO mediaInputDTO) {
-        return mediaService.controlSaveMedia(mediaInputDTO);
+    public Message saveMedia(@RequestBody MediaInputDTO mediaInputDTO, HttpServletRequest request) {
+        return mediaService.controlSaveMedia(mediaInputDTO, request);
     }
 
     @RequestMapping(value = "delete")
     @ApiOperation(value = "启用，禁用数据")
-    public Message deleteMedia(@RequestBody MediaStatusInputDTO mediaStatusInputDTO) {
-        return mediaService.controlDeleteMedia(mediaStatusInputDTO);
+    public Message deleteMedia(@RequestBody MediaStatusInputDTO mediaStatusInputDTO, HttpServletRequest request) {
+        return mediaService.controlDeleteMedia(mediaStatusInputDTO, request);
     }
 
     @RequestMapping(value = "update")
     @ApiOperation(value = "编辑数据")
-    public Message updateMedia(@RequestBody MediaInputDTO mediaInputDTO) {
-        return mediaService.controlUpdateMedia(mediaInputDTO);
+    public Message updateMedia(@RequestBody MediaInputDTO mediaInputDTO, HttpServletRequest request) {
+        return mediaService.controlUpdateMedia(mediaInputDTO, request);
     }
 
     /**
