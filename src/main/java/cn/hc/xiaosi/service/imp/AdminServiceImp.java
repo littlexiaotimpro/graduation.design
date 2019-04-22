@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
@@ -68,6 +69,25 @@ public class AdminServiceImp implements AdminService {
             logBean.setOperation("登录").setOperator(adminDTO.getAccount()).setContent("管理员" + adminDTO.getAccount() + message.getMsg());
         }
         logService.saveLog(logBean);
+        return message;
+    }
+
+    @Override
+    public Message checkLogout(HttpServletRequest request, HttpServletResponse response) {
+        Message message = new Message();
+        String operator = JWTUtil.parseCookies(request);
+        if (operator == null) {
+            log.info("注销登录");
+            message.setCode(0).setMsg("管理员未登录或登录过期");
+        } else {
+            log.info("管理员[{}]注销登录。", operator);
+            Cookie cookie = new Cookie("access_token", null);
+            cookie.setMaxAge(3600);
+            cookie.setPath("/");
+            cookie.setHttpOnly(false);
+            response.addCookie(cookie);
+            message.setCode(1).setMsg("注销登录");
+        }
         return message;
     }
 }

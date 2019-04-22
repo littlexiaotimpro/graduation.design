@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -28,6 +29,12 @@ public class AdminController {
     @ApiOperation(value = "登录验证")
     public Message checkLogin(@RequestBody AdminDTO adminDTO, HttpServletResponse response) {
         return adminService.checkLogin(adminDTO, response);
+    }
+
+    @RequestMapping(value = "logout")
+    @ApiOperation(value = "注销登录")
+    public Message checkLogout(HttpServletRequest request, HttpServletResponse response) {
+        return adminService.checkLogout(request, response);
     }
 
 }
