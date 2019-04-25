@@ -16,7 +16,7 @@ public class StartApp {
 
     public static void main(String[] args) {
         System.out.println("程序服务器启动...");
-        SpringApplication.run(StartApp.class);
+        SpringApplication.run(StartApp.class, args);
     }
 
 }
