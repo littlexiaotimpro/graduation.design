@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hc.xiaosi.dao.ContactDAO">
+    <resultMap id="BaseResultMap" type="cn.hc.xiaosi.entity.Contact">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="senttime" jdbcType="TIMESTAMP" property="senttime"/>
+    </resultMap>
+    <resultMap id="OutputResultMap" type="cn.hc.xiaosi.dto.ContactOutputDTO">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, nickname, email, title, content, `status`, senttime
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_contact
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_contact
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="cn.hc.xiaosi.entity.Contact">
+    insert into tb_contact (id, nickname, email, 
+      title, content, `status`, 
+      senttime)
+    values (#{id,jdbcType=INTEGER}, #{nickname,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{senttime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="cn.hc.xiaosi.entity.Contact">
+        insert into tb_contact
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="nickname != null">
+                nickname,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="status != null">
+                `status`,
+            </if>
+            <if test="senttime != null">
+                senttime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="nickname != null">
+                #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="title != null">
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="senttime != null">
+                #{senttime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.hc.xiaosi.entity.Contact">
+        update tb_contact
+        <set>
+            <if test="nickname != null">
+                nickname = #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="title != null">
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                `status` = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="senttime != null">
+                senttime = #{senttime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.hc.xiaosi.entity.Contact">
+    update tb_contact
+    set nickname = #{nickname,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=INTEGER},
+      senttime = #{senttime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <select id="findAll" resultMap="BaseResultMap">
+    select * from tb_contact
+  </select>
+    <select id="findAllUsing" resultMap="OutputResultMap">
+    select id,nickname,content from tb_contact where status = 1
+  </select>
+    <insert id="saveContact" parameterType="cn.hc.xiaosi.entity.Contact">
+        insert into tb_contact
+        <trim suffixOverrides="," prefix="(" suffix=")">
+            <if test="contact.nickname!=null">nickname,</if>
+            <if test="contact.email!=null">email,</if>
+            <if test="contact.title!=null">title,</if>
+            <if test="contact.content!=null">content,</if>
+        </trim>
+        <trim suffixOverrides="," prefix="values(" suffix=")">
+            <if test="contact.nickname!=null">#{contact.nickname},</if>
+            <if test="contact.email!=null">#{contact.email},</if>
+            <if test="contact.title!=null">#{contact.title},</if>
+            <if test="contact.content!=null">#{contact.content},</if>
+        </trim>
+    </insert>
+    <update id="deleteContact" parameterType="cn.hc.xiaosi.entity.Contact">
+        update tb_contact
+        <set>
+            <if test="contact.status!=null">status = #{contact.status},</if>
+        </set>
+        <where>
+            <if test="contact.id!=null">and id = #{contact.id}</if>
+        </where>
+    </update>
+</mapper>
