@@ -43,4 +43,11 @@ public interface ContactDAO extends MyBatisBaseDao<Contact, Integer> {
      */
     ArrayList<ContactOutputDTO> findAllUsing();
 
+    /**
+     * 客户端统计用户数
+     *
+     * @return
+     */
+    Integer userCount();
+
 }

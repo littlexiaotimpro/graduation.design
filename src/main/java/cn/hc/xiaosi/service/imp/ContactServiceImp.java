@@ -51,6 +51,12 @@ public class ContactServiceImp implements ContactService {
     }
 
     @Override
+    public int clientUserCount() {
+        Integer result = contactDAO.userCount();
+        return result == null ? 0 : result;
+    }
+
+    @Override
     public Message controlDeleteContact(ContactStatusInputDTO contactStatusInputDTO, HttpServletRequest request) {
         Message message = new Message();
         String operator = JWTUtil.parseCookies(request);

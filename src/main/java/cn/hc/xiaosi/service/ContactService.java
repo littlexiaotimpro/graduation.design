@@ -34,4 +34,6 @@ public interface ContactService {
     ArrayList<ContactOutputDTO> clientFindAllUsing();
 
     Message clientSaveContact(ContactInputDTO contactInputDTO);
+
+    int clientUserCount();
 }

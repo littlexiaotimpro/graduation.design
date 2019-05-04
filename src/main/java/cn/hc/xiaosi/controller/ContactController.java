@@ -63,4 +63,10 @@ public class ContactController {
         return contactService.clientSaveContact(contactInputDTO);
     }
 
+    @RequestMapping(value = "count")
+    @ApiOperation(value = "统计用户数")
+    public int saveCategory() {
+        return contactService.clientUserCount();
+    }
+
 }

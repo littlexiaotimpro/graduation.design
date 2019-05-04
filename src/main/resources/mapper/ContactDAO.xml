@@ -125,6 +125,9 @@
     <select id="findAllUsing" resultMap="OutputResultMap">
     select id,nickname,content from tb_contact where status = 1
   </select>
+    <select id="userCount" resultType="java.lang.Integer">
+        select count(distinct email) from tb_contact
+    </select>
     <insert id="saveContact" parameterType="cn.hc.xiaosi.entity.Contact">
         insert into tb_contact
         <trim suffixOverrides="," prefix="(" suffix=")">
