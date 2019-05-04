@@ -10,6 +10,7 @@ import cn.hc.xiaosi.service.ArticleService;
 import cn.hc.xiaosi.service.LogService;
 import cn.hc.xiaosi.utils.JWTUtil;
 import cn.hc.xiaosi.utils.MDUtil;
+import cn.hc.xiaosi.utils.Markdown2HtmlUtil;
 import cn.hc.xiaosi.utils.UploadUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,7 @@ public class ArticleServiceImp implements ArticleService {
         String html = null;
         try {
             html = MDUtil.changeMDToHtml(articleHtml.getFileurl());
+//            html = Markdown2HtmlUtil.markdown2Html(articleHtml.getFileurl());
         } catch (IOException e) {
             e.printStackTrace();
         }

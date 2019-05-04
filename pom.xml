@@ -113,6 +113,24 @@
             <version>1.6.0</version>
         </dependency>
 
+        <!--markdown to html-->
+        <dependency>
+            <groupId>com.vladsch.flexmark</groupId>
+            <artifactId>flexmark</artifactId>
+            <version>0.34.48</version>
+        </dependency>
+        <dependency>
+            <groupId>com.vladsch.flexmark</groupId>
+            <artifactId>flexmark-util</artifactId>
+            <version>0.34.48</version>
+        </dependency>
+        <!--表格渲染插件-->
+        <dependency>
+            <groupId>com.vladsch.flexmark</groupId>
+            <artifactId>flexmark-ext-tables</artifactId>
+            <version>0.34.48</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.eclipse.che.core/che-core-api-dto -->
         <dependency>
             <groupId>org.eclipse.che.core</groupId>
@@ -182,7 +200,7 @@
 
     <build>
         <!-- 打成jar包的名称 -->
-        <finalName>GD</finalName>
+        <finalName>GD_Local</finalName>
         <plugins>
             <!-- 需要引用的jar包 -->
             <plugin>
