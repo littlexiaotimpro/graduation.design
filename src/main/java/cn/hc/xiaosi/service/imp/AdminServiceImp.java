@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 
 
 /**
@@ -44,7 +45,7 @@ public class AdminServiceImp implements AdminService {
         Admin checker = adminDAO.checkLogin(admin);
         Message message = new Message();
         if (checker != null) {
-            if (checker.getStatus() == 1) {
+            if (checker.getStatus() == 1 && checker.getPermission() == 0) {
                 if (debug) {
                     log.debug("管理员[{}]登录成功", checker.getAccount());
                 }
@@ -60,7 +61,7 @@ public class AdminServiceImp implements AdminService {
                 if (debug) {
                     log.debug("管理员[{}]已禁用", checker.getAccount());
                 }
-                message.setCode(0).setMsg("此用户已禁用");
+                message.setCode(0).setMsg("此用户已禁用，或权限不够");
             }
             logBean.setOperation("登录").setOperator(checker.getAccount()).setContent("管理员" + adminDTO.getAccount() + message.getMsg());
         } else {
@@ -89,5 +90,11 @@ public class AdminServiceImp implements AdminService {
             message.setCode(1).setMsg("注销登录");
         }
         return message;
+    }
+
+    @Override
+    public ArrayList<Admin> controlFindAll() {
+        log.info("管理端获取所有用户信息");
+        return adminDAO.findAll();
     }
 }

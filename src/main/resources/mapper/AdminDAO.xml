@@ -109,4 +109,7 @@
             account = #{admin.account} and `password` = #{admin.password}
         </where>
     </select>
+    <select id="findAll" resultMap="BaseResultMap">
+        select * from  tb_admin
+    </select>
 </mapper>

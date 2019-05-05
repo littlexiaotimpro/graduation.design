@@ -2,9 +2,11 @@ package cn.hc.xiaosi.service;
 
 import cn.hc.xiaosi.bean.Message;
 import cn.hc.xiaosi.dto.AdminDTO;
+import cn.hc.xiaosi.entity.Admin;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 
 /**
  * @ClassName AdminService
@@ -30,4 +32,11 @@ public interface AdminService {
      * @return
      */
     Message checkLogout(HttpServletRequest request, HttpServletResponse response);
+
+    /**
+     * 管理端获取用户数据
+     *
+     * @return
+     */
+    ArrayList<Admin> controlFindAll();
 }
