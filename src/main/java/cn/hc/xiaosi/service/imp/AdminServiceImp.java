@@ -3,6 +3,7 @@ package cn.hc.xiaosi.service.imp;
 import cn.hc.xiaosi.bean.Message;
 import cn.hc.xiaosi.dao.AdminDAO;
 import cn.hc.xiaosi.dto.AdminDTO;
+import cn.hc.xiaosi.dto.AdminInputDTO;
 import cn.hc.xiaosi.entity.Admin;
 import cn.hc.xiaosi.entity.LogBean;
 import cn.hc.xiaosi.service.AdminService;
@@ -96,5 +97,41 @@ public class AdminServiceImp implements AdminService {
     public ArrayList<Admin> controlFindAll() {
         log.info("管理端获取所有用户信息");
         return adminDAO.findAll();
+    }
+
+    /**
+     * 修改数据的过程中实现加密
+     *
+     * @param adminInputDTO
+     * @param request
+     * @return
+     */
+    @Override
+    public Message controlUpdateAdmin(AdminInputDTO adminInputDTO, HttpServletRequest request) {
+        Message message = new Message();
+        String operator = JWTUtil.parseCookies(request);
+        if (operator == null) {
+            message.setCode(0).setMsg("管理员未登录或登录过期");
+        } else {
+            boolean debug = log.isDebugEnabled();
+            LogBean logBean = new LogBean();
+            log.info("管理员[{}]尝试修改数据。", operator);
+            Admin admin = adminInputDTO.convertToAdmin();
+            Integer result = adminDAO.updateAdmin(admin);
+            if (result == null || result == 0) {
+                log.info("管理员[{}]信息编辑失败", operator);
+                logBean.setOperation("编辑").setOperator(operator).setContent("管理员" + operator + "编辑数据失败");
+                message.setCode(-1).setMsg("操作失败!");
+            } else {
+                if (debug) {
+                    log.debug("管理员[{}]编辑数据成功，数据为：[{}]", operator, adminInputDTO);
+                }
+                log.info("管理员[{}]编辑数据成功，数据为：[{}]，影响结果数：[{}]", operator, adminInputDTO, result);
+                logBean.setOperation("编辑").setOperator(operator).setContent("管理员" + operator + "编辑数据成功，数据为：" + adminInputDTO);
+                message.setCode(1).setMsg("操作成功!");
+            }
+            logService.saveLog(logBean);
+        }
+        return message;
     }
 }

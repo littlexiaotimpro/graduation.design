@@ -112,4 +112,15 @@
     <select id="findAll" resultMap="BaseResultMap">
         select * from  tb_admin
     </select>
+    <update id="updateAdmin" parameterType="cn.hc.xiaosi.entity.Admin">
+        update tb_admin
+        <set>
+            <if test="admin.password!=null">password = #{admin.password},</if>
+            <if test="admin.permission!=null">permission = #{admin.permission},</if>
+            <if test="admin.status!=null">status = #{admin.status},</if>
+        </set>
+        <where>
+            <if test="admin.adminid!=null">and adminID = #{admin.adminid}</if>
+        </where>
+    </update>
 </mapper>

@@ -2,6 +2,7 @@ package cn.hc.xiaosi.controller;
 
 import cn.hc.xiaosi.bean.Message;
 import cn.hc.xiaosi.dto.AdminDTO;
+import cn.hc.xiaosi.dto.AdminInputDTO;
 import cn.hc.xiaosi.entity.Admin;
 import cn.hc.xiaosi.service.AdminService;
 import io.swagger.annotations.ApiOperation;
@@ -43,6 +44,12 @@ public class AdminController {
     @ApiOperation(value = "获取用户")
     public ArrayList<Admin> getUsers() {
         return adminService.controlFindAll();
+    }
+
+    @RequestMapping(value = "update")
+    @ApiOperation(value = "编辑用户信息")
+    public Message updateAdmin(@RequestBody AdminInputDTO adminInputDTO, HttpServletRequest request) {
+        return adminService.controlUpdateAdmin(adminInputDTO, request);
     }
 
 }

@@ -2,6 +2,7 @@ package cn.hc.xiaosi.service;
 
 import cn.hc.xiaosi.bean.Message;
 import cn.hc.xiaosi.dto.AdminDTO;
+import cn.hc.xiaosi.dto.AdminInputDTO;
 import cn.hc.xiaosi.entity.Admin;
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,4 +40,12 @@ public interface AdminService {
      * @return
      */
     ArrayList<Admin> controlFindAll();
+
+    /**
+     * 管理端修改管理员信息
+     *
+     * @param adminInputDTO
+     * @return
+     */
+    Message controlUpdateAdmin(AdminInputDTO adminInputDTO,HttpServletRequest request);
 }
