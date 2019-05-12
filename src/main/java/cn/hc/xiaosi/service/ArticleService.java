@@ -6,6 +6,7 @@ import cn.hc.xiaosi.entity.Article;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -62,7 +63,7 @@ public interface ArticleService {
      * @param request
      * @return
      */
-    String controlSaveFile(MultipartFile file, String category, HttpServletRequest request);
+    String controlSaveFile(MultipartFile file, String category, HttpServletRequest request) throws IOException;
 
     /**
      * 新增文章

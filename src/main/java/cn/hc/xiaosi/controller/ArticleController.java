@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -41,7 +42,7 @@ public class ArticleController {
 
     @RequestMapping(value = "file")
     @ApiOperation(value = "上传文件")
-    public String saveFile(@PathParam("articleUrl") MultipartFile file, @PathParam("category") String category, HttpServletRequest request) {
+    public String saveFile(@PathParam("articleUrl") MultipartFile file, @PathParam("category") String category, HttpServletRequest request) throws IOException {
         return articleService.controlSaveFile(file, category, request);
     }
 

@@ -9,6 +9,7 @@ import cn.hc.xiaosi.entity.Book;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -34,7 +35,7 @@ public interface BookService {
      * @param request
      * @return
      */
-    String controlSaveIMG(MultipartFile file, String category, HttpServletRequest request);
+    String controlSaveIMG(MultipartFile file, String category, HttpServletRequest request) throws IOException;
 
     /**
      * 新增书籍

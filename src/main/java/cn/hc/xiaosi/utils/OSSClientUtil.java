@@ -196,6 +196,9 @@ public class OSSClientUtil {
         if (".txt".equalsIgnoreCase(fileExtension)) {
             return "text/plain";
         }
+        if (".md".equalsIgnoreCase(fileExtension)) {
+            return "text/x-markdown";
+        }
         if (".vsd".equalsIgnoreCase(fileExtension)) {
             return "application/vnd.visio";
         }

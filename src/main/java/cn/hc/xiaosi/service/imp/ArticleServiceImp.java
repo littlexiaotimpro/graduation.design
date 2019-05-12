@@ -102,7 +102,7 @@ public class ArticleServiceImp implements ArticleService {
     }
 
     @Override
-    public String controlSaveFile(MultipartFile file, String category, HttpServletRequest request) {
+    public String controlSaveFile(MultipartFile file, String category, HttpServletRequest request) throws IOException {
         return UploadUtil.getFileUrl(file, category, logService, request);
     }
 

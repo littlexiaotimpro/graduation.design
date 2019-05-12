@@ -6,6 +6,7 @@ import cn.hc.xiaosi.entity.Media;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -32,7 +33,7 @@ public interface MediaService {
      * @param request
      * @return
      */
-    String controlSaveIMG(MultipartFile file, String category, HttpServletRequest request);
+    String controlSaveIMG(MultipartFile file, String category, HttpServletRequest request) throws IOException;
 
     /**
      * 新增数据

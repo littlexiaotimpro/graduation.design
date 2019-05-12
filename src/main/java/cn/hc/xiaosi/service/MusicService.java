@@ -9,6 +9,7 @@ import cn.hc.xiaosi.entity.Music;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -34,7 +35,7 @@ public interface MusicService {
      * @param request
      * @return
      */
-    String controlSaveIMG(MultipartFile file, String category, HttpServletRequest request);
+    String controlSaveIMG(MultipartFile file, String category, HttpServletRequest request) throws IOException;
 
     /**
      * 新增数据

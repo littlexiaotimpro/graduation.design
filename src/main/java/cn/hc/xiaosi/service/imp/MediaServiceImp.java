@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.*;
 
 
@@ -40,7 +41,7 @@ public class MediaServiceImp implements MediaService {
     }
 
     @Override
-    public String controlSaveIMG(MultipartFile file, String category, HttpServletRequest request) {
+    public String controlSaveIMG(MultipartFile file, String category, HttpServletRequest request) throws IOException {
         return UploadUtil.getFileUrl(file, category, logService, request);
     }
 
