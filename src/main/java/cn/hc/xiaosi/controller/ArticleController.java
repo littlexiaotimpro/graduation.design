@@ -40,6 +40,12 @@ public class ArticleController {
         return articleService.controlFindAll();
     }
 
+    @RequestMapping(value = "using")
+    @ApiOperation(value = "管理端获取启用文章")
+    public ArrayList<ArticleControlOutputDTO> articleUsing() {
+        return articleService.controlFindUsing();
+    }
+
     @RequestMapping(value = "file")
     @ApiOperation(value = "上传文件")
     public String saveFile(@PathParam("articleUrl") MultipartFile file, @PathParam("category") String category, HttpServletRequest request) throws IOException {

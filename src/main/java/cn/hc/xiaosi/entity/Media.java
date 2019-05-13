@@ -32,6 +32,12 @@ public class Media implements Serializable {
 
     private String summary;
 
+    private String bluray720;
+
+    private String bluray1080;
+
+    private String bluraydisk;
+
     private Integer status;
 
     private Date createtime;

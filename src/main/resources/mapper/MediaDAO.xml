@@ -12,13 +12,16 @@
         <result column="caption" jdbcType="VARCHAR" property="caption"/>
         <result column="showtime" jdbcType="VARCHAR" property="showtime"/>
         <result column="summary" jdbcType="VARCHAR" property="summary"/>
+        <result column="bluray720" jdbcType="VARCHAR" property="bluray720"/>
+        <result column="bluray1080" jdbcType="VARCHAR" property="bluray1080"/>
+        <result column="bluraydisk" jdbcType="VARCHAR" property="bluraydisk"/>
         <result column="status" jdbcType="INTEGER" property="status"/>
         <result column="createtime" jdbcType="TIMESTAMP" property="createtime"/>
         <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime"/>
     </resultMap>
     <sql id="Base_Column_List">
     enMedia, enArticle, enNav, enCategory, enTag, adminID, IMGMedia, caption, showtime, 
-    summary, `status`, createtime, updatetime
+    summary, bluray720, bluray1080, bluraydisk, `status`, createtime, updatetime
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
@@ -34,12 +37,14 @@
     insert into tb_media (enMedia, enArticle, enNav, 
       enCategory, enTag, adminID, 
       IMGMedia, caption, showtime, 
-      summary, `status`, createtime, 
+      summary, bluray720, bluray1080, 
+      bluraydisk, `status`, createtime, 
       updatetime)
     values (#{enmedia,jdbcType=VARCHAR}, #{enarticle,jdbcType=VARCHAR}, #{ennav,jdbcType=VARCHAR}, 
       #{encategory,jdbcType=VARCHAR}, #{entag,jdbcType=VARCHAR}, #{adminid,jdbcType=VARCHAR}, 
       #{imgmedia,jdbcType=VARCHAR}, #{caption,jdbcType=VARCHAR}, #{showtime,jdbcType=VARCHAR}, 
-      #{summary,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{summary,jdbcType=VARCHAR}, #{bluray720,jdbcType=VARCHAR}, #{bluray1080,jdbcType=VARCHAR}, 
+      #{bluraydisk,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, 
       #{updatetime,jdbcType=TIMESTAMP})
   </insert>
     <insert id="insertSelective" parameterType="cn.hc.xiaosi.entity.Media">
@@ -74,6 +79,15 @@
             </if>
             <if test="summary != null">
                 summary,
+            </if>
+            <if test="bluray720 != null">
+                bluray720,
+            </if>
+            <if test="bluray1080 != null">
+                bluray1080,
+            </if>
+            <if test="bluraydisk != null">
+                bluraydisk,
             </if>
             <if test="status != null">
                 `status`,
@@ -116,6 +130,15 @@
             <if test="summary != null">
                 #{summary,jdbcType=VARCHAR},
             </if>
+            <if test="bluray720 != null">
+                #{bluray720,jdbcType=VARCHAR},
+            </if>
+            <if test="bluray1080 != null">
+                #{bluray1080,jdbcType=VARCHAR},
+            </if>
+            <if test="bluraydisk != null">
+                #{bluraydisk,jdbcType=VARCHAR},
+            </if>
             <if test="status != null">
                 #{status,jdbcType=INTEGER},
             </if>
@@ -157,6 +180,15 @@
             <if test="summary != null">
                 summary = #{summary,jdbcType=VARCHAR},
             </if>
+            <if test="bluray720 != null">
+                bluray720 = #{bluray720,jdbcType=VARCHAR},
+            </if>
+            <if test="bluray1080 != null">
+                bluray1080 = #{bluray1080,jdbcType=VARCHAR},
+            </if>
+            <if test="bluraydisk != null">
+                bluraydisk = #{bluraydisk,jdbcType=VARCHAR},
+            </if>
             <if test="status != null">
                 `status` = #{status,jdbcType=INTEGER},
             </if>
@@ -180,6 +212,9 @@
       caption = #{caption,jdbcType=VARCHAR},
       showtime = #{showtime,jdbcType=VARCHAR},
       summary = #{summary,jdbcType=VARCHAR},
+      bluray720 = #{bluray720,jdbcType=VARCHAR},
+      bluray1080 = #{bluray1080,jdbcType=VARCHAR},
+      bluraydisk = #{bluraydisk,jdbcType=VARCHAR},
       `status` = #{status,jdbcType=INTEGER},
       createtime = #{createtime,jdbcType=TIMESTAMP},
       updatetime = #{updatetime,jdbcType=TIMESTAMP}
@@ -209,6 +244,9 @@
             <if test="media.caption!=null">caption,</if>
             <if test="media.showtime!=null">showtime,</if>
             <if test="media.summary!=null">summary,</if>
+            <if test="media.bluray720!=null">bluray720,</if>
+            <if test="media.bluray1080!=null">bluray1080,</if>
+            <if test="media.bluraydisk!=null">bluraydisk,</if>
             <if test="media.status!=null">status,</if>
         </trim>
         <trim suffixOverrides="," prefix="values(" suffix=")">
@@ -222,6 +260,9 @@
             <if test="media.caption!=null">#{media.caption},</if>
             <if test="media.showtime!=null">#{media.showtime},</if>
             <if test="media.summary!=null">#{media.summary},</if>
+            <if test="media.bluray720!=null">#{media.bluray720},</if>
+            <if test="media.bluray1080!=null">#{media.bluray1080},</if>
+            <if test="media.bluraydisk!=null">#{media.bluraydisk},</if>
             <if test="media.status!=null">#{media.status},</if>
         </trim>
     </insert>
@@ -247,6 +288,9 @@
             <if test="media.caption!=null">caption = #{media.caption},</if>
             <if test="media.showtime!=null">showtime = #{media.showtime},</if>
             <if test="media.summary!=null">summary = #{media.summary},</if>
+            <if test="media.bluray720!=null">bluray720 = #{media.bluray720},</if>
+            <if test="media.bluray1080!=null">bluray1080 = #{media.bluray1080},</if>
+            <if test="media.bluraydisk!=null">bluraydisk = #{media.bluraydisk},</if>
             <if test="media.status!=null">status = #{media.status},</if>
             <if test="media.enmedia!=null">updatetime = NOW(),</if>
         </set>

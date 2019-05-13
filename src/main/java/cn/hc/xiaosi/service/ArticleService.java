@@ -56,6 +56,13 @@ public interface ArticleService {
     ArrayList<Article> controlFindAll();
 
     /**
+     * 管理端获取启用文章
+     *
+     * @return
+     */
+    ArrayList<ArticleControlOutputDTO> controlFindUsing();
+
+    /**
      * 上传文件
      *
      * @param file

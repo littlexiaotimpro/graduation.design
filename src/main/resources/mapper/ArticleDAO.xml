@@ -16,6 +16,14 @@
         <result column="createtime" jdbcType="TIMESTAMP" property="createtime"/>
         <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime"/>
     </resultMap>
+    <resultMap id="ControlResultMap" type="cn.hc.xiaosi.dto.ArticleControlOutputDTO">
+        <id column="enArticle" jdbcType="VARCHAR" property="enarticle"/>
+        <result column="enCategory" jdbcType="VARCHAR" property="encategory"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="author" jdbcType="VARCHAR" property="author"/>
+        <result column="summary" jdbcType="VARCHAR" property="summary"/>
+        <result column="createtime" jdbcType="TIMESTAMP" property="createtime"/>
+    </resultMap>
     <sql id="Base_Column_List">
     enArticle, enNav, enCategory, enTag, adminID, title, author, summary, fileurl, readnum, 
     `status`, createtime, updatetime
@@ -187,6 +195,12 @@
   </update>
     <select id="findAll" resultMap="BaseResultMap">
         select * from tb_article
+    </select>
+    <select id="findUsing" resultMap="ControlResultMap">
+        select * from tb_article
+        <where>
+            and status = 1
+        </where>
     </select>
     <select id="findAllUsing" resultMap="BaseResultMap">
         select * from tb_article

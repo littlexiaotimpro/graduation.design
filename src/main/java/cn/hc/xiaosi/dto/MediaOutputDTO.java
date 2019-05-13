@@ -29,6 +29,12 @@ public class MediaOutputDTO {
 
     private String summary;
 
+    private String bluray720;
+
+    private String bluray1080;
+
+    private String bluraydisk;
+
     /**
      * 正向转化
      *

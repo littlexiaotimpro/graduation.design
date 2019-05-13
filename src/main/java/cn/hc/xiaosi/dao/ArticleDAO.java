@@ -1,5 +1,6 @@
 package cn.hc.xiaosi.dao;
 
+import cn.hc.xiaosi.dto.ArticleControlOutputDTO;
 import cn.hc.xiaosi.entity.Article;
 import cn.hc.xiaosi.entity.Record;
 import org.apache.ibatis.annotations.Param;
@@ -19,6 +20,13 @@ public interface ArticleDAO extends MyBatisBaseDao<Article, String> {
      * @return
      */
     ArrayList<Article> findAll();
+
+    /**
+     * 管理端获取启用的文章信息
+     *
+     * @return
+     */
+    ArrayList<ArticleControlOutputDTO> findUsing();
 
     /**
      * 新增文章
