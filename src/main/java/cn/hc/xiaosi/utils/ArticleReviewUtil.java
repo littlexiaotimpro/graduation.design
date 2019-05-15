@@ -98,7 +98,7 @@ public class ArticleReviewUtil {
         if (text == null || text.trim().length() == 0) {
             throw new IllegalArgumentException("The input text must not be empty.");
         }
-        Set<String> sensitiveWords = new HashSet<>();
+        Set<String> sensitiveWords = new HashSet<String>();
         for (int i = 0; i < text.length(); i++) {
             int sensitiveWordLength = getSensitiveWordLength(text, i, matchType);
             if (sensitiveWordLength > 0) {
@@ -163,7 +163,7 @@ public class ArticleReviewUtil {
         if (sensitiveWords == null || sensitiveWords.isEmpty()) {
             throw new IllegalArgumentException("Senditive words must not be empty!");
         }
-        sensitiveWordsMap = new HashMap<>(sensitiveWords.size());
+        sensitiveWordsMap = new HashMap<Object, Object>(sensitiveWords.size());
         String currentWord;
         Map<Object, Object> currentMap;
         Map<Object, Object> subMap;
@@ -178,7 +178,7 @@ public class ArticleReviewUtil {
                 char c = currentWord.charAt(i);
                 subMap = (Map<Object, Object>) currentMap.get(c);
                 if (subMap == null) {
-                    subMap = new HashMap<>();
+                    subMap = new HashMap<Object, Object>();
                     currentMap.put(c, subMap);
                     currentMap = subMap;
                 } else {
