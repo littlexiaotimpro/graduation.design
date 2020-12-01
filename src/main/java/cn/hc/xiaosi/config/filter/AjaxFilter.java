@@ -1,4 +1,4 @@
-package cn.hc.xiaosi.filter;
+package cn.hc.xiaosi.config.filter;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.OncePerRequestFilter;

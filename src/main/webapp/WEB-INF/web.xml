@@ -20,7 +20,7 @@
 
     <filter>
         <filter-name>ajaxFilter</filter-name>
-        <filter-class>cn.hc.xiaosi.filter.AjaxFilter</filter-class><!-- 自定义过滤器 -->
+        <filter-class>cn.hc.xiaosi.config.filter.AjaxFilter</filter-class><!-- 自定义过滤器 -->
     </filter>
     <filter-mapping>
         <filter-name>ajaxFilter</filter-name>

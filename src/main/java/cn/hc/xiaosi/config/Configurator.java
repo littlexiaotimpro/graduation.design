@@ -1,17 +1,17 @@
-package cn.hc.xiaosi.utils;
+package cn.hc.xiaosi.config;
 
 import cn.hc.xiaosi.controller.ErrorInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.*;
 
 /**
- * @ClassName Configer
+ * @ClassName Configurator
  * @Description TODO
  * @Author XiaoSi
  * @Date 2019/2/2311:59
  */
 @Configuration
-public class Configer extends WebMvcConfigurerAdapter implements WebMvcConfigurer {
+public class Configurator extends WebMvcConfigurerAdapter implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry interceptorRegistry) {

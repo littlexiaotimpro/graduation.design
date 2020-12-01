@@ -1,4 +1,4 @@
-package cn.hc.xiaosi.utils;
+package cn.hc.xiaosi.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
