@@ -1,6 +1,7 @@
 package cn.hc.xiaosi;
 
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -15,8 +16,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class StartApp {
 
     public static void main(String[] args) {
-        System.out.println("程序服务器启动...");
-        SpringApplication.run(StartApp.class, args);
+        SpringApplication springApplication = new SpringApplication(StartApp.class);
+        springApplication.setBannerMode(Banner.Mode.OFF);
+        springApplication.run(args);
     }
 
 }

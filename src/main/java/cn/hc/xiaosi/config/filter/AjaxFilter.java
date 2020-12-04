@@ -1,6 +1,8 @@
 package cn.hc.xiaosi.config.filter;
 
-import org.springframework.context.annotation.Configuration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -15,13 +17,15 @@ import java.io.IOException;
  * @Author XiaoSi
  * @Date 2019/4/2011:47
  */
-@Configuration
+@Component
 public class AjaxFilter extends OncePerRequestFilter {
+
+    private final Logger logger = LoggerFactory.getLogger(AjaxFilter.class);
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        System.out.println("拦截到了" + request.getRequestURL());
+        logger.info("拦截到了" + request.getRequestURL());
         response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
         response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, If-Modified-Since");
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");

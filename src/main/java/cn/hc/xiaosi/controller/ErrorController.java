@@ -16,7 +16,7 @@ public class ErrorController {
 
     @RequestMapping(value = ERROR_PATH)
     public String handleError() {
-        return "/404";
+        return "404";
     }
 
 //    @Override
