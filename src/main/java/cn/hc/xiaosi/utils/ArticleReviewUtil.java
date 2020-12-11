@@ -5,12 +5,6 @@ import org.springframework.util.ResourceUtils;
 import java.io.*;
 import java.util.*;
 
-/**
- * @ClassName ArticleReviewUtil
- * @Description TODO
- * @Author XiaoSi
- * @Date 2019/5/715:07
- */
 public class ArticleReviewUtil {
 
     private static Set<String> words;
@@ -30,19 +24,16 @@ public class ArticleReviewUtil {
 
     /**
      * 敏感词库
-     *
-     * @return
-     * @throws FileNotFoundException
      */
     public static Set<String> readTxtByLine() throws FileNotFoundException {
-        Set<String> keyWordSet = new HashSet<String>();
+        Set<String> keyWordSet = new HashSet<>();
         File file = ResourceUtils.getFile("classpath:static/dictionary.txt");
         //文件流是否存在
         if (!file.exists()) {
             return keyWordSet;
         }
         BufferedReader reader = null;
-        String temp = null;
+        String temp;
         try {
             reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
             while ((temp = reader.readLine()) != null) {
@@ -75,30 +66,20 @@ public class ArticleReviewUtil {
 
     /**
      * 最小匹配，判断文本中是否含有敏感词
-     *
-     * @param text
-     * @return
      */
     public static boolean isContainSensitiveWord(String text) {
         Set<String> sensitiveWords = getSensitiveWords(text, MatchType.MIN_MATCH);
-        if (sensitiveWords != null && sensitiveWords.size() > 0) {
-            return true;
-        }
-        return false;
+        return sensitiveWords.size() > 0;
     }
 
     /**
      * 统计其中的敏感词
-     *
-     * @param text
-     * @param matchType
-     * @return
      */
     public static Set<String> getSensitiveWords(String text, MatchType matchType) {
         if (text == null || text.trim().length() == 0) {
             throw new IllegalArgumentException("The input text must not be empty.");
         }
-        Set<String> sensitiveWords = new HashSet<String>();
+        Set<String> sensitiveWords = new HashSet<>();
         for (int i = 0; i < text.length(); i++) {
             int sensitiveWordLength = getSensitiveWordLength(text, i, matchType);
             if (sensitiveWordLength > 0) {
@@ -115,11 +96,6 @@ public class ArticleReviewUtil {
 
     /**
      * 获取敏感词数目
-     *
-     * @param text
-     * @param startIndex
-     * @param matchType
-     * @return
      */
     public static int getSensitiveWordLength(String text, int startIndex, MatchType matchType) {
         if (text == null || text.trim().length() == 0) {
@@ -156,20 +132,17 @@ public class ArticleReviewUtil {
 
     /**
      * 初始化铭感词库
-     *
-     * @param sensitiveWords
      */
     private static void initSensitiveWordsMap(Set<String> sensitiveWords) {
         if (sensitiveWords == null || sensitiveWords.isEmpty()) {
-            throw new IllegalArgumentException("Senditive words must not be empty!");
+            throw new IllegalArgumentException("Sensitive words must not be empty!");
         }
-        sensitiveWordsMap = new HashMap<Object, Object>(sensitiveWords.size());
+        sensitiveWordsMap = new HashMap<>(sensitiveWords.size());
         String currentWord;
         Map<Object, Object> currentMap;
         Map<Object, Object> subMap;
-        Iterator<String> iterator = sensitiveWords.iterator();
-        while (iterator.hasNext()) {
-            currentWord = iterator.next();
+        for (String sensitiveWord : sensitiveWords) {
+            currentWord = sensitiveWord;
             if (currentWord == null || currentWord.trim().length() < 2) {  //敏感词长度必须大于等于2
                 continue;
             }
@@ -180,10 +153,8 @@ public class ArticleReviewUtil {
                 if (subMap == null) {
                     subMap = new HashMap<Object, Object>();
                     currentMap.put(c, subMap);
-                    currentMap = subMap;
-                } else {
-                    currentMap = subMap;
                 }
+                currentMap = subMap;
                 if (i == currentWord.length() - 1) {
                     //如果是最后一个字符，则put一个结束标志，这里只需要保存key就行了，value为null可以节省空间。
                     //如果不是最后一个字符，则不需要存这个结束标志，同样也是为了节省空间。
