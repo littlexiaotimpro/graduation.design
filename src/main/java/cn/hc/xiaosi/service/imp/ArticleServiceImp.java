@@ -21,12 +21,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-/**
- * @ClassName ArticleServiceImp
- * @Description TODO
- * @Author XiaoSi
- * @Date 2019/3/515:51
- */
 @Service
 @Slf4j
 public class ArticleServiceImp implements ArticleService {
@@ -40,10 +34,9 @@ public class ArticleServiceImp implements ArticleService {
     @Override
     public ArrayList<ArticleOutputDTO> clientFindAll() {
         ArrayList<ArticleOutputDTO> arrayList = new ArrayList<ArticleOutputDTO>();
-        Iterator iterator = articleDAO.findAllUsing().iterator();
-        while (iterator.hasNext()) {
+        for (Article article : articleDAO.findAllUsing()) {
             ArticleOutputDTO articleOutputDTO = new ArticleOutputDTO();
-            articleOutputDTO = articleOutputDTO.convertFor((Article) iterator.next());
+            articleOutputDTO = articleOutputDTO.convertFor(article);
             arrayList.add(articleOutputDTO);
         }
         return arrayList;
@@ -66,16 +59,16 @@ public class ArticleServiceImp implements ArticleService {
     @Override
     public ArrayList<ArticleOutputDTO> clientFindByCateTag(ArticleCateTagInputDTO articleCateTagInputDTO) {
         Article article = articleCateTagInputDTO.convertToArticle();
-        Iterator iterator;
+        Iterator<Article> iterator;
         if (articleCateTagInputDTO.getEncategory().equals("recommend")) {
             iterator = articleDAO.findAllUsing().iterator();
         } else {
             iterator = articleDAO.findUsingByEnCategoryEnTags(article).iterator();
         }
-        ArrayList<ArticleOutputDTO> arrayList = new ArrayList<ArticleOutputDTO>();
+        ArrayList<ArticleOutputDTO> arrayList = new ArrayList<>();
         while (iterator.hasNext()) {
             ArticleOutputDTO articleOutputDTO = new ArticleOutputDTO();
-            articleOutputDTO = articleOutputDTO.convertFor((Article) iterator.next());
+            articleOutputDTO = articleOutputDTO.convertFor(iterator.next());
             arrayList.add(articleOutputDTO);
         }
         return arrayList;
@@ -84,11 +77,11 @@ public class ArticleServiceImp implements ArticleService {
     @Override
     public ArrayList<ArticleOutputDTO> clientFindByRecord(RecordInputDTO recordInputDTO) {
         Record record = recordInputDTO.convertToRecord();
-        Iterator iterator = articleDAO.findUsingByRecord(record).iterator();
-        ArrayList<ArticleOutputDTO> arrayList = new ArrayList<ArticleOutputDTO>();
+        Iterator<Article> iterator = articleDAO.findUsingByRecord(record).iterator();
+        ArrayList<ArticleOutputDTO> arrayList = new ArrayList<>();
         while (iterator.hasNext()) {
             ArticleOutputDTO articleOutputDTO = new ArticleOutputDTO();
-            articleOutputDTO = articleOutputDTO.convertFor((Article) iterator.next());
+            articleOutputDTO = articleOutputDTO.convertFor(iterator.next());
             arrayList.add(articleOutputDTO);
         }
         return arrayList;
