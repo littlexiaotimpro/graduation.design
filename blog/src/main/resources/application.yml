@@ -1,23 +1,52 @@
+# 服务端口
 server:
   port: 8080
 
+# spring 基础配置
 spring:
+  application:
+    name: Graduation Blog
+
+  # 数据源相关属性
   datasource:
     url: jdbc:mysql://localhost:3306/whoai?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+  # 视图前后缀
   mvc:
     view:
       prefix: /
       suffix: .html
 
+  # 上传文件及请求大小限制
   http:
     multipart:
       maxFileSize: 10MB
       maxRequestSize: 10MB
 
+# 日志配置
+#logging:
+#  # 日志配置文件
+#  config: classpath:logback.xml
+#  # 日志格式
+#  pattern:
+#    console: %d{yyyy/MM/dd-HH:mm:ss} [%thread] %-5level %logger- %msg%n
+#    file: %d{yyyy/MM/dd-HH:mm} [%thread] %-5level %logger- %msg%n
+#  #（具体包）输出的日志级别
+#  level:
+#    org.springframework: WARN
+
+# Mybatis 配置
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.whoai.blog.entity.*
+
+# Swagger 属性配置
+swagger:
+  enable: true
+  application-name: ${spring.application.name}
+  version: 1.0
+  description: springfox swagger 3.0 Demo
+  try-host: http://localhost:${server.port}

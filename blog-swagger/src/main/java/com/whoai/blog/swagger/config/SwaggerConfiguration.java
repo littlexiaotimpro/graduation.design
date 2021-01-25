@@ -72,7 +72,7 @@ public class SwaggerConfiguration implements WebMvcConfigurer {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder().title(swaggerProperties.getApplicationName() + " Api Doc")
                 .description(swaggerProperties.getDescription())
-                .contact(new Contact("lighter", null, "123456@gmail.com"))
+                .contact(new Contact("Juster", null, "email"))
                 .version("Application Version: " + swaggerProperties.getVersion() + ", Spring Boot Version: " + SpringBootVersion.getVersion())
                 .build();
     }
@@ -107,7 +107,7 @@ public class SwaggerConfiguration implements WebMvcConfigurer {
     /**
      * 通用拦截器排除swagger设置，所有拦截器都会自动加swagger相关的资源排除信息
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "NullableProblems"})
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         try {

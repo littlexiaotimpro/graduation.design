@@ -1,4 +1,4 @@
-package cn.hc.xiaosi.bean;
+package com.whoai.blog.bean;
 
 import io.jsonwebtoken.Claims;
 import lombok.Data;
