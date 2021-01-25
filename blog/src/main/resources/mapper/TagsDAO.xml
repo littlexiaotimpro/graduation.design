@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whoai.blog.dao.TagsDAO">
+    <resultMap id="BaseResultMap" type="com.whoai.blog.entity.Tags">
+        <id column="enTag" jdbcType="VARCHAR" property="entag"/>
+        <result column="enCategory" jdbcType="VARCHAR" property="encategory"/>
+        <result column="caption" jdbcType="VARCHAR" property="caption"/>
+        <result column="tagLevel" jdbcType="INTEGER" property="taglevel"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="createtime" jdbcType="TIMESTAMP" property="createtime"/>
+        <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    enTag, enCategory, caption, tagLevel, `status`, createtime, updatetime
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_tags
+        where enTag = #{entag,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tb_tags
+    where enTag = #{entag,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.whoai.blog.entity.Tags">
+    insert into tb_tags (enTag, enCategory, caption, 
+      tagLevel, `status`, createtime, 
+      updatetime)
+    values (#{entag,jdbcType=VARCHAR}, #{encategory,jdbcType=VARCHAR}, #{caption,jdbcType=VARCHAR}, 
+      #{taglevel,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="com.whoai.blog.entity.Tags">
+        insert into tb_tags
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="entag != null">
+                enTag,
+            </if>
+            <if test="encategory != null">
+                enCategory,
+            </if>
+            <if test="caption != null">
+                caption,
+            </if>
+            <if test="taglevel != null">
+                tagLevel,
+            </if>
+            <if test="status != null">
+                `status`,
+            </if>
+            <if test="createtime != null">
+                createtime,
+            </if>
+            <if test="updatetime != null">
+                updatetime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="entag != null">
+                #{entag,jdbcType=VARCHAR},
+            </if>
+            <if test="encategory != null">
+                #{encategory,jdbcType=VARCHAR},
+            </if>
+            <if test="caption != null">
+                #{caption,jdbcType=VARCHAR},
+            </if>
+            <if test="taglevel != null">
+                #{taglevel,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createtime != null">
+                #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatetime != null">
+                #{updatetime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.whoai.blog.entity.Tags">
+        update tb_tags
+        <set>
+            <if test="encategory != null">
+                enCategory = #{encategory,jdbcType=VARCHAR},
+            </if>
+            <if test="caption != null">
+                caption = #{caption,jdbcType=VARCHAR},
+            </if>
+            <if test="taglevel != null">
+                tagLevel = #{taglevel,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                `status` = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createtime != null">
+                createtime = #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatetime != null">
+                updatetime = #{updatetime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where enTag = #{entag,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.whoai.blog.entity.Tags">
+    update tb_tags
+    set enCategory = #{encategory,jdbcType=VARCHAR},
+      caption = #{caption,jdbcType=VARCHAR},
+      tagLevel = #{taglevel,jdbcType=INTEGER},
+      `status` = #{status,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP}
+    where enTag = #{entag,jdbcType=VARCHAR}
+  </update>
+    <select id="findAll" resultMap="BaseResultMap">
+        select * from tb_tags order by enCategory asc,tagLevel asc
+    </select>
+    <select id="findByEnCategory" parameterType="com.whoai.blog.entity.Tags" resultMap="BaseResultMap">
+        select * from tb_tags
+        <where>
+            enCategory = #{tags.encategory} and `status` = 1
+        </where>
+        order by tagLevel asc
+    </select>
+    <insert id="saveTags" parameterType="com.whoai.blog.entity.Tags">
+        insert into tb_tags
+        <trim suffixOverrides="," prefix="(" suffix=")">
+            <if test="tags.entag!=null">enTag,createtime,</if>
+            <if test="tags.encategory!=null">enCategory,</if>
+            <if test="tags.caption!=null">caption,</if>
+            <if test="tags.taglevel!=null">tagLevel,</if>
+            <if test="tags.status!=null">status,</if>
+        </trim>
+        <trim suffixOverrides="," prefix="values(" suffix=")">
+            <if test="tags.entag!=null">#{tags.entag},NOW(),</if>
+            <if test="tags.encategory!=null">#{tags.encategory},</if>
+            <if test="tags.caption!=null">#{tags.caption},</if>
+            <if test="tags.taglevel!=null">#{tags.taglevel},</if>
+            <if test="tags.status!=null">#{tags.status},</if>
+        </trim>
+    </insert>
+    <update id="deleteTags" parameterType="com.whoai.blog.entity.Tags">
+        update tb_tags
+        <set>
+            <if test="tags.status!=null">status = #{tags.status},</if>
+            <if test="tags.entag!=null">updatetime = NOW()</if>
+        </set>
+        <where>
+            <if test="tags.entag!=null">and enTag = #{tags.entag}</if>
+        </where>
+    </update>
+    <update id="updateTags" parameterType="com.whoai.blog.entity.Tags">
+        update tb_tags
+        <set>
+            <if test="tags.encategory!=null">enCategory = #{tags.encategory},</if>
+            <if test="tags.caption!=null">caption = #{tags.caption},</if>
+            <if test="tags.taglevel!=null">tagLevel = #{tags.taglevel},</if>
+            <if test="tags.status!=null">status = #{tags.status},</if>
+            <if test="tags.entag!=null">updatetime = NOW()</if>
+        </set>
+        <where>
+            <if test="tags.entag!=null">and enTag = #{tags.entag}</if>
+        </where>
+    </update>
+</mapper>
