@@ -14,6 +14,15 @@ spring:
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+  # elasticsearch 配置
+#  data:
+#    elasticsearch:
+#      repositories:
+#        enabled: true
+#  elasticsearch:
+#    rest:
+#      uris: http://localhost:9200
+
   # 视图前后缀
   mvc:
     view:
