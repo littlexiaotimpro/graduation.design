@@ -140,8 +140,6 @@ public class JWTUtil {
                 if (cookie.getName().equals("access_token")) {
                     JWTResult jwtResult = JWTUtil.validateJWT(cookie.getValue());
                     return jwtResult.isSuccess() ? jwtResult.getClaims().getSubject() : null;
-                } else {
-                    continue;
                 }
             }
         }
