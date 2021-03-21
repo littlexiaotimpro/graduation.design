@@ -7,19 +7,17 @@ import com.whoai.blog.entity.Admin;
 import com.whoai.blog.service.AdminService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 
 /**
- * @ClassName AdminController
- * @Description TODO
- * @Author XiaoSi
- * @Date 2019/2/2814:40
+ * @className AdminController
+ * @description 用户及管理员访问控制器
+ * @author XiaoSi
+ * @date 2019/2/2814:40
  */
 @RestController
 @RequestMapping(value = "admin")
@@ -28,19 +26,19 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-    @RequestMapping(value = "login")
+    @PostMapping(value = "login")
     @ApiOperation(value = "登录验证")
     public Message checkLogin(@RequestBody AdminDTO adminDTO, HttpServletResponse response) {
         return adminService.checkLogin(adminDTO, response);
     }
 
-    @RequestMapping(value = "logout")
+    @PostMapping(value = "logout")
     @ApiOperation(value = "注销登录")
     public Message checkLogout(HttpServletRequest request, HttpServletResponse response) {
         return adminService.checkLogout(request, response);
     }
 
-    @RequestMapping(value = "control")
+    @GetMapping(value = "control")
     @ApiOperation(value = "获取用户")
     public ArrayList<Admin> getUsers() {
         return adminService.controlFindAll();
