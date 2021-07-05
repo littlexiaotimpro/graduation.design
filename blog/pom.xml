@@ -21,6 +21,11 @@
     <dependencies>
         <dependency>
             <groupId>whoai</groupId>
+            <artifactId>blog-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>whoai</groupId>
             <artifactId>blog-swagger</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -119,13 +124,6 @@
             <version>6.17.0</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>27.0.1-jre</version>
-        </dependency>
-
         <!--OSS存储-->
         <dependency>
             <groupId>com.aliyun.oss</groupId>
@@ -138,21 +136,6 @@
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>4.5.12</version>
-        </dependency>
-
-
-        <!-- https://mvnrepository.com/artifact/com.auth0/java-jwt -->
-        <dependency>
-            <groupId>com.auth0</groupId>
-            <artifactId>java-jwt</artifactId>
-            <version>3.3.0</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>0.9.0</version>
         </dependency>
 
         <dependency>
