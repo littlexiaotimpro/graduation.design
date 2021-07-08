@@ -1,4 +1,4 @@
-package com.whoai.blog.service.imp;
+package com.whoai.blog.service.impl;
 
 import com.whoai.blog.bean.Message;
 import com.whoai.blog.dao.MediaDAO;
@@ -33,7 +33,7 @@ import java.util.Map;
  */
 @Service
 @Slf4j
-public class MediaServiceImp implements MediaService {
+public class MediaServiceImpl implements MediaService {
 
     @Autowired
     private MediaDAO mediaDAO;

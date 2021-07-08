@@ -1,18 +1,12 @@
 package com.whoai.blog.dto;
 
 import com.whoai.blog.entity.Admin;
-import com.google.common.base.Converter;
 import lombok.Data;
-import org.springframework.beans.BeanUtils;
+import lombok.EqualsAndHashCode;
 
-/**
- * @ClassName AdminInputDTO
- * @Description TODO
- * @Author XiaoSi
- * @Date 2019/5/518:56
- */
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class AdminInputDTO {
+public class AdminInputDTO extends AbstractDTO<AdminInputDTO, Admin> {
     /**
      * 管理员编号
      */
@@ -33,43 +27,16 @@ public class AdminInputDTO {
      */
     private Integer status;
 
-    /**
-     * 正向转化
-     *
-     * @return
-     */
-    public Admin convertToAdmin() {
-        AdminInputDTOConvert adminInputDTOConvert = new AdminInputDTOConvert();
-        Admin convert = adminInputDTOConvert.convert(this);
-        return convert;
+
+    @Override
+    public AdminInputDTO convertToDTO(Admin admin) {
+        throw new AssertionError("不支持逆向转换！");
     }
 
-    /**
-     * 逆向转化
-     *
-     * @param admin
-     * @return
-     */
-    public AdminInputDTO convertFor(Admin admin) {
-        AdminInputDTOConvert adminInputDTOConvert = new AdminInputDTOConvert();
-        AdminInputDTO convert = adminInputDTOConvert.reverse().convert(admin);
-        return convert;
-    }
-
-    /**
-     * 转换类及方法
-     */
-    private static class AdminInputDTOConvert extends Converter<AdminInputDTO, Admin> {
-        @Override
-        protected Admin doForward(AdminInputDTO adminInputDTO) {
-            Admin admin = new Admin();
-            BeanUtils.copyProperties(adminInputDTO, admin);
-            return admin;
-        }
-
-        @Override
-        protected AdminInputDTO doBackward(Admin admin) {
-            throw new AssertionError("不支持逆向转化方法");
-        }
+    @Override
+    public Admin convertToEntity() {
+        DTOConvert<AdminInputDTO, Admin> converter = converter();
+        converter.setEntity(new Admin());
+        return converter.convert(this);
     }
 }

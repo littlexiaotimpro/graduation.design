@@ -1,4 +1,4 @@
-package com.whoai.blog.service.imp;
+package com.whoai.blog.service.impl;
 
 import com.whoai.blog.bean.Message;
 import com.whoai.blog.dao.NavbarDAO;
@@ -26,7 +26,7 @@ import java.util.Iterator;
  */
 @Service
 @Slf4j
-public class NavbarServiceImp implements NavbarService {
+public class NavbarServiceImpl implements NavbarService {
 
     @Autowired
     private NavbarDAO navbarDAO;

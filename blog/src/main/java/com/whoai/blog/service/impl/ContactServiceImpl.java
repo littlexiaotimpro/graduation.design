@@ -1,4 +1,4 @@
-package com.whoai.blog.service.imp;
+package com.whoai.blog.service.impl;
 
 import com.whoai.blog.bean.Message;
 import com.whoai.blog.dao.ContactDAO;
@@ -25,7 +25,7 @@ import java.util.ArrayList;
  */
 @Service
 @Slf4j
-public class ContactServiceImp implements ContactService {
+public class ContactServiceImpl implements ContactService {
 
     @Autowired
     private ContactDAO contactDAO;

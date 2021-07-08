@@ -1,4 +1,4 @@
-package com.whoai.blog.service.imp;
+package com.whoai.blog.service.impl;
 
 import com.whoai.blog.bean.Message;
 import com.whoai.blog.dao.CategoryDAO;
@@ -27,7 +27,7 @@ import java.util.Iterator;
  */
 @Service
 @Slf4j
-public class CategoryServiceImp implements CategoryService {
+public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     private CategoryDAO categoryDAO;

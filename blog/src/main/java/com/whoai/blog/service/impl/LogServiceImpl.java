@@ -1,4 +1,4 @@
-package com.whoai.blog.service.imp;
+package com.whoai.blog.service.impl;
 
 import com.whoai.blog.dao.LogBeanDAO;
 import com.whoai.blog.entity.LogBean;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 @Service
 @Slf4j
-public class LogServiceImp implements LogService {
+public class LogServiceImpl implements LogService {
 
     @Autowired
     private LogBeanDAO logBeanDAO;

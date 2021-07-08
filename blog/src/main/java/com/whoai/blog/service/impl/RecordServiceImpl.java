@@ -1,4 +1,4 @@
-package com.whoai.blog.service.imp;
+package com.whoai.blog.service.impl;
 
 import com.whoai.blog.bean.Message;
 import com.whoai.blog.dao.ArticleDAO;
@@ -21,7 +21,7 @@ import java.util.Map;
  * @Date 2019/3/520:48
  */
 @Service
-public class RecordServiceImp implements RecordService {
+public class RecordServiceImpl implements RecordService {
 
     @Autowired
     private RecordDAO recordDAO;

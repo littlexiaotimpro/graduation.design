@@ -1,4 +1,4 @@
-package com.whoai.blog.service.imp;
+package com.whoai.blog.service.impl;
 
 import com.whoai.blog.bean.Message;
 import com.whoai.blog.dao.ArticleDAO;
@@ -23,7 +23,7 @@ import java.util.Iterator;
 
 @Service
 @Slf4j
-public class ArticleServiceImp implements ArticleService {
+public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private ArticleDAO articleDAO;

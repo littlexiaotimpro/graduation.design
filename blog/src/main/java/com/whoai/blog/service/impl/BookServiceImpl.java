@@ -1,4 +1,4 @@
-package com.whoai.blog.service.imp;
+package com.whoai.blog.service.impl;
 
 import com.whoai.blog.bean.Message;
 import com.whoai.blog.dao.BookDAO;
@@ -30,7 +30,7 @@ import java.util.Iterator;
  */
 @Service
 @Slf4j
-public class BookServiceImp implements BookService {
+public class BookServiceImpl implements BookService {
 
     @Autowired
     private BookDAO bookDAO;
