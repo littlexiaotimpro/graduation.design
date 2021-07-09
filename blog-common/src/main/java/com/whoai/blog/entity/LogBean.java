@@ -13,6 +13,7 @@ import java.util.Date;
 @Accessors(chain = true)
 @Data
 public class LogBean implements Serializable {
+    private static final long serialVersionUID = -4448167276671780018L;
     /**
      * 日志编号
      */
@@ -38,5 +39,4 @@ public class LogBean implements Serializable {
      */
     private Date createtime;
 
-    private static final long serialVersionUID = 1L;
 }

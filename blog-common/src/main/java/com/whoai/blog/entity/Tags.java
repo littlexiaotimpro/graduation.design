@@ -12,6 +12,7 @@ import java.util.Date;
  */
 @Data
 public class Tags implements Serializable {
+    private static final long serialVersionUID = -4411885938331451910L;
     /**
      * 标签标识
      */
@@ -47,5 +48,4 @@ public class Tags implements Serializable {
      */
     private Date updatetime;
 
-    private static final long serialVersionUID = 1L;
 }

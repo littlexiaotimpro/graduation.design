@@ -12,6 +12,7 @@ import java.util.Date;
  */
 @Data
 public class Category implements Serializable {
+    private static final long serialVersionUID = 7746519934629760512L;
     /**
      * 类别标识
      */
@@ -46,7 +47,5 @@ public class Category implements Serializable {
      * 修改时间
      */
     private Date updatetime;
-
-    private static final long serialVersionUID = 1L;
 
 }

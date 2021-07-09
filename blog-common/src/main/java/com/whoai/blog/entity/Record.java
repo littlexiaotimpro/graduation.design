@@ -12,6 +12,7 @@ import java.util.Date;
  */
 @Data
 public class Record implements Serializable {
+    private static final long serialVersionUID = -9066330380051214456L;
     /**
      * 编号
      */
@@ -32,5 +33,4 @@ public class Record implements Serializable {
      */
     private Date searchtime;
 
-    private static final long serialVersionUID = 1L;
 }

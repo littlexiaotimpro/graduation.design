@@ -12,6 +12,7 @@ import java.util.Date;
  */
 @Data
 public class Music implements Serializable {
+    private static final long serialVersionUID = 1289374725983146969L;
     private String enmusic;
 
     private String enarticle;
@@ -38,5 +39,4 @@ public class Music implements Serializable {
 
     private Date updatetime;
 
-    private static final long serialVersionUID = 1L;
 }

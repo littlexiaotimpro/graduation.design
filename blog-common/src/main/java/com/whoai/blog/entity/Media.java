@@ -12,6 +12,7 @@ import java.util.Date;
  */
 @Data
 public class Media implements Serializable {
+    private static final long serialVersionUID = 1703596116169826280L;
     private String enmedia;
 
     private String enarticle;
@@ -44,5 +45,4 @@ public class Media implements Serializable {
 
     private Date updatetime;
 
-    private static final long serialVersionUID = 1L;
 }

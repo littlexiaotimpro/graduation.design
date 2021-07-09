@@ -12,6 +12,8 @@ import java.util.Date;
  */
 @Data
 public class Article implements Serializable {
+    private static final long serialVersionUID = 1011874484610243604L;
+
     private String enarticle;
 
     private String ennav;
@@ -37,8 +39,5 @@ public class Article implements Serializable {
     private Date createtime;
 
     private Date updatetime;
-
-    private static final long serialVersionUID = 1L;
-
 
 }

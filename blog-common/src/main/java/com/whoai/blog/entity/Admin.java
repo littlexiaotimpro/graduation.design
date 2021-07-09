@@ -11,10 +11,12 @@ import java.util.Date;
  */
 @Data
 public class Admin implements Serializable {
+    private static final long serialVersionUID = 7738212484595459219L;
+
     /**
-     * 管理员编号
+     * 主键标识
      */
-    private String adminid;
+    private Integer id;
 
     /**
      * 账号
@@ -39,7 +41,11 @@ public class Admin implements Serializable {
     /**
      * 创建时间
      */
-    private Date createtime;
+    private Date createTime;
 
-    private static final long serialVersionUID = 1L;
+    /**
+     * 更新时间
+     */
+    private Date updateTime;
+
 }

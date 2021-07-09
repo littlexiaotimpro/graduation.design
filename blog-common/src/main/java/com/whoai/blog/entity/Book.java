@@ -12,6 +12,7 @@ import java.util.Date;
  */
 @Data
 public class Book implements Serializable {
+    private static final long serialVersionUID = -4371363865991393409L;
     private String enbook;
 
     private String ennav;
@@ -40,5 +41,4 @@ public class Book implements Serializable {
 
     private Date updatetime;
 
-    private static final long serialVersionUID = 1L;
 }

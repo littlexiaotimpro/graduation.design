@@ -11,6 +11,7 @@ import java.util.Date;
  */
 @Data
 public class Contact implements Serializable {
+    private static final long serialVersionUID = 7846847220588970315L;
     private Integer id;
 
     private String nickname;
@@ -25,5 +26,4 @@ public class Contact implements Serializable {
 
     private Date senttime;
 
-    private static final long serialVersionUID = 1L;
 }

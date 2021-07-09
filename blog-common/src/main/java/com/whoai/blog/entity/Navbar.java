@@ -12,6 +12,7 @@ import java.util.Date;
  */
 @Data
 public class Navbar implements Serializable {
+    private static final long serialVersionUID = -8453393245807340273L;
     /**
      * 导航标识
      */
@@ -42,6 +43,5 @@ public class Navbar implements Serializable {
      */
     private Date updatetime;
 
-    private static final long serialVersionUID = 1L;
 
 }

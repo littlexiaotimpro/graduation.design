@@ -2,15 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.whoai.blog.dao.AdminDAO">
     <resultMap id="BaseResultMap" type="com.whoai.blog.entity.Admin">
-        <id column="adminID" jdbcType="VARCHAR" property="adminid"/>
+        <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="account" jdbcType="VARCHAR" property="account"/>
         <result column="password" jdbcType="VARCHAR" property="password"/>
         <result column="permission" jdbcType="INTEGER" property="permission"/>
         <result column="status" jdbcType="INTEGER" property="status"/>
-        <result column="createtime" jdbcType="TIMESTAMP" property="createtime"/>
+        <result column="createTime" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
     <sql id="Base_Column_List">
-    adminID, account, `password`, permission, `status`, createtime
+    id, account, `password`, permission, `status`, createtime
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
