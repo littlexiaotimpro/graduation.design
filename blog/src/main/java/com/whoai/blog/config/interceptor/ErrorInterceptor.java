@@ -1,6 +1,5 @@
 package com.whoai.blog.config.interceptor;
 
-import com.whoai.blog.utils.JWTUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -17,8 +16,7 @@ public class ErrorInterceptor implements HandlerInterceptor {
     @SuppressWarnings("NullableProblems")
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         logger.info("在请求处理之前进行调用（Controller方法调用之前）");
-        String cookies = JWTUtil.parseCookies(request);
-        return cookies != null;// 只有返回true才会继续向下执行，返回false取消当前请求
+        return true;// 只有返回true才会继续向下执行，返回false取消当前请求
     }
 
     /**

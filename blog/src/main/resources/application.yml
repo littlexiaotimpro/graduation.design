@@ -7,12 +7,25 @@ spring:
   application:
     name: Graduation Blog
 
-  # 数据源相关属性
+  # 数据源相关属性 - MySQL
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/whoai?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=Asia/Shanghai
+#    username: root
+#    password: 123456
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  # 数据源相关属性 - H2
+  h2:
+    console:
+      path: /h2-console #进入h2 web操作界面的路径
+      enabled: true #开启h2 web界面
   datasource:
-    url: jdbc:mysql://localhost:3306/whoai?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=Asia/Shanghai
+    driver-class-name: org.h2.Driver
+    schema: classpath:db/schema-ddl-h2.sql
+    data: classpath:db/data-dml-h2.sql
+    url: jdbc:h2:mem:whoai
     username: root
     password: 123456
-    driver-class-name: com.mysql.cj.jdbc.Driver
 
   # elasticsearch 配置
 #  data:
@@ -35,6 +48,22 @@ spring:
       maxFileSize: 10MB
       maxRequestSize: 10MB
 
+# Mybatis 配置
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.whoai.blog.entity.*
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 在console打印sql语句
+
+# Swagger 属性配置
+swagger:
+  enable: true
+  application-name: ${spring.application.name}
+  version: 1.0
+  description: springfox swagger 3.0 Demo
+  try-host: http://localhost:${server.port}
+
+
 # 日志配置
 #logging:
 #  # 日志配置文件
@@ -46,16 +75,3 @@ spring:
 #  #（具体包）输出的日志级别
 #  level:
 #    org.springframework: WARN
-
-# Mybatis 配置
-mybatis:
-  mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: com.whoai.blog.entity.*
-
-# Swagger 属性配置
-swagger:
-  enable: true
-  application-name: ${spring.application.name}
-  version: 1.0
-  description: springfox swagger 3.0 Demo
-  try-host: http://localhost:${server.port}

@@ -26,8 +26,7 @@ public class MDUtil {
      * @throws IOException
      */
     public static String changeMDToHtml(String fileUrl) throws IOException {
-        InputStream is = new URL(fileUrl).openStream();
-        try {
+        try (InputStream is = new URL(fileUrl).openStream()) {
             BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
             StringBuilder sb = new StringBuilder();
             int cp;
@@ -36,12 +35,9 @@ public class MDUtil {
             }
             String jsonText = sb.toString();
             PegDownProcessor pdp = new PegDownProcessor(Integer.MAX_VALUE);
-            String htmlContent = pdp.markdownToHtml(jsonText);
-            return htmlContent;
+            return pdp.markdownToHtml(jsonText);
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            is.close();
         }
         return "无法解析MD文件";
     }
@@ -54,12 +50,11 @@ public class MDUtil {
      * @throws IOException
      */
     public static boolean checkMarkdown(MultipartFile file) throws IOException {
-        InputStream is = file.getInputStream();
         // 排除图片格式的文件
-        if ("image/jpeg".equals(OSSClientUtil.getContentType(file.getOriginalFilename()))) {
-            return false;
-        }
-        try {
+        try (InputStream is = file.getInputStream()) {
+            if ("image/jpeg".equals(OSSClientUtil.getContentType(file.getOriginalFilename()))) {
+                return false;
+            }
             BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
             StringBuilder sb = new StringBuilder();
             int cp;
@@ -70,8 +65,6 @@ public class MDUtil {
             return ArticleReviewUtil.isContainSensitiveWord(jsonText);
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            is.close();
         }
         return false;
     }

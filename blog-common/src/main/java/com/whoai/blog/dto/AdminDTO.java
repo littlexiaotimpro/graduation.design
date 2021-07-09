@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class AdminDTO extends AbstractDTO<AdminDTO, Admin> {
+public class AdminDTO extends AbstractInputDTO<AdminDTO, Admin> {
     /**
      * 账号
      */
@@ -16,11 +16,6 @@ public class AdminDTO extends AbstractDTO<AdminDTO, Admin> {
      * 密码
      */
     private String password;
-
-    @Override
-    public AdminDTO convertToDTO(Admin admin) {
-        throw new AssertionError("不支持逆向转换！");
-    }
 
     @Override
     public Admin convertToEntity() {

@@ -44,7 +44,7 @@ public class AdminController {
         return adminService.controlFindAll();
     }
 
-    @RequestMapping(value = "update")
+    @PostMapping(value = "update")
     @ApiOperation(value = "编辑用户信息")
     public Message updateAdmin(@RequestBody AdminInputDTO adminInputDTO, HttpServletRequest request) {
         return adminService.controlUpdateAdmin(adminInputDTO, request);

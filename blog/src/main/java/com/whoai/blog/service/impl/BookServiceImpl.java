@@ -45,7 +45,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public String controlSaveIMG(MultipartFile file, String category, HttpServletRequest request) throws IOException {
-        return UploadUtil.getFileUrl(file, category, logService, request);
+        return UploadUtil.getFileUrl(file, category, request);
     }
 
     @Override

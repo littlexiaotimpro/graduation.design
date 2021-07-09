@@ -58,7 +58,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public ArrayList<ArticleOutputDTO> clientFindByCateTag(ArticleCateTagInputDTO articleCateTagInputDTO) {
-        Article article = articleCateTagInputDTO.convertToArticle();
+        Article article = articleCateTagInputDTO.convertToEntity();
         Iterator<Article> iterator;
         if (articleCateTagInputDTO.getEncategory().equals("recommend")) {
             iterator = articleDAO.findAllUsing().iterator();
@@ -99,7 +99,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public String controlSaveFile(MultipartFile file, String category, HttpServletRequest request) throws IOException {
-        return UploadUtil.getFileUrl(file, category, logService, request);
+        return UploadUtil.getFileUrl(file, category, request);
     }
 
     @Override

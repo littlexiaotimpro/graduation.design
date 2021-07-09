@@ -1,7 +1,5 @@
 package com.whoai.blog.utils;
 
-import com.whoai.blog.entity.LogBean;
-import com.whoai.blog.service.LogService;
 import com.aliyun.oss.OSSClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,21 +11,15 @@ import static com.whoai.blog.bean.OSSClientConstants.BACKET_NAME;
 import static com.whoai.blog.bean.OSSClientConstants.FOLDER;
 
 /**
- * @ClassName UploadUtil
- * @Description TODO
- * @Author XiaoSi
- * @Date 2019/3/1922:32
+ * 文件上传工具类
+ * TODO 去除 OSS 存储相关逻辑，上传文件至本地服务地址
  */
 @Slf4j
 public class UploadUtil {
 
-    public static String getFileUrl(MultipartFile file, String category, LogService logService, HttpServletRequest request) throws IOException {
-        /**
-         * 调用文件上传工具类，上传文件
-         */
+    public static String getFileUrl(MultipartFile file, String category, HttpServletRequest request) throws IOException {
         String operator = JWTUtil.parseCookies(request);
         boolean debug = log.isDebugEnabled();
-        LogBean logBean = new LogBean();
         //文件名
         String fileName = file.getOriginalFilename();
         log.info("上传文件");
@@ -38,8 +30,6 @@ public class UploadUtil {
                 if (debug) {
                     log.debug("管理员[{}]上传文件，文件名称为：[{}]", operator, fileName);
                 }
-                logBean.setOperation("文件上传").setOperator(operator).setContent("管理员" + operator + "上传文件失败，因为" + fileName + "文件中含有大量敏感词汇。");
-                logService.saveLog(logBean);
                 return null;
             } else {
                 OSSClient ossClient = OSSClientUtil.getOSSClient();
@@ -51,8 +41,6 @@ public class UploadUtil {
                 if (debug) {
                     log.debug("管理员[{}]上传文件，文件名称为：[{}]", operator, fileName);
                 }
-                logBean.setOperation("文件上传").setOperator(operator).setContent("管理员" + operator + "上传文件信息，文件名称为：" + fileName);
-                logService.saveLog(logBean);
                 return url;
             }
         }
