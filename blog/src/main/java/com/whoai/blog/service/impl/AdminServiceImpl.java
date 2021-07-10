@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -79,7 +79,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public ArrayList<Admin> controlFindAll() {
+    public List<Admin> controlFindAll() {
         log.info("管理端获取所有用户信息");
         return adminDAO.findAll();
     }

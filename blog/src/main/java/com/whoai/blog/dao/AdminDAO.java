@@ -1,16 +1,13 @@
 package com.whoai.blog.dao;
 
 import com.whoai.blog.entity.Admin;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/**
- * AdminDAO继承基类
- */
-@Repository
-public interface AdminDAO extends MyBatisBaseDao<Admin, String> {
+@Mapper
+public interface AdminDAO {
 
     /**
      * 管理员登录验证

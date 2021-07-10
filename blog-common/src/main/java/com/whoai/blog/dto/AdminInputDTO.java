@@ -7,10 +7,11 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class AdminInputDTO extends AbstractInputDTO<AdminInputDTO, Admin> {
+
     /**
-     * 管理员编号
+     * 主键
      */
-    private String adminid;
+    private Integer id;
 
     /**
      * 密码
