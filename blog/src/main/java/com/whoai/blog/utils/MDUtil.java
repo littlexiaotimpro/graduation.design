@@ -8,26 +8,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 /**
- * @ClassName MDUtil
- * @Description TODO
- * @Author XiaoSi
- * @Date 2019/4/617:57
+ * MarkDown 文件内容的敏感词校验
  */
 public class MDUtil {
 
     /**
      * markdown语法转化html
-     *
-     * @param fileUrl
-     * @return
-     * @throws IOException
      */
-    public static String changeMDToHtml(String fileUrl) throws IOException {
+    public static String changeMDToHtml(String fileUrl){
         try (InputStream is = new URL(fileUrl).openStream()) {
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+            BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
             StringBuilder sb = new StringBuilder();
             int cp;
             while ((cp = rd.read()) != -1) {
@@ -44,25 +37,27 @@ public class MDUtil {
 
     /**
      * 验证文章中的铭感词
-     *
-     * @param file
-     * @return
-     * @throws IOException
      */
-    public static boolean checkMarkdown(MultipartFile file) throws IOException {
+    public static boolean checkMarkdown(MultipartFile file){
         // 排除图片格式的文件
         try (InputStream is = file.getInputStream()) {
-            if ("image/jpeg".equals(OSSClientUtil.getContentType(file.getOriginalFilename()))) {
+            String filename = file.getOriginalFilename();
+            //文件的后缀名
+            assert filename != null;
+            String fileExtension = filename.substring(filename.lastIndexOf("."));
+            if (".jpeg".equalsIgnoreCase(fileExtension)
+                    || ".jpg".equalsIgnoreCase(fileExtension)
+                    || ".png".equalsIgnoreCase(fileExtension)) {
                 return false;
             }
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+            BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
             StringBuilder sb = new StringBuilder();
             int cp;
             while ((cp = rd.read()) != -1) {
                 sb.append((char) cp);
             }
             String jsonText = sb.toString();
-            return ArticleReviewUtil.isContainSensitiveWord(jsonText);
+            return SensitiveWordsValidate.isContainSensitiveWord(jsonText);
         } catch (IOException e) {
             e.printStackTrace();
         }

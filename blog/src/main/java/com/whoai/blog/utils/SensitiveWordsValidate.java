@@ -3,12 +3,13 @@ package com.whoai.blog.utils;
 import org.springframework.util.ResourceUtils;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class ArticleReviewUtil {
+public class SensitiveWordsValidate {
 
     private static Set<String> words;
 
@@ -18,8 +19,8 @@ public class ArticleReviewUtil {
 
     static {
         try {
-            ArticleReviewUtil.words = readTxtByLine();
-            initSensitiveWordsMap(ArticleReviewUtil.words);
+            SensitiveWordsValidate.words = readTxtByLine();
+            initSensitiveWordsMap(SensitiveWordsValidate.words);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -38,7 +39,7 @@ public class ArticleReviewUtil {
         BufferedReader reader = null;
         String temp;
         try {
-            reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+            reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
             while ((temp = reader.readLine()) != null) {
                 keyWordSet.add(temp);
             }

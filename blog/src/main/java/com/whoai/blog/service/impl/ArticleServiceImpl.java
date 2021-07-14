@@ -10,7 +10,6 @@ import com.whoai.blog.service.ArticleService;
 import com.whoai.blog.service.LogService;
 import com.whoai.blog.utils.JWTUtil;
 import com.whoai.blog.utils.MDUtil;
-import com.whoai.blog.utils.UploadUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,13 +46,7 @@ public class ArticleServiceImpl implements ArticleService {
     public String clientFindByEnArticle(ArticlePrimaryKeyInputDTO articlePrimaryKeyInputDTO) {
         Article article = articlePrimaryKeyInputDTO.convertToArticle();
         Article articleHtml = articleDAO.findByEnArticle(article);
-        String html = null;
-        try {
-            html = MDUtil.changeMDToHtml(articleHtml.getFileurl());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return html;
+        return MDUtil.changeMDToHtml(articleHtml.getFileurl());
     }
 
     @Override
@@ -99,7 +92,8 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public String controlSaveFile(MultipartFile file, String category, HttpServletRequest request) throws IOException {
-        return UploadUtil.getFileUrl(file, category, request);
+        // TODO
+        return null;
     }
 
     @Override

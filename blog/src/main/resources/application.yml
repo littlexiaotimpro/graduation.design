@@ -8,11 +8,11 @@ spring:
     name: Graduation Blog
 
   # 数据源相关属性 - MySQL
-#  datasource:
-#    url: jdbc:mysql://localhost:3306/whoai?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=Asia/Shanghai
-#    username: root
-#    password: 123456
-#    driver-class-name: com.mysql.cj.jdbc.Driver
+  #  datasource:
+  #    url: jdbc:mysql://localhost:3306/whoai?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=Asia/Shanghai
+  #    username: root
+  #    password: 123456
+  #    driver-class-name: com.mysql.cj.jdbc.Driver
 
   # 数据源相关属性 - H2
   h2:
@@ -28,13 +28,13 @@ spring:
     password: 123456
 
   # elasticsearch 配置
-#  data:
-#    elasticsearch:
-#      repositories:
-#        enabled: true
-#  elasticsearch:
-#    rest:
-#      uris: http://localhost:9200
+  #  data:
+  #    elasticsearch:
+  #      repositories:
+  #        enabled: true
+  #  elasticsearch:
+  #    rest:
+  #      uris: http://localhost:9200
 
   # 视图前后缀
   mvc:
@@ -42,18 +42,31 @@ spring:
       prefix: /
       suffix: .html
 
-  # 上传文件及请求大小限制
-  http:
+  # 上传文件及请求大小限制 (2.0版本之后的配置)
+  servlet:
     multipart:
-      maxFileSize: 10MB
-      maxRequestSize: 10MB
+      # 开启 multipart 上传功能
+      enabled: true
+      # 文件写入磁盘的阈值
+      file-size-threshold: 2KB
+      # 上传文件的临时路径：指向 Tomcat 服务器地址
+      # location: /upload
+      # 最大文件大小
+      max-file-size: 10MB
+      # 最大请求大小
+      max-request-size: 10MB
+
+# 指定文件上传路径
+file:
+  upload-dir: ./uploads
 
 # Mybatis 配置
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.whoai.blog.entity.*
   configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 在console打印sql语句
+    # 在console打印sql语句
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 # Swagger 属性配置
 swagger:

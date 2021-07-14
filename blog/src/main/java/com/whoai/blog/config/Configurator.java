@@ -8,10 +8,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * @ClassName Configurator
- * @Description TODO
- * @Author XiaoSi
- * @Date 2019/2/2311:59
+ * MVC 配置
  */
 @Configuration
 public class Configurator implements WebMvcConfigurer {
@@ -28,8 +25,6 @@ public class Configurator implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry resourceHandlerRegistry) {
         resourceHandlerRegistry.addResourceHandler("/**")
                 .addResourceLocations("classpath:/static/");
-        resourceHandlerRegistry.addResourceHandler("/webjars/**")
-                .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
     @Override

@@ -11,7 +11,6 @@ import com.whoai.blog.entity.LogBean;
 import com.whoai.blog.service.BookService;
 import com.whoai.blog.service.LogService;
 import com.whoai.blog.utils.JWTUtil;
-import com.whoai.blog.utils.UploadUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,7 +44,8 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public String controlSaveIMG(MultipartFile file, String category, HttpServletRequest request) throws IOException {
-        return UploadUtil.getFileUrl(file, category, request);
+        // TODO
+        return null;
     }
 
     @Override

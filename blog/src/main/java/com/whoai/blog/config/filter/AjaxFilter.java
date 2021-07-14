@@ -11,12 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * @ClassName AjaxFilter
- * @Description TODO
- * @Author XiaoSi
- * @Date 2019/4/2011:47
- */
 @Component
 public class AjaxFilter extends OncePerRequestFilter {
 
@@ -25,7 +19,7 @@ public class AjaxFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        logger.info("拦截到了" + request.getRequestURL());
+        logger.info("AjaxFilter -> " + request.getRequestURL());
         response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
         response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, If-Modified-Since");
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");

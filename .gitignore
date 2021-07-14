@@ -2,6 +2,5 @@
 /blog/target/
 /blog-swagger/target/
 /logs/
-/blog/src/main/java/com/whoai/blog/bean/OSSClientConstants.java
 /blog-common/target/
-/blog-common/src/main/java/com/whoai/blog/bean/OSSClientConstants.java
+/uploads/
