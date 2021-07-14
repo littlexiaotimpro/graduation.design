@@ -20,17 +20,19 @@ public class ErrorInterceptor implements HandlerInterceptor {
         return true;
     }
 
-    /**
-     * 请求执行并处理提交后，此时不能进行重定向设置
-     */
     @Override
     @SuppressWarnings("NullableProblems")
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         logger.info("ErrorInterceptor -> 请求处理之后进行调用，但是在视图被渲染之前（Controller方法调用之后）");
-        if (response.getStatus() == 404) {
-            // TODO 无法获取资源时自动跳转至404页面
-            response.sendRedirect("/404");
-        }
+//        if (response.getStatus() == 404) {
+//            /*
+//             * 请求执行并处理提交后，此时不能进行重定向设置
+//             * 在出现请求访问失败之后，已经执行了重定向至 /error
+//             * 此时再次执行重定向会报错
+//             * java.lang.IllegalStateException: Cannot call sendRedirect() after the response has been committed
+//             */
+//            response.sendRedirect("/404");
+//        }
     }
 
     @Override

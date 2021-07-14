@@ -41,6 +41,8 @@ spring:
     view:
       prefix: /
       suffix: .html
+    # 静态文件访问地址
+    static-path-pattern: /**
 
   # 上传文件及请求大小限制 (2.0版本之后的配置)
   servlet:
@@ -55,6 +57,15 @@ spring:
       max-file-size: 10MB
       # 最大请求大小
       max-request-size: 10MB
+
+  resources:
+    static-locations:
+      - classpath:/META-INF/resources/
+      - classpath:/resources/
+      - classpath:/static/
+      - classpath:/public/
+      # 自定义配置
+      # - file:${file.upload-dir}
 
 # 指定文件上传路径
 file:
