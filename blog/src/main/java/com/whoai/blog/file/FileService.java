@@ -1,5 +1,7 @@
 package com.whoai.blog.file;
 
+import com.whoai.blog.exception.MarkDownException;
+import com.whoai.blog.utils.MDUtil;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -38,6 +40,10 @@ public class FileService {
      * @return 文件名
      */
     public String storeFile(MultipartFile file) {
+        // Check if the file's content contains sensitive words
+        if (MDUtil.checkMarkdown(file)) {
+            throw new MarkDownException("文件中存在敏感词");
+        }
         // Normalize file name
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
 

@@ -11,6 +11,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 /**
+ * MarkDown 文件转 html
  * MarkDown 文件内容的敏感词校验
  */
 public class MDUtil {
@@ -18,9 +19,10 @@ public class MDUtil {
     /**
      * markdown语法转化html
      */
-    public static String changeMDToHtml(String fileUrl){
-        try (InputStream is = new URL(fileUrl).openStream()) {
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
+    public static String changeMDToHtml(String fileUrl) {
+        try (InputStream is = new URL(fileUrl).openStream();
+             InputStreamReader reader = new InputStreamReader(is, StandardCharsets.UTF_8);
+             BufferedReader rd = new BufferedReader(reader)) {
             StringBuilder sb = new StringBuilder();
             int cp;
             while ((cp = rd.read()) != -1) {
@@ -38,9 +40,11 @@ public class MDUtil {
     /**
      * 验证文章中的铭感词
      */
-    public static boolean checkMarkdown(MultipartFile file){
+    public static boolean checkMarkdown(MultipartFile file) {
         // 排除图片格式的文件
-        try (InputStream is = file.getInputStream()) {
+        try (InputStream is = file.getInputStream();
+             InputStreamReader in = new InputStreamReader(is, StandardCharsets.UTF_8);
+             BufferedReader rd = new BufferedReader(in)) {
             String filename = file.getOriginalFilename();
             //文件的后缀名
             assert filename != null;
@@ -50,7 +54,6 @@ public class MDUtil {
                     || ".png".equalsIgnoreCase(fileExtension)) {
                 return false;
             }
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
             StringBuilder sb = new StringBuilder();
             int cp;
             while ((cp = rd.read()) != -1) {
