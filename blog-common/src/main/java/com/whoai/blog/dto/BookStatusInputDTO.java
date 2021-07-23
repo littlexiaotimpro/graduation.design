@@ -1,60 +1,20 @@
 package com.whoai.blog.dto;
 
 import com.whoai.blog.entity.Book;
-import com.google.common.base.Converter;
 import lombok.Data;
-import org.springframework.beans.BeanUtils;
+import lombok.EqualsAndHashCode;
 
-/**
- * @ClassName BookStatusInputDTO
- * @Description TODO
- * @Author XiaoSi
- * @Date 2019/3/614:54
- */
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class BookStatusInputDTO {
+public class BookStatusInputDTO extends AbstractInputDTO<BookStatusInputDTO, Book> {
     private String enbook;
 
     private Integer status;
 
-    /**
-     * 正向转化
-     *
-     * @return
-     */
-    public Book convertToBook() {
-        BookStatusInputDTOConvert bookStatusInputDTOConvert = new BookStatusInputDTOConvert();
-        Book convert = bookStatusInputDTOConvert.convert(this);
-        return convert;
+    @Override
+    public Book convertToEntity() {
+        final DTOConvert<BookStatusInputDTO, Book> converter = converter();
+        converter.setEntity(new Book());
+        return converter.convert(this);
     }
-
-    /**
-     * 逆向转化
-     *
-     * @param book
-     * @return
-     */
-    public BookStatusInputDTO convertFor(Book book) {
-        BookStatusInputDTOConvert bookStatusInputDTOConvert = new BookStatusInputDTOConvert();
-        BookStatusInputDTO convert = bookStatusInputDTOConvert.reverse().convert(book);
-        return convert;
-    }
-
-    /**
-     * 转换类及方法
-     */
-    private static class BookStatusInputDTOConvert extends Converter<BookStatusInputDTO, Book> {
-        @Override
-        protected Book doForward(BookStatusInputDTO bookStatusInputDTO) {
-            Book book = new Book();
-            BeanUtils.copyProperties(bookStatusInputDTO, book);
-            return book;
-        }
-
-        @Override
-        protected BookStatusInputDTO doBackward(Book book) {
-            throw new AssertionError("不支持逆向转化方法");
-        }
-    }
-
 }

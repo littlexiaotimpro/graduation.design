@@ -1,18 +1,12 @@
 package com.whoai.blog.dto;
 
 import com.whoai.blog.entity.Article;
-import com.google.common.base.Converter;
 import lombok.Data;
-import org.springframework.beans.BeanUtils;
+import lombok.EqualsAndHashCode;
 
-/**
- * @ClassName ArticleInputDTO
- * @Description TODO
- * @Author XiaoSi
- * @Date 2019/3/515:32
- */
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class ArticleInputDTO {
+public class ArticleInputDTO extends AbstractInputDTO<ArticleInputDTO,Article> {
     private String enarticle;
 
     private String ennav;
@@ -35,44 +29,10 @@ public class ArticleInputDTO {
 
     private Integer status;
 
-    /**
-     * 正向转化
-     *
-     * @return
-     */
-    public Article convertToArticle() {
-        ArticleInputDTOConvert articleInputDTOConvert = new ArticleInputDTOConvert();
-        Article convert = articleInputDTOConvert.convert(this);
-        return convert;
+    @Override
+    public Article convertToEntity() {
+        final DTOConvert<ArticleInputDTO, Article> converter = converter();
+        converter.setEntity(new Article());
+        return converter.convert(this);
     }
-
-    /**
-     * 逆向转化
-     *
-     * @param article
-     * @return
-     */
-    public ArticleInputDTO convertFor(Article article) {
-        ArticleInputDTOConvert articleInputDTOConvert = new ArticleInputDTOConvert();
-        ArticleInputDTO convert = articleInputDTOConvert.reverse().convert(article);
-        return convert;
-    }
-
-    /**
-     * 转换类及方法
-     */
-    private static class ArticleInputDTOConvert extends Converter<ArticleInputDTO, Article> {
-        @Override
-        protected Article doForward(ArticleInputDTO articleInputDTO) {
-            Article article = new Article();
-            BeanUtils.copyProperties(articleInputDTO, article);
-            return article;
-        }
-
-        @Override
-        protected ArticleInputDTO doBackward(Article article) {
-            throw new AssertionError("不支持逆向转化方法");
-        }
-    }
-
 }

@@ -1,18 +1,12 @@
 package com.whoai.blog.dto;
 
 import com.whoai.blog.entity.Category;
-import com.google.common.base.Converter;
 import lombok.Data;
-import org.springframework.beans.BeanUtils;
+import lombok.EqualsAndHashCode;
 
-/**
- * @ClassName CategoryInputDTO
- * @Description TODO
- * @Author XiaoSi
- * @Date 2019/3/312:56
- */
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class CategoryInputDTO {
+public class CategoryInputDTO extends AbstractInputDTO<CategoryInputDTO, Category> {
     /**
      * 类别标识
      */
@@ -38,44 +32,11 @@ public class CategoryInputDTO {
      */
     private Integer status;
 
-    /**
-     * DTO对象转实体对象
-     *
-     * @return
-     */
-    public Category convertToCategory() {
-        CategoryInputDTOConvert categoryInputDTOConvert = new CategoryInputDTOConvert();
-        Category convert = categoryInputDTOConvert.convert(this);
-        return convert;
-    }
-
-    /**
-     * 实体对象转DTO对象
-     *
-     * @param category
-     * @return
-     */
-    public CategoryInputDTO convertFor(Category category) {
-        CategoryInputDTOConvert categoryInputDTOConvert = new CategoryInputDTOConvert();
-        CategoryInputDTO convert = categoryInputDTOConvert.reverse().convert(category);
-        return convert;
-    }
-
-    /**
-     * 对象转化类及方法
-     */
-    private static class CategoryInputDTOConvert extends Converter<CategoryInputDTO, Category> {
-        @Override
-        protected Category doForward(CategoryInputDTO categoryInputDTO) {
-            Category category = new Category();
-            BeanUtils.copyProperties(categoryInputDTO, category);
-            return category;
-        }
-
-        @Override
-        protected CategoryInputDTO doBackward(Category category) {
-            throw new AssertionError("不支持逆向转化方法");
-        }
+    @Override
+    public Category convertToEntity() {
+        final DTOConvert<CategoryInputDTO, Category> converter = converter();
+        converter.setEntity(new Category());
+        return converter.convert(this);
     }
 
 }

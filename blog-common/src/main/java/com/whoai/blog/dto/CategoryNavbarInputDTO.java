@@ -1,61 +1,21 @@
 package com.whoai.blog.dto;
 
 import com.whoai.blog.entity.Category;
-import com.google.common.base.Converter;
 import lombok.Data;
-import org.springframework.beans.BeanUtils;
+import lombok.EqualsAndHashCode;
 
-/**
- * @ClassName CategoryNavbarInputDTO
- * @Description TODO
- * @Author XiaoSi
- * @Date 2019/3/220:14
- */
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class CategoryNavbarInputDTO {
+public class CategoryNavbarInputDTO extends AbstractInputDTO<CategoryNavbarInputDTO, Category> {
     /**
      * 导航标识
      */
     private String ennav;
 
-    /**
-     * DTO对象转为实体对象
-     *
-     * @return
-     */
-    public Category convertToCategory() {
-        CategoryNavbarInputDTOConvert categoryNavbarInputDTOConvert = new CategoryNavbarInputDTOConvert();
-        Category convert = categoryNavbarInputDTOConvert.convert(this);
-        return convert;
+    @Override
+    public Category convertToEntity() {
+        final DTOConvert<CategoryNavbarInputDTO, Category> converter = converter();
+        converter.setEntity(new Category());
+        return converter.convert(this);
     }
-
-    /**
-     * 实体对象转DTO对象
-     *
-     * @param category
-     * @return
-     */
-    public CategoryNavbarInputDTO convertFor(Category category) {
-        CategoryNavbarInputDTOConvert categoryNavbarInputDTOConvert = new CategoryNavbarInputDTOConvert();
-        CategoryNavbarInputDTO convert = categoryNavbarInputDTOConvert.reverse().convert(category);
-        return convert;
-    }
-
-    /**
-     * 转换类及方法
-     */
-    private static class CategoryNavbarInputDTOConvert extends Converter<CategoryNavbarInputDTO, Category> {
-        @Override
-        protected Category doForward(CategoryNavbarInputDTO categoryNavbarInputDTO) {
-            Category category = new Category();
-            BeanUtils.copyProperties(categoryNavbarInputDTO, category);
-            return category;
-        }
-
-        @Override
-        protected CategoryNavbarInputDTO doBackward(Category category) {
-            throw new AssertionError("不支持逆向转化发方法");
-        }
-    }
-
 }
