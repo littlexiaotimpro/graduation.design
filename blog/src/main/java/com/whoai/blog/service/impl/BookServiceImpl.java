@@ -62,7 +62,7 @@ public class BookServiceImpl implements BookService {
             boolean debug = log.isDebugEnabled();
             LogBean logBean = new LogBean();
             log.info("管理员[{}]尝试新增书籍数据。", operator);
-            Book book = bookInputDTO.convertToBook();
+            Book book = bookInputDTO.convertToEntity();
             Integer result = bookDAO.saveBook(book);
             if (result == null || result == 0) {
                 log.info("管理员[{}]新增书籍数据失败", operator);
@@ -91,7 +91,7 @@ public class BookServiceImpl implements BookService {
             boolean debug = log.isDebugEnabled();
             LogBean logBean = new LogBean();
             log.info("管理员[{}]尝试修改书籍数据状态。", operator);
-            Book book = bookStatusInputDTO.convertToBook();
+            Book book = bookStatusInputDTO.convertToEntity();
             Integer result = bookDAO.deleteBook(book);
             if (result == null || result == 0) {
                 log.info("管理员[{}]修改书籍数据状态失败", operator);
@@ -124,7 +124,7 @@ public class BookServiceImpl implements BookService {
             boolean debug = log.isDebugEnabled();
             LogBean logBean = new LogBean();
             log.info("管理员[{}]尝试修改书籍数据。", operator);
-            Book book = bookInputDTO.convertToBook();
+            Book book = bookInputDTO.convertToEntity();
             Integer result = bookDAO.updateBook(book);
             if (result == null || result == 0) {
                 log.info("管理员[{}]修改书籍数据失败", operator);
@@ -145,12 +145,12 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public ArrayList<BookOutputDTO> clientFindByEnCateTag(BookCateTagInputDTO bookCateTagInputDTO) {
-        Book book = bookCateTagInputDTO.convertToBook();
+        Book book = bookCateTagInputDTO.convertToEntity();
         ArrayList<BookOutputDTO> arrayList = new ArrayList<BookOutputDTO>();
         Iterator iterator = bookDAO.findUsingByEnCateTag(book).iterator();
         while (iterator.hasNext()) {
             BookOutputDTO bookOutputDTO = new BookOutputDTO();
-            bookOutputDTO = bookOutputDTO.convertFor((Book) iterator.next());
+            bookOutputDTO = bookOutputDTO.convertToDTO((Book) iterator.next());
             arrayList.add(bookOutputDTO);
         }
         return arrayList;

@@ -35,7 +35,7 @@ public class ArticleServiceImpl implements ArticleService {
         ArrayList<ArticleOutputDTO> arrayList = new ArrayList<ArticleOutputDTO>();
         for (Article article : articleDAO.findAllUsing()) {
             ArticleOutputDTO articleOutputDTO = new ArticleOutputDTO();
-            articleOutputDTO = articleOutputDTO.convertFor(article);
+            articleOutputDTO = articleOutputDTO.convertToDTO(article);
             arrayList.add(articleOutputDTO);
         }
         return arrayList;
@@ -44,7 +44,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public String clientFindByEnArticle(ArticlePrimaryKeyInputDTO articlePrimaryKeyInputDTO) {
-        Article article = articlePrimaryKeyInputDTO.convertToArticle();
+        Article article = articlePrimaryKeyInputDTO.convertToEntity();
         Article articleHtml = articleDAO.findByEnArticle(article);
         return MDUtil.changeMDToHtml(articleHtml.getFileurl());
     }
@@ -61,7 +61,7 @@ public class ArticleServiceImpl implements ArticleService {
         ArrayList<ArticleOutputDTO> arrayList = new ArrayList<>();
         while (iterator.hasNext()) {
             ArticleOutputDTO articleOutputDTO = new ArticleOutputDTO();
-            articleOutputDTO = articleOutputDTO.convertFor(iterator.next());
+            articleOutputDTO = articleOutputDTO.convertToDTO(iterator.next());
             arrayList.add(articleOutputDTO);
         }
         return arrayList;
@@ -74,7 +74,7 @@ public class ArticleServiceImpl implements ArticleService {
         ArrayList<ArticleOutputDTO> arrayList = new ArrayList<>();
         while (iterator.hasNext()) {
             ArticleOutputDTO articleOutputDTO = new ArticleOutputDTO();
-            articleOutputDTO = articleOutputDTO.convertFor(iterator.next());
+            articleOutputDTO = articleOutputDTO.convertToDTO(iterator.next());
             arrayList.add(articleOutputDTO);
         }
         return arrayList;
@@ -106,7 +106,7 @@ public class ArticleServiceImpl implements ArticleService {
             boolean debug = log.isDebugEnabled();
             LogBean logBean = new LogBean();
             log.info("管理员[{}]尝试新增文章数据。", operator);
-            Article article = articleInputDTO.convertToArticle();
+            Article article = articleInputDTO.convertToEntity();
             Integer result = articleDAO.saveArticle(article);
             if (result == null || result == 0) {
                 log.info("管理员[{}]新增文章数据失败", operator);
@@ -135,7 +135,7 @@ public class ArticleServiceImpl implements ArticleService {
             boolean debug = log.isDebugEnabled();
             LogBean logBean = new LogBean();
             log.info("管理员[{}]尝试修改文章数据状态。", operator);
-            Article article = articleStatusInputDTO.convertToArticle();
+            Article article = articleStatusInputDTO.convertToEntity();
             Integer result = articleDAO.deleteArticle(article);
             if (result == null || result == 0) {
                 log.info("管理员[{}]修改文章数据状态失败", operator);
@@ -164,7 +164,7 @@ public class ArticleServiceImpl implements ArticleService {
             boolean debug = log.isDebugEnabled();
             LogBean logBean = new LogBean();
             log.info("管理员[{}]尝试修改文章数据。", operator);
-            Article article = articleInputDTO.convertToArticle();
+            Article article = articleInputDTO.convertToEntity();
             Integer result = articleDAO.updateArticle(article);
             if (result == null || result == 0) {
                 log.info("管理员[{}]修改文章数据失败", operator);

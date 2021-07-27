@@ -37,7 +37,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public ArrayList<CategoryOutputDTO> clientFindUsingByEnNav(CategoryNavbarInputDTO categoryNavbarInputDTO) {
-        Category category = categoryNavbarInputDTO.convertToCategory();
+        Category category = categoryNavbarInputDTO.convertToEntity();
         ArrayList<CategoryOutputDTO> arrayList = new ArrayList<CategoryOutputDTO>();
         Iterator iterator = categoryDAO.findByEnNav(category).iterator();
         while (iterator.hasNext()) {
@@ -75,7 +75,7 @@ public class CategoryServiceImpl implements CategoryService {
             boolean debug = log.isDebugEnabled();
             LogBean logBean = new LogBean();
             log.info("管理员[{}]尝试新增分类数据。", operator);
-            Category category = categoryInputDTO.convertToCategory();
+            Category category = categoryInputDTO.convertToEntity();
             Integer result = categoryDAO.saveCategory(category);
             if (result == null || result == 0) {
                 log.info("管理员[{}]新增分类数据失败", operator);
@@ -133,7 +133,7 @@ public class CategoryServiceImpl implements CategoryService {
             boolean debug = log.isDebugEnabled();
             LogBean logBean = new LogBean();
             log.info("管理员[{}]尝试修改分类状态数据。", operator);
-            Category category = categoryInputDTO.convertToCategory();
+            Category category = categoryInputDTO.convertToEntity();
             Integer result = categoryDAO.updateCategory(category);
             if (result == null || result == 0) {
                 log.info("管理员[{}]修改分类数据失败", operator);
