@@ -46,7 +46,7 @@ public class ArticleServiceImpl implements ArticleService {
     public String clientFindByEnArticle(ArticlePrimaryKeyInputDTO articlePrimaryKeyInputDTO) {
         Article article = articlePrimaryKeyInputDTO.convertToEntity();
         Article articleHtml = articleDAO.findByEnArticle(article);
-        return MDUtil.changeMDToHtml(articleHtml.getFileurl());
+        return MDUtil.changeMDToHtml(articleHtml.getFileUrl());
     }
 
     @Override

@@ -26,6 +26,14 @@ spring:
     url: jdbc:h2:mem:whoai
     username: root
     password: 123456
+  # 仅用于自动建表
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      # 自动建表
+      ddl-auto: update
 
   # elasticsearch 配置
   #  data:

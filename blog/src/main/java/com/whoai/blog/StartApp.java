@@ -5,12 +5,6 @@ import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-/**
- * @ClassName StartApp
- * @Description TODO
- * @Author XiaoSi
- * @Date 2019/2/1314:19
- */
 @SpringBootApplication
 @MapperScan("com.whoai.blog.dao")
 public class StartApp {
