@@ -72,8 +72,8 @@ spring:
       - classpath:/resources/
       - classpath:/static/
       - classpath:/public/
-      # 自定义配置
-      # - file:${file.upload-dir}
+      # 自定义配置，访问上传的文件
+      - file:${file.upload-dir}/
 
 # 指定文件上传路径
 file:
