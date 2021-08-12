@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @className ArticleController
@@ -37,13 +37,13 @@ public class ArticleController {
      */
     @PostMapping(value = "control")
     @ApiOperation(value = "管理端输出")
-    public ArrayList<Article> articles() {
+    public List<Article> articles() {
         return articleService.controlFindAll();
     }
 
     @PostMapping(value = "using")
     @ApiOperation(value = "管理端获取启用文章")
-    public ArrayList<ArticleControlOutputDTO> articleUsing() {
+    public List<ArticleControlOutputDTO> articleUsing() {
         return articleService.controlFindUsing();
     }
 
@@ -79,7 +79,7 @@ public class ArticleController {
      */
     @PostMapping(value = "client")
     @ApiOperation(value = "客户端输出")
-    public ArrayList<ArticleOutputDTO> articleOutputDTOS() {
+    public List<ArticleOutputDTO> articleOutputDTOS() {
         return articleService.clientFindAll();
     }
 
@@ -91,13 +91,13 @@ public class ArticleController {
 
     @PostMapping(value = "cate_tag")
     @ApiOperation(value = "客户端根据分类标签输出")
-    public ArrayList<ArticleOutputDTO> articleOutputByCateTag(@RequestBody ArticleCateTagInputDTO articleCateTagInputDTO) {
+    public List<ArticleOutputDTO> articleOutputByCateTag(@RequestBody ArticleCateTagInputDTO articleCateTagInputDTO) {
         return articleService.clientFindByCateTag(articleCateTagInputDTO);
     }
 
     @PostMapping(value = "record")
     @ApiOperation(value = "客户端根据全局搜索输出")
-    public ArrayList<ArticleOutputDTO> articleOutputByRecord(@RequestBody RecordInputDTO recordInputDTO) {
+    public List<ArticleOutputDTO> articleOutputByRecord(@RequestBody RecordInputDTO recordInputDTO) {
         return articleService.clientFindByRecord(recordInputDTO);
     }
 

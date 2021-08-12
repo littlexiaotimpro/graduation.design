@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @ClassName ArticleService
@@ -21,7 +21,7 @@ public interface ArticleService {
      *
      * @return
      */
-    ArrayList<ArticleOutputDTO> clientFindAll();
+    List<ArticleOutputDTO> clientFindAll();
 
     /**
      * 客户端通过主键查询文章
@@ -38,7 +38,7 @@ public interface ArticleService {
      * @param articleCateTagInputDTO
      * @return
      */
-    ArrayList<ArticleOutputDTO> clientFindByCateTag(ArticleCateTagInputDTO articleCateTagInputDTO);
+    List<ArticleOutputDTO> clientFindByCateTag(ArticleCateTagInputDTO articleCateTagInputDTO);
 
     /**
      * 客户端通过全局搜索查询文章
@@ -46,21 +46,21 @@ public interface ArticleService {
      * @param recordInputDTO
      * @return
      */
-    ArrayList<ArticleOutputDTO> clientFindByRecord(RecordInputDTO recordInputDTO);
+    List<ArticleOutputDTO> clientFindByRecord(RecordInputDTO recordInputDTO);
 
     /**
      * 管理端查询所有文章
      *
      * @return
      */
-    ArrayList<Article> controlFindAll();
+    List<Article> controlFindAll();
 
     /**
      * 管理端获取启用文章
      *
      * @return
      */
-    ArrayList<ArticleControlOutputDTO> controlFindUsing();
+    List<ArticleControlOutputDTO> controlFindUsing();
 
     /**
      * 上传文件

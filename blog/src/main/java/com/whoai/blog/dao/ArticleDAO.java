@@ -6,7 +6,7 @@ import com.whoai.blog.entity.Record;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * ArticleDAO继承基类
@@ -19,14 +19,14 @@ public interface ArticleDAO extends MyBatisBaseDao<Article, String> {
      *
      * @return
      */
-    ArrayList<Article> findAll();
+    List<Article> findAll();
 
     /**
      * 管理端获取启用的文章信息
      *
      * @return
      */
-    ArrayList<ArticleControlOutputDTO> findUsing();
+    List<ArticleControlOutputDTO> findUsing();
 
     /**
      * 新增文章
@@ -57,7 +57,7 @@ public interface ArticleDAO extends MyBatisBaseDao<Article, String> {
      *
      * @return
      */
-    ArrayList<Article> findAllUsing();
+    List<Article> findAllUsing();
 
     /**
      * 通过主键查询文章
@@ -73,7 +73,7 @@ public interface ArticleDAO extends MyBatisBaseDao<Article, String> {
      * @param article
      * @return
      */
-    ArrayList<Article> findUsingByEnCategory(@Param("article") Article article);
+    List<Article> findUsingByEnCategory(@Param("article") Article article);
 
     /**
      * 通过分类，标签查询其下的所有文章
@@ -81,7 +81,7 @@ public interface ArticleDAO extends MyBatisBaseDao<Article, String> {
      * @param article
      * @return
      */
-    ArrayList<Article> findUsingByEnCategoryEnTags(@Param("article") Article article);
+    List<Article> findUsingByEnCategoryEnTags(@Param("article") Article article);
 
     /**
      * 通过全局搜索，检索分类，标签，标题，简介等进行模糊查询
@@ -89,6 +89,6 @@ public interface ArticleDAO extends MyBatisBaseDao<Article, String> {
      * @param record
      * @return
      */
-    ArrayList<Article> findUsingByRecord(@Param("record") Record record);
+    List<Article> findUsingByRecord(@Param("record") Record record);
 
 }

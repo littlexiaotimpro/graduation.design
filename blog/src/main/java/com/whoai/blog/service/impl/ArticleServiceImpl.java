@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -28,8 +29,8 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ArrayList<ArticleOutputDTO> clientFindAll() {
-        ArrayList<ArticleOutputDTO> arrayList = new ArrayList<ArticleOutputDTO>();
+    public List<ArticleOutputDTO> clientFindAll() {
+        List<ArticleOutputDTO> arrayList = new ArrayList<ArticleOutputDTO>();
         for (Article article : articleDAO.findAllUsing()) {
             ArticleOutputDTO articleOutputDTO = new ArticleOutputDTO();
             articleOutputDTO = articleOutputDTO.convertToDTO(article);
@@ -47,7 +48,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ArrayList<ArticleOutputDTO> clientFindByCateTag(ArticleCateTagInputDTO articleCateTagInputDTO) {
+    public List<ArticleOutputDTO> clientFindByCateTag(ArticleCateTagInputDTO articleCateTagInputDTO) {
         Article article = articleCateTagInputDTO.convertToEntity();
         Iterator<Article> iterator;
         if (articleCateTagInputDTO.getEncategory().equals("recommend")) {
@@ -55,7 +56,7 @@ public class ArticleServiceImpl implements ArticleService {
         } else {
             iterator = articleDAO.findUsingByEnCategoryEnTags(article).iterator();
         }
-        ArrayList<ArticleOutputDTO> arrayList = new ArrayList<>();
+        List<ArticleOutputDTO> arrayList = new ArrayList<>();
         while (iterator.hasNext()) {
             ArticleOutputDTO articleOutputDTO = new ArticleOutputDTO();
             articleOutputDTO = articleOutputDTO.convertToDTO(iterator.next());
@@ -65,10 +66,10 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ArrayList<ArticleOutputDTO> clientFindByRecord(RecordInputDTO recordInputDTO) {
+    public List<ArticleOutputDTO> clientFindByRecord(RecordInputDTO recordInputDTO) {
         Record record = recordInputDTO.convertToRecord();
         Iterator<Article> iterator = articleDAO.findUsingByRecord(record).iterator();
-        ArrayList<ArticleOutputDTO> arrayList = new ArrayList<>();
+        List<ArticleOutputDTO> arrayList = new ArrayList<>();
         while (iterator.hasNext()) {
             ArticleOutputDTO articleOutputDTO = new ArticleOutputDTO();
             articleOutputDTO = articleOutputDTO.convertToDTO(iterator.next());
@@ -78,12 +79,12 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ArrayList<Article> controlFindAll() {
+    public List<Article> controlFindAll() {
         return articleDAO.findAll();
     }
 
     @Override
-    public ArrayList<ArticleControlOutputDTO> controlFindUsing() {
+    public List<ArticleControlOutputDTO> controlFindUsing() {
         return articleDAO.findUsing();
     }
 
