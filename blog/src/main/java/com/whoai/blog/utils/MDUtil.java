@@ -45,13 +45,10 @@ public class MDUtil {
         try (InputStream is = file.getInputStream();
              InputStreamReader in = new InputStreamReader(is, StandardCharsets.UTF_8);
              BufferedReader rd = new BufferedReader(in)) {
-            String filename = file.getOriginalFilename();
-            //文件的后缀名
-            assert filename != null;
-            String fileExtension = filename.substring(filename.lastIndexOf("."));
-            if (".jpeg".equalsIgnoreCase(fileExtension)
-                    || ".jpg".equalsIgnoreCase(fileExtension)
-                    || ".png".equalsIgnoreCase(fileExtension)) {
+            // 文件类型
+            final String contentType = file.getContentType();
+            assert contentType != null;
+            if (!contentType.startsWith("text")) {
                 return false;
             }
             StringBuilder sb = new StringBuilder();

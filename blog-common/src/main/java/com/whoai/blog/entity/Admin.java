@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * tb_admin
+ * 用户: tb_admin
  *
  * @author
  */

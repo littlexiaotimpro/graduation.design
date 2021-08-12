@@ -2,35 +2,50 @@ package com.whoai.blog.entity;
 
 import lombok.Data;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
 /**
- * tb_record
+ * 搜索记录: tb_record
  *
  * @author
  */
 @Data
+@Entity
+@Table(name = "tb_record")
 public class Record implements Serializable {
     private static final long serialVersionUID = -9066330380051214456L;
     /**
-     * 编号
+     * 编号，主键标识
      */
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Integer id;
 
     /**
-     * 关键字
+     * 搜索关键字
      */
+    @Column(name = "keyword")
     private String keyword;
 
     /**
-     * 搜索次数
+     * 搜索频率
      */
+    @Column(name = "frequency")
     private Integer frequency;
 
     /**
-     * 搜索时间
+     * 创建时间
      */
-    private Date searchtime;
+    @Column(name = "create_time")
+    private Date createTime;
+
+    /**
+     * 更新时间
+     */
+    @Column(name = "update_time")
+    private Date updateTime;
 
 }

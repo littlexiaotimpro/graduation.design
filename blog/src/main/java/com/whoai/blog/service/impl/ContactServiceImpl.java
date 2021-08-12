@@ -6,32 +6,23 @@ import com.whoai.blog.dto.ContactInputDTO;
 import com.whoai.blog.dto.ContactOutputDTO;
 import com.whoai.blog.dto.ContactStatusInputDTO;
 import com.whoai.blog.entity.Contact;
-import com.whoai.blog.entity.LogBean;
 import com.whoai.blog.service.ContactService;
-import com.whoai.blog.service.LogService;
 import com.whoai.blog.utils.JWTUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
-/**
- * @ClassName ContactServiceImp
- * @Description TODO
- * @Author XiaoSi
- * @Date 2019/4/2816:52
- */
 @Service
 @Slf4j
 public class ContactServiceImpl implements ContactService {
 
-    @Autowired
-    private ContactDAO contactDAO;
+    private final ContactDAO contactDAO;
 
-    @Autowired
-    private LogService logService;
+    public ContactServiceImpl(ContactDAO contactDAO) {
+        this.contactDAO = contactDAO;
+    }
 
     @Override
     public ArrayList<Contact> controlFindAll() {
@@ -64,23 +55,19 @@ public class ContactServiceImpl implements ContactService {
             message.setCode(0).setMsg("管理员未登录或登录过期");
         } else {
             boolean debug = log.isDebugEnabled();
-            LogBean logBean = new LogBean();
             log.info("管理员[{}]尝试修改建议数据状态。", operator);
             Contact contact = contactStatusInputDTO.convertToContact();
             Integer result = contactDAO.deleteContact(contact);
             if (result == null || result == 0) {
                 log.info("管理员[{}]修改建议数据状态失败", operator);
-                logBean.setOperation("删除").setOperator(operator).setContent("管理员" + operator + "修改建议数据状态失败");
                 message.setCode(-1).setMsg("操作失败!");
             } else {
                 if (debug) {
                     log.debug("管理员[{}]修改建议数据状态成功，修改的建议数据为：enMedia=[{}], status=[{}]", operator, contactStatusInputDTO.getId(), contactStatusInputDTO.getStatus());
                 }
                 log.info("管理员[{}]修改建议数据状态成功，修改的建议数据为：enMedia=[{}], status=[{}]，影响结果数：[{}]", operator, contactStatusInputDTO.getId(), contactStatusInputDTO.getStatus(), result);
-                logBean.setOperation("删除").setOperator(operator).setContent("管理员" + operator + "修改建议数据状态成功，修改的建议数据为：" + contactStatusInputDTO);
                 message.setCode(1).setMsg("操作成功!");
             }
-            logService.saveLog(logBean);
         }
         return message;
     }

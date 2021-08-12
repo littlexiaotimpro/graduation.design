@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * tb_article
+ * 文本内容: tb_article
  *
  * @author
  */
