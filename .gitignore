@@ -1,6 +1,10 @@
+.idea/
 /target/
 /blog/target/
+/blog/blog.iml
 /blog-swagger/target/
+/blog-swagger/blog-swagger.iml
 /logs/
 /blog-common/target/
+/blog-common/blog-common.iml
 /uploads/
