@@ -31,7 +31,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<ArticleOutputDTO> clientFindAll() {
         List<ArticleOutputDTO> arrayList = new ArrayList<ArticleOutputDTO>();
-        for (Article article : articleDAO.findAllUsing()) {
+        for (Article article : articleDAO.findUsing()) {
             ArticleOutputDTO articleOutputDTO = new ArticleOutputDTO();
             articleOutputDTO = articleOutputDTO.convertToDTO(article);
             arrayList.add(articleOutputDTO);
@@ -52,7 +52,7 @@ public class ArticleServiceImpl implements ArticleService {
         Article article = articleCateTagInputDTO.convertToEntity();
         Iterator<Article> iterator;
         if (articleCateTagInputDTO.getEncategory().equals("recommend")) {
-            iterator = articleDAO.findAllUsing().iterator();
+            iterator = articleDAO.findUsing().iterator();
         } else {
             iterator = articleDAO.findUsingByEnCategoryEnTags(article).iterator();
         }
@@ -84,7 +84,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<ArticleControlOutputDTO> controlFindUsing() {
+    public List<Article> controlFindUsing() {
         return articleDAO.findUsing();
     }
 

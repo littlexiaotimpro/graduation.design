@@ -60,7 +60,7 @@ public interface ArticleService {
      *
      * @return
      */
-    List<ArticleControlOutputDTO> controlFindUsing();
+    List<Article> controlFindUsing();
 
     /**
      * 上传文件

@@ -43,7 +43,7 @@ public class ArticleController {
 
     @PostMapping(value = "using")
     @ApiOperation(value = "管理端获取启用文章")
-    public List<ArticleControlOutputDTO> articleUsing() {
+    public List<Article> articleUsing() {
         return articleService.controlFindUsing();
     }
 

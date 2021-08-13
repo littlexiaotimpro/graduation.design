@@ -54,7 +54,7 @@ public class Article implements Serializable {
      * 上传者
      */
     @Column(name = "admin_id")
-    private String adminID;
+    private String adminId;
 
     /**
      * 文章标题
