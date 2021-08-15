@@ -17,20 +17,22 @@ import java.util.List;
  */
 public interface ArticleService {
     /**
-     * 客户端查询推荐的所有文章
-     *
-     * @return
+     * 查询所有文章
      */
-    List<ArticleOutputDTO> clientFindAll();
+    List<Article> findAll();
+
+    /**
+     * 查询所有启用文章
+     */
+    List<ArticleOutputDTO> findUsing();
 
     /**
      * 客户端通过主键查询文章
      * 解析md文件地址，展示文章内容
      *
-     * @param articlePrimaryKeyInputDTO
-     * @return
+     * @param articlePrimaryKeyInputDTO 文章英文标识
      */
-    String clientFindByEnArticle(ArticlePrimaryKeyInputDTO articlePrimaryKeyInputDTO);
+    String markdownToHtml(ArticlePrimaryKeyInputDTO articlePrimaryKeyInputDTO);
 
     /**
      * 客户端通过分类，标签查询文章
@@ -47,13 +49,6 @@ public interface ArticleService {
      * @return
      */
     List<ArticleOutputDTO> clientFindByRecord(RecordInputDTO recordInputDTO);
-
-    /**
-     * 管理端查询所有文章
-     *
-     * @return
-     */
-    List<Article> controlFindAll();
 
     /**
      * 管理端获取启用文章

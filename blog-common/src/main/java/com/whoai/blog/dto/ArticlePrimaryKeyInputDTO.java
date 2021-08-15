@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class ArticlePrimaryKeyInputDTO extends AbstractInputDTO<ArticlePrimaryKeyInputDTO,Article> {
-    private String enarticle;
+    private String enArticle;
 
     @Override
     public Article convertToEntity() {

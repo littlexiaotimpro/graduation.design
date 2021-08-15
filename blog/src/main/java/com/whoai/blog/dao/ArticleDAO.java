@@ -39,7 +39,7 @@ public interface ArticleDAO {
     List<Article> findUsing();
 
     /**
-     * 通过主键查询文章
+     * 通过标识查询文章
      */
     Article findByEnArticle(@Param("enArticle") String enArticle);
 
@@ -50,12 +50,13 @@ public interface ArticleDAO {
 
     /**
      * 通过分类，标签查询其下的所有文章
+     * PS: 由于文本存在多标签的性质（逗号分隔），因此查询时SQL需要做出相应优化
      */
-    List<Article> findByEnCategoryEnTags(@Param("article") Article article);
+    List<Article> findByEnCategoryEnTag(@Param("enCategory") String enCategory, @Param("enTag") String enTag);
 
     /**
      * 通过全局搜索，检索分类，标签，标题，简介等进行模糊查询
      */
-    List<Article> findByRecord(@Param("record") Record record);
+    List<Article> findByKeyword(@Param("keyword") String keyword);
 
 }
