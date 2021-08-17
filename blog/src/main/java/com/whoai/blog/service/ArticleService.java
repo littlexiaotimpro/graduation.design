@@ -16,82 +16,82 @@ import java.util.List;
  * @Date 2019/3/515:50
  */
 public interface ArticleService {
-    /**
-     * 查询所有文章
-     */
-    List<Article> findAll();
-
-    /**
-     * 查询所有启用文章
-     */
-    List<ArticleOutputDTO> findUsing();
-
-    /**
-     * 客户端通过主键查询文章
-     * 解析md文件地址，展示文章内容
-     *
-     * @param articlePrimaryKeyInputDTO 文章英文标识
-     */
-    String markdownToHtml(ArticlePrimaryKeyInputDTO articlePrimaryKeyInputDTO);
-
-    /**
-     * 客户端通过分类，标签查询文章
-     *
-     * @param articleCateTagInputDTO
-     * @return
-     */
-    List<ArticleOutputDTO> clientFindByCateTag(ArticleCateTagInputDTO articleCateTagInputDTO);
-
-    /**
-     * 客户端通过全局搜索查询文章
-     *
-     * @param recordInputDTO
-     * @return
-     */
-    List<ArticleOutputDTO> clientFindByRecord(RecordInputDTO recordInputDTO);
-
-    /**
-     * 管理端获取启用文章
-     *
-     * @return
-     */
-    List<Article> controlFindUsing();
-
-    /**
-     * 上传文件
-     *
-     * @param file
-     * @param category
-     * @param request
-     * @return
-     */
-    String controlSaveFile(MultipartFile file, String category, HttpServletRequest request) throws IOException;
-
-    /**
-     * 新增文章
-     *
-     * @param articleInputDTO
-     * @param request
-     * @return
-     */
-    Message controlSaveArticle(ArticleInputDTO articleInputDTO, HttpServletRequest request);
-
-    /**
-     * 启用，禁用文章
-     *
-     * @param articleStatusInputDTO
-     * @param request
-     * @return
-     */
-    Message controlDeleteArticle(ArticleStatusInputDTO articleStatusInputDTO, HttpServletRequest request);
-
-    /**
-     * 编辑文章信息
-     *
-     * @param articleInputDTO
-     * @param request
-     * @return
-     */
-    Message controlUpdateArticle(ArticleInputDTO articleInputDTO, HttpServletRequest request);
+//    /**
+//     * 查询所有文章
+//     */
+//    List<Article> findAll();
+//
+//    /**
+//     * 查询所有启用文章
+//     */
+//    List<ArticleOutputDTO> findUsing();
+//
+//    /**
+//     * 客户端通过主键查询文章
+//     * 解析md文件地址，展示文章内容
+//     *
+//     * @param articlePrimaryKeyInputDTO 文章英文标识
+//     */
+//    String markdownToHtml(ArticlePrimaryKeyInputDTO articlePrimaryKeyInputDTO);
+//
+//    /**
+//     * 客户端通过分类，标签查询文章
+//     *
+//     * @param articleCateTagInputDTO
+//     * @return
+//     */
+//    List<ArticleOutputDTO> clientFindByCateTag(ArticleCateTagInputDTO articleCateTagInputDTO);
+//
+//    /**
+//     * 客户端通过全局搜索查询文章
+//     *
+//     * @param recordInputDTO
+//     * @return
+//     */
+//    List<ArticleOutputDTO> clientFindByRecord(RecordInputDTO recordInputDTO);
+//
+//    /**
+//     * 管理端获取启用文章
+//     *
+//     * @return
+//     */
+//    List<Article> controlFindUsing();
+//
+//    /**
+//     * 上传文件
+//     *
+//     * @param file
+//     * @param category
+//     * @param request
+//     * @return
+//     */
+//    String controlSaveFile(MultipartFile file, String category, HttpServletRequest request) throws IOException;
+//
+//    /**
+//     * 新增文章
+//     *
+//     * @param articleInputDTO
+//     * @param request
+//     * @return
+//     */
+//    Message controlSaveArticle(ArticleInputDTO articleInputDTO, HttpServletRequest request);
+//
+//    /**
+//     * 启用，禁用文章
+//     *
+//     * @param articleStatusInputDTO
+//     * @param request
+//     * @return
+//     */
+//    Message controlDeleteArticle(ArticleStatusInputDTO articleStatusInputDTO, HttpServletRequest request);
+//
+//    /**
+//     * 编辑文章信息
+//     *
+//     * @param articleInputDTO
+//     * @param request
+//     * @return
+//     */
+//    Message controlUpdateArticle(ArticleInputDTO articleInputDTO, HttpServletRequest request);
 
 }

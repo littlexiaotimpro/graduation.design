@@ -49,26 +49,26 @@ public class RecordServiceImpl implements RecordService {
     @Override
     public ArrayList autoComplete(RecordInputDTO recordInputDTO) {
         ArrayList arrayList = new ArrayList();
-        Record record = recordInputDTO.convertToRecord();
-        Iterator iterator = recordDAO.autoCompleteFind().iterator();
-        Map hashMap = new HashMap();
-        int count = articleDAO.findUsingByRecord(record).size();
-        hashMap.put("keyword", recordInputDTO.getKeyword());
-        hashMap.put("count", count);
-        arrayList.add(hashMap);
-        while (iterator.hasNext()) {
-            Map map = (HashMap) iterator.next();
-            String key = map.get("keyword").toString();
-            Record r = new Record();
-            r.setKeyword(key);
-            if (key.indexOf(recordInputDTO.getKeyword()) < 0 || key.equals(recordInputDTO.getKeyword())) {
-                continue;
-            } else {
-                count = articleDAO.findUsingByRecord(r).size();
-                map.put("count", count);
-                arrayList.add(map);
-            }
-        }
+//        Record record = recordInputDTO.convertToRecord();
+//        Iterator iterator = recordDAO.autoCompleteFind().iterator();
+//        Map hashMap = new HashMap();
+//        int count = articleDAO.findUsingByRecord(record).size();
+//        hashMap.put("keyword", recordInputDTO.getKeyword());
+//        hashMap.put("count", count);
+//        arrayList.add(hashMap);
+//        while (iterator.hasNext()) {
+//            Map map = (HashMap) iterator.next();
+//            String key = map.get("keyword").toString();
+//            Record r = new Record();
+//            r.setKeyword(key);
+//            if (key.indexOf(recordInputDTO.getKeyword()) < 0 || key.equals(recordInputDTO.getKeyword())) {
+//                continue;
+//            } else {
+//                count = articleDAO.findUsingByRecord(r).size();
+//                map.put("count", count);
+//                arrayList.add(map);
+//            }
+//        }
         return arrayList;
     }
 }

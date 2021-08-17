@@ -1,7 +1,6 @@
 package com.whoai.blog.dao;
 
 import com.whoai.blog.entity.Article;
-import com.whoai.blog.entity.Record;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

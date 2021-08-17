@@ -45,6 +45,7 @@
         </dependency>
 
         <!--返回html的maven依赖-->
+        <!--引入此模板包后，模板文件需要放在classpath:/templates文件夹下-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
