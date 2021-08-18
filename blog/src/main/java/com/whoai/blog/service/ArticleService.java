@@ -5,7 +5,6 @@ import com.whoai.blog.entity.Article;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -21,7 +20,7 @@ public interface ArticleService {
     /**
      * 查询所有文章
      */
-    List<Article> findAll();
+    List<Article> findAll(HttpServletRequest request);
 
     /**
      * 查询所有启用文章
@@ -57,7 +56,7 @@ public interface ArticleService {
      * @param file    文件
      * @param request 请求
      */
-    String uploadFile(MultipartFile file, HttpServletRequest request) throws IOException;
+    String uploadFile(MultipartFile file, HttpServletRequest request);
 
     /**
      * 新增文章

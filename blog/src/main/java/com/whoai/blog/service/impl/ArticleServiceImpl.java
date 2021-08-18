@@ -14,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -33,7 +32,11 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<Article> findAll() {
+    public List<Article> findAll(HttpServletRequest request) {
+        final String operator = JWTUtil.parseCookies(request);
+        if (Objects.isNull(operator)) {
+            throw new ResourcesNotFoundException("用户未登录，无法操作");
+        }
         return articleDAO.findAll();
     }
 
@@ -73,7 +76,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public String uploadFile(MultipartFile file, HttpServletRequest request) throws IOException {
+    public String uploadFile(MultipartFile file, HttpServletRequest request){
         final String operator = JWTUtil.parseCookies(request);
         if (Objects.isNull(operator)) {
             throw new ResourcesNotFoundException("用户未登录，无法操作");
