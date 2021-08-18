@@ -9,11 +9,11 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class ArticleOutputDTO extends AbstractOutputDTO<ArticleOutputDTO, Article> {
-    private String enarticle;
+    private String enArticle;
 
-    private String encategory;
+    private String enCategory;
 
-    private String entag;
+    private String enTag;
 
     private String title;
 
@@ -24,11 +24,11 @@ public class ArticleOutputDTO extends AbstractOutputDTO<ArticleOutputDTO, Articl
     /**
      * 文件路径
      */
-    private String fileurl;
+    private String fileUrl;
 
-    private Integer readnum;
+    private Integer readNum;
 
-    private Date createtime;
+    private Date createTime;
 
     @Override
     public ArticleOutputDTO convertToDTO(Article article) {

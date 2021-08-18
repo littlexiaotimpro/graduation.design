@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class ArticleStatusInputDTO extends AbstractInputDTO<ArticleStatusInputDTO,Article> {
-    private String enarticle;
+    private String enArticle;
 
     private Integer status;
 

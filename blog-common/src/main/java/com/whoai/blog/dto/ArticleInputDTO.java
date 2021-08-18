@@ -7,15 +7,15 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class ArticleInputDTO extends AbstractInputDTO<ArticleInputDTO,Article> {
-    private String enarticle;
+    private String enArticle;
 
-    private String ennav;
+    private String enNav;
 
-    private String encategory;
+    private String enCategory;
 
-    private String entag;
+    private String enTag;
 
-    private String adminid;
+    private String adminId;
 
     private String title;
 
@@ -23,9 +23,9 @@ public class ArticleInputDTO extends AbstractInputDTO<ArticleInputDTO,Article> {
 
     private String summary;
 
-    private String fileurl;
+    private String fileUrl;
 
-    private Integer readnum;
+    private Integer readNum;
 
     private Integer status;
 

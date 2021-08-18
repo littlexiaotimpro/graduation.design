@@ -36,14 +36,15 @@ public class RecordServiceImpl implements RecordService {
 
     @Override
     public Message saveReocrd(RecordInputDTO recordInputDTO) {
-        Record record = recordInputDTO.convertToRecord();
-        Integer result = recordDAO.saveRecord(record);
-        Message message = new Message();
-        if (result == null || result == 0) {
-            return message.setCode(-1).setMsg("添加失败!");
-        } else {
-            return message.setCode(1).setMsg("添加成功!");
-        }
+//        Record record = recordInputDTO.convertToRecord();
+//        Integer result = recordDAO.saveRecord(record);
+//        Message message = new Message();
+//        if (result == null || result == 0) {
+//            return message.setCode(-1).setMsg("添加失败!");
+//        } else {
+//            return message.setCode(1).setMsg("添加成功!");
+//        }
+        return null;
     }
 
     @Override

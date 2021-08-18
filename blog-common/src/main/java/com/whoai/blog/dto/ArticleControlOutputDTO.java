@@ -9,9 +9,9 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class ArticleControlOutputDTO extends AbstractOutputDTO<ArticleControlOutputDTO, Article> {
-    private String enarticle;
+    private String enArticle;
 
-    private String encategory;
+    private String enCategory;
 
     private String title;
 
@@ -19,7 +19,7 @@ public class ArticleControlOutputDTO extends AbstractOutputDTO<ArticleControlOut
 
     private String summary;
 
-    private Date createtime;
+    private Date createTime;
 
 
     @Override
