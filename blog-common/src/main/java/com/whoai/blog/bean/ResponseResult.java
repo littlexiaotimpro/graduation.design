@@ -25,9 +25,19 @@ public class ResponseResult<T> implements Serializable {
                 ResponseCode.SUCCESS.getState(), message, body);
     }
 
+    public static <K> ResponseResult<K> success(int state, K body, String message) {
+        return new ResponseResult<>(ResponseCode.SUCCESS,
+                state, message, body);
+    }
+
     public static <K> ResponseResult<K> fail(String message) {
         return new ResponseResult<>(ResponseCode.FAIL,
                 ResponseCode.FAIL.getState(), message, null);
+    }
+
+    public static <K> ResponseResult<K> fail(int state, String message) {
+        return new ResponseResult<>(ResponseCode.FAIL,
+                state, message, null);
     }
 
     public enum ResponseCode {

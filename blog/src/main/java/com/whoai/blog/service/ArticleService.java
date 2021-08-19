@@ -28,7 +28,7 @@ public interface ArticleService {
     List<ArticleOutputDTO> findUsing();
 
     /**
-     * 客户端通过主键查询文章
+     * 通过标识查询生效文章
      * 解析md文件地址，展示文章内容
      *
      * @param primaryKeyInputDTO 文章英文标识

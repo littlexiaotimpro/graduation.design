@@ -20,7 +20,7 @@ public class Record implements Serializable {
      * 编号，主键标识
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 

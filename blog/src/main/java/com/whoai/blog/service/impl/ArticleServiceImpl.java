@@ -83,7 +83,7 @@ public class ArticleServiceImpl implements ArticleService {
         }
         final String fileName = fileService.storeFile(file);
         final String fileUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/uploads/")
+                .path("/")
                 .path(fileName)
                 .toUriString();
         // 返回文件的可访问地址(非下载地址)
