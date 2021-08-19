@@ -83,6 +83,11 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
         </dependency>
+        <!-- 从父项目引入包，默认使用父版本同级包 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+        </dependency>
         <!--
             https://mvnrepository.com/artifact/org.pegdown/pegdown
             引入md文件的解析Java库

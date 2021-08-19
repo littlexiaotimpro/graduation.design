@@ -10,6 +10,7 @@ import com.whoai.blog.service.AdminService;
 import com.whoai.blog.utils.JWTUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +28,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Integer checkLogin(AbstractDTO<AdminDTO, Admin> dto, HttpServletResponse response) {
         boolean debug = log.isDebugEnabled();
         Admin admin = dto.convertToEntity();
@@ -59,7 +61,7 @@ public class AdminServiceImpl implements AdminService {
     public boolean checkLogout(HttpServletRequest request, HttpServletResponse response) {
         String operator = JWTUtil.parseCookies(request);
         if (operator == null) {
-           throw new ResourcesNotFoundException("用户未登录，无法操作");
+            throw new ResourcesNotFoundException("用户未登录，无法操作");
         } else {
             log.info("管理员[{}]注销登录。", operator);
             Cookie cookie = new Cookie("access_token", null);
@@ -72,6 +74,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Admin> controlFindAll() {
         log.info("管理端获取所有用户信息");
         return adminDAO.findAll();
@@ -81,6 +84,7 @@ public class AdminServiceImpl implements AdminService {
      * 修改数据的过程中实现加密
      */
     @Override
+    @Transactional
     public Integer controlUpdateAdmin(AbstractDTO<AdminInputDTO, Admin> dto, HttpServletRequest request) {
         String operator = JWTUtil.parseCookies(request);
         if (operator == null) {

@@ -10,6 +10,7 @@ import com.whoai.blog.utils.JWTUtil;
 import com.whoai.blog.utils.MDUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -32,6 +33,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Article> findAll(HttpServletRequest request) {
         final String operator = JWTUtil.parseCookies(request);
         if (Objects.isNull(operator)) {
@@ -41,12 +43,14 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<ArticleOutputDTO> findUsing() {
         final List<Article> articles = articleDAO.findUsing();
         return transferArticleOutputs(articles);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public String markdownToHtml(ArticlePrimaryKeyInputDTO primaryKeyInputDTO) {
         final String enArticle = primaryKeyInputDTO.getEnArticle();
         final Article article = articleDAO.findByEnArticle(enArticle);
@@ -57,6 +61,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<ArticleOutputDTO> findByEnCategoryOrEnTag(ArticleCateTagInputDTO articleCateTagInputDTO) {
         final String enCategory = articleCateTagInputDTO.getEnCategory();
         final String enTag = articleCateTagInputDTO.getEnTag();
@@ -70,6 +75,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<ArticleOutputDTO> findByRecord(RecordInputDTO recordInputDTO) {
         final List<Article> articles = articleDAO.findByKeyword(recordInputDTO.getKeyword());
         return transferArticleOutputs(articles);
@@ -91,6 +97,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    @Transactional
     public Integer saveArticle(ArticleInputDTO articleInputDTO, HttpServletRequest request) {
         final String operator = JWTUtil.parseCookies(request);
         if (Objects.isNull(operator)) {
@@ -101,6 +108,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    @Transactional
     public Integer deleteArticle(ArticlePrimaryKeyInputDTO primaryKeyInputDTO, HttpServletRequest request) {
         final String operator = JWTUtil.parseCookies(request);
         if (Objects.isNull(operator)) {
@@ -111,6 +119,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    @Transactional
     public Integer updateArticle(ArticleInputDTO articleInputDTO, HttpServletRequest request) {
         final String operator = JWTUtil.parseCookies(request);
         if (Objects.isNull(operator)) {
