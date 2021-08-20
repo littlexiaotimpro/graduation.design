@@ -26,7 +26,7 @@ public interface AdminService {
     /**
      * 管理端获取用户数据
      */
-    List<Admin> controlFindAll();
+    List<Admin> findAll();
 
     /**
      * 管理端修改管理员信息

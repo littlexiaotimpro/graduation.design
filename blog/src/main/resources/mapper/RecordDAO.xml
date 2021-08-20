@@ -5,97 +5,29 @@
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="keyword" jdbcType="VARCHAR" property="keyword"/>
         <result column="frequency" jdbcType="INTEGER" property="frequency"/>
-        <result column="searchtime" jdbcType="TIMESTAMP" property="searchtime"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
     <resultMap id="CountResultMap" type="java.util.Map">
         <result column="keyword" jdbcType="VARCHAR" property="keyword"/>
         <result column="num" jdbcType="INTEGER" property="num"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, keyword, frequency, searchtime
-  </sql>
-    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from tb_record
-        where id = #{id,jdbcType=INTEGER}
-    </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tb_record
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-    <insert id="insert" parameterType="com.whoai.blog.entity.Record">
-    insert into tb_record (id, keyword, frequency, 
-      searchtime)
-    values (#{id,jdbcType=INTEGER}, #{keyword,jdbcType=VARCHAR}, #{frequency,jdbcType=INTEGER}, 
-      #{searchtime,jdbcType=TIMESTAMP})
-  </insert>
-    <insert id="insertSelective" parameterType="com.whoai.blog.entity.Record">
-        insert into tb_record
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                id,
-            </if>
-            <if test="keyword != null">
-                keyword,
-            </if>
-            <if test="frequency != null">
-                frequency,
-            </if>
-            <if test="searchtime != null">
-                searchtime,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                #{id,jdbcType=INTEGER},
-            </if>
-            <if test="keyword != null">
-                #{keyword,jdbcType=VARCHAR},
-            </if>
-            <if test="frequency != null">
-                #{frequency,jdbcType=INTEGER},
-            </if>
-            <if test="searchtime != null">
-                #{searchtime,jdbcType=TIMESTAMP},
-            </if>
-        </trim>
-    </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.whoai.blog.entity.Record">
-        update tb_record
-        <set>
-            <if test="keyword != null">
-                keyword = #{keyword,jdbcType=VARCHAR},
-            </if>
-            <if test="frequency != null">
-                frequency = #{frequency,jdbcType=INTEGER},
-            </if>
-            <if test="searchtime != null">
-                searchtime = #{searchtime,jdbcType=TIMESTAMP},
-            </if>
-        </set>
-        where id = #{id,jdbcType=INTEGER}
-    </update>
-    <update id="updateByPrimaryKey" parameterType="com.whoai.blog.entity.Record">
-    update tb_record
-    set keyword = #{keyword,jdbcType=VARCHAR},
-      frequency = #{frequency,jdbcType=INTEGER},
-      searchtime = #{searchtime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+        id, keyword, frequency, create_time, update_time
+    </sql>
     <select id="findAll" resultMap="BaseResultMap">
         select * from tb_record
     </select>
-    <select id="autoCompleteFind" resultMap="CountResultMap">
+    <select id="autoComplete" resultMap="CountResultMap">
         select keyword,count(*) as num from tb_record group by keyword order by num desc;
     </select>
     <insert id="saveRecord" parameterType="com.whoai.blog.entity.Record">
         insert into tb_record
         <trim suffixOverrides="," prefix="(" suffix=")">
-            <if test="record.keyword!=null">keyword,</if>
+            <if test="record.keyword!=null">keyword,create_time,update_time</if>
         </trim>
         <trim suffixOverrides="," prefix="values(" suffix=")">
-            <if test="record.keyword!=null">#{record.keyword},</if>
+            <if test="record.keyword!=null">#{record.keyword},NOW(),NOW()</if>
         </trim>
     </insert>
 </mapper>

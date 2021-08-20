@@ -75,7 +75,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Admin> controlFindAll() {
+    public List<Admin> findAll() {
         log.info("管理端获取所有用户信息");
         return adminDAO.findAll();
     }

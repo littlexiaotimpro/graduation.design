@@ -1,40 +1,34 @@
 package com.whoai.blog.service;
 
-import com.whoai.blog.bean.Message;
 import com.whoai.blog.dto.RecordInputDTO;
 import com.whoai.blog.entity.Record;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
- * @ClassName RecordService
- * @Description TODO
- * @Author XiaoSi
- * @Date 2019/3/520:47
+ * RecordService
+ *
+ * @author XiaoSi
+ * @date 2019/3/5
  */
 public interface RecordService {
 
     /**
-     * 管理端获取所有记录
-     *
-     * @return
+     * 获取所有记录
      */
-    ArrayList<Record> controlFindAll();
+    List<Record> findAll();
 
     /**
-     * 客户端新增搜索记录
+     * 新增搜索记录
      *
-     * @param recordInputDTO
-     * @return
+     * @param recordInputDTO 搜索记录
      */
-    Message saveReocrd(RecordInputDTO recordInputDTO);
+    Integer saveRecord(RecordInputDTO recordInputDTO);
 
     /**
      * 查询已有搜索记录
      * 按照搜索程度自动给推荐最好的结果
-     *
-     * @return
      */
-    ArrayList autoComplete(RecordInputDTO recordInputDTO);
+    List<Object> autoComplete(RecordInputDTO recordInputDTO);
 
 }

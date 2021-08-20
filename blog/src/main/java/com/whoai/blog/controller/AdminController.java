@@ -55,10 +55,11 @@ public class AdminController {
         return ResponseResult.fail("注销登录失败");
     }
 
-    @GetMapping(value = "control")
+    @GetMapping(value = "/find/all")
     @ApiOperation(value = "获取用户")
-    public List<Admin> getUsers() {
-        return adminService.controlFindAll();
+    public ResponseResult<List<Admin>> getUsers() {
+        final List<Admin> admins = adminService.findAll();
+        return ResponseResult.success(admins, "查询成功");
     }
 
     @PostMapping(value = "update")

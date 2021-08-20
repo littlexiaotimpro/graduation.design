@@ -1,6 +1,5 @@
 package com.whoai.blog.service.impl;
 
-import com.whoai.blog.bean.Message;
 import com.whoai.blog.dao.ArticleDAO;
 import com.whoai.blog.dao.RecordDAO;
 import com.whoai.blog.dto.RecordInputDTO;
@@ -8,18 +7,10 @@ import com.whoai.blog.entity.Record;
 import com.whoai.blog.service.RecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
-/**
- * @ClassName RecordServiceImp
- * @Description TODO
- * @Author XiaoSi
- * @Date 2019/3/520:48
- */
 @Service
 public class RecordServiceImpl implements RecordService {
 
@@ -30,46 +21,40 @@ public class RecordServiceImpl implements RecordService {
     private ArticleDAO articleDAO;
 
     @Override
-    public ArrayList<Record> controlFindAll() {
+    @Transactional(readOnly = true)
+    public List<Record> findAll() {
         return recordDAO.findAll();
     }
 
     @Override
-    public Message saveReocrd(RecordInputDTO recordInputDTO) {
-//        Record record = recordInputDTO.convertToRecord();
-//        Integer result = recordDAO.saveRecord(record);
-//        Message message = new Message();
-//        if (result == null || result == 0) {
-//            return message.setCode(-1).setMsg("添加失败!");
-//        } else {
-//            return message.setCode(1).setMsg("添加成功!");
-//        }
-        return null;
+    @Transactional
+    public Integer saveRecord(RecordInputDTO recordInputDTO) {
+        // 搜索无需校验登录状态
+        Record record = recordInputDTO.convertToEntity();
+        return recordDAO.saveRecord(record);
     }
 
     @Override
-    public ArrayList autoComplete(RecordInputDTO recordInputDTO) {
-        ArrayList arrayList = new ArrayList();
-//        Record record = recordInputDTO.convertToRecord();
-//        Iterator iterator = recordDAO.autoCompleteFind().iterator();
-//        Map hashMap = new HashMap();
-//        int count = articleDAO.findUsingByRecord(record).size();
-//        hashMap.put("keyword", recordInputDTO.getKeyword());
-//        hashMap.put("count", count);
-//        arrayList.add(hashMap);
-//        while (iterator.hasNext()) {
-//            Map map = (HashMap) iterator.next();
-//            String key = map.get("keyword").toString();
-//            Record r = new Record();
-//            r.setKeyword(key);
-//            if (key.indexOf(recordInputDTO.getKeyword()) < 0 || key.equals(recordInputDTO.getKeyword())) {
-//                continue;
-//            } else {
-//                count = articleDAO.findUsingByRecord(r).size();
-//                map.put("count", count);
-//                arrayList.add(map);
-//            }
-//        }
+    @Transactional(readOnly = true)
+    public List<Object> autoComplete(RecordInputDTO recordInputDTO) {
+        List<Object> arrayList = new ArrayList<>();
+        Record record = recordInputDTO.convertToEntity();
+        Iterator<Object> iterator = recordDAO.autoComplete().iterator();
+        Map<String,Object> hashMap = new HashMap<>();
+        int count = articleDAO.findByKeyword(record.getKeyword()).size();
+        hashMap.put("keyword", recordInputDTO.getKeyword());
+        hashMap.put("count", count);
+        arrayList.add(hashMap);
+        while (iterator.hasNext()) {
+            Map<String,Object> map = (Map<String,Object>) iterator.next();
+            String key = map.get("keyword").toString();
+            if (!key.contains(recordInputDTO.getKeyword()) || key.equals(recordInputDTO.getKeyword())) {
+                continue;
+            }
+            count = articleDAO.findByKeyword(key).size();
+            map.put("count", count);
+            arrayList.add(map);
+        }
         return arrayList;
     }
 }
