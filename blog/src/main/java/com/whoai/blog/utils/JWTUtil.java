@@ -9,29 +9,26 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 /**
- * @ClassName JWTUtil
- * @Description TODO
- * @Author XiaoSi
- * @Date 2019/4/200:06
+ * JWT 实现单点登录
  */
 public class JWTUtil {
 
     // 服务器的key。用于做加解密的key数据。 如果可以使用客户端生成的key。当前定义的常量可以不使用。
-    private static final String JWT_SECERT = "test_jwt_secert";
+    private static final String JWT_SECURE = "test_jwt_secure";
     private static final ObjectMapper MAPPER = new ObjectMapper();
-    public static final int JWT_ERRCODE_EXPIRE = 1005;//Token过期
-    public static final int JWT_ERRCODE_FAIL = 1006;//验证不通过
+    public static final int JWT_ERR_CODE_EXPIRE = 1005;//Token过期
+    public static final int JWT_ERR_CODE_FAIL = 1006;//验证不通过
 
     public static SecretKey generalKey() {
         try {
-            // byte[] encodedKey = Base64.decode(JWT_SECERT);
+            // byte[] encodedKey = Base64.decode(JWT_SECURE);
             // 不管哪种方式最终得到一个byte[]类型的key就行
-            byte[] encodedKey = JWT_SECERT.getBytes("UTF-8");
-            SecretKey key = new SecretKeySpec(encodedKey, 0, encodedKey.length, "AES");
-            return key;
+            byte[] encodedKey = JWT_SECURE.getBytes(StandardCharsets.UTF_8);
+            return new SecretKeySpec(encodedKey, 0, encodedKey.length, "AES");
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -79,19 +76,16 @@ public class JWTUtil {
      */
     public static JWTResult validateJWT(String jwtStr) {
         JWTResult checkResult = new JWTResult();
-        Claims claims = null;
+        Claims claims;
         try {
             claims = parseJWT(jwtStr);
             checkResult.setSuccess(true);
             checkResult.setClaims(claims);
         } catch (ExpiredJwtException e) { // token超时
-            checkResult.setErrCode(JWT_ERRCODE_EXPIRE);
+            checkResult.setErrCode(JWT_ERR_CODE_EXPIRE);
             checkResult.setSuccess(false);
-        } catch (SignatureException e) { // 校验失败
-            checkResult.setErrCode(JWT_ERRCODE_FAIL);
-            checkResult.setSuccess(false);
-        } catch (Exception e) {
-            checkResult.setErrCode(JWT_ERRCODE_FAIL);
+        } catch (Exception e) { // 校验失败
+            checkResult.setErrCode(JWT_ERR_CODE_FAIL);
             checkResult.setSuccess(false);
         }
         return checkResult;
