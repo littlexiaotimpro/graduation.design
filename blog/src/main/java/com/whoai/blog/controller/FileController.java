@@ -4,6 +4,7 @@ package com.whoai.blog.controller;
 import com.whoai.blog.bean.ResponseResult;
 import com.whoai.blog.file.FileService;
 import com.whoai.blog.file.UploadFileResult;
+import com.whoai.blog.utils.MDUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -22,7 +23,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Api("文件上传/下载")
+@Api("文件上传/下载/预览")
 @RestController
 @RequestMapping(value = "/file")
 public class FileController {
@@ -85,6 +86,15 @@ public class FileController {
                 .contentType(MediaType.parseMediaType(contentType))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
                 .body(resource);
+    }
+
+    @ApiOperation("文件预览")
+    @GetMapping("/preview/{fileName:.+}")
+    public ResponseResult<String> previewFile(@PathVariable String fileName, HttpServletRequest request) {
+        // Load file as Resource
+        Resource resource = fileService.loadFileAsResource(fileName);
+        String html = MDUtil.convertMDToHtml(resource);
+        return ResponseResult.success(html, "预览文件");
     }
 
 }

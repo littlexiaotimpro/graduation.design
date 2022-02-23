@@ -9,10 +9,10 @@ spring:
 
   # 数据源相关属性 - MySQL
   datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://192.168.124.100:3306/blog?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
     password: 123456
-    driver-class-name: com.mysql.cj.jdbc.Driver
 
   # 数据源相关属性 - H2
   #  h2:
@@ -27,14 +27,14 @@ spring:
   #    username: root
   #    password: 123456
   # 仅用于自动建表
-  jpa:
-    database: MYSQL
-    database-platform: org.hibernate.dialect.MySQL8Dialect
-    generate-ddl: true
-    show-sql: true
-    hibernate:
-      # 自动建表
-      ddl-auto: update
+  #  jpa:
+  #    database: MYSQL
+  #    database-platform: org.hibernate.dialect.MySQL8Dialect
+  #    generate-ddl: true
+  #    show-sql: true
+  #    hibernate:
+  #      # 自动建表
+  #      ddl-auto: update
 
   # elasticsearch 配置
   #  data:
@@ -79,6 +79,7 @@ spring:
 # 指定文件上传路径
 file:
   upload-dir: ./uploads
+  logs-dir: ./logs
 
 # Mybatis 配置
 mybatis:
