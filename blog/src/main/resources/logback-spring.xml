@@ -2,12 +2,12 @@
 <configuration>
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
     <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
-    <!-- 应用名称: 取配置文件中的应用名称 -->
+    <!-- 应用名称: 取配置文件中的应用名称，不能使用${var}格式 -->
     <springProperty name="APP_NAME" source="spring.application.name"/>
     <!-- 日志文件保存路径 -->
     <property name="LOG_FILE_PATH" value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}/logs}"/>
     <property name="LOG_FILE_" value="./logs"/>
-    <!-- 格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+    <!-- 格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度，%msg：日志消息，%n是换行符 -->
     <property name="CONSOLE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{50}: %msg%n"/>
     <property name="FILE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{50}: %msg%n"/>
     <contextName>${APP_NAME}</contextName>
@@ -19,7 +19,7 @@
         </encoder>
     </appender>
 
-    <!-- 每天按日志级别收集日志，配置顺序必须按日志级别顺序配置 -->
+    <!-- 每天按日志级别收集日志，配置顺序有一定要求 -->
     <!-- log4j定义了8个级别的log（除去OFF和ALL，可以说分为6个级别），优先级从高到低依次为：OFF、FATAL、ERROR、WARN、INFO、DEBUG、TRACE、 ALL。 -->
     <appender name="FILE_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!-- SizeAndTimeBasedRollingPolicy基于时间和大小的滚动策略 -->
@@ -121,21 +121,22 @@
     </appender>
 
     <!-- 输出到LogStash -->
-    <!--<appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        &lt;!&ndash;可以访问的logstash日志收集端口&ndash;&gt;
-        <destination>192.168.33.110:4560</destination>
+    <!-- 使用TCP的方式连接LogStash -->
+    <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <!-- logstash的host:port -->
+        <destination>192.168.124.100:4560</destination>
         <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder"/>
-    </appender>-->
+    </appender>
 
-    <root level="INFO">
+    <root level="DEBUG">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE_ERROR"/>
         <appender-ref ref="FILE_WARN"/>
         <appender-ref ref="FILE_DEBUG"/>
         <appender-ref ref="FILE_INFO"/>
-        <!--<appender-ref ref="LOGSTASH"/>-->
+        <appender-ref ref="LOGSTASH"/>
     </root>
 
-    <!-- 自定义日志输出模块及日志级别 -->
+    <!-- 作为日志的记录器，把它关联到应用的对应的context上后，主要用于存放日志对象，也可以定义日志类型、级别。 -->
     <!--<logger name="com.apache.ibatis" level="TRACE"/>-->
 </configuration>
