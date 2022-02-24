@@ -1,5 +1,8 @@
 package com.whoai.blog.constant;
 
+import lombok.ToString;
+
+@ToString
 public enum Permission implements Dictionary {
 
     GUEST(1, "普通用户"),

@@ -1,5 +1,8 @@
 package com.whoai.blog.constant;
 
+import lombok.ToString;
+
+@ToString
 public enum Status implements Dictionary {
 
     VALID(1, "启用"),

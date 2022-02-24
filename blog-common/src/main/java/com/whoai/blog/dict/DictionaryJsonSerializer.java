@@ -13,8 +13,8 @@ import java.io.IOException;
  * <p>
  * ps: 枚举类的 toString 无法覆写
  *
- * @author chen.hong
  * @date 2022/2/24
+ * @see Dictionary
  */
 public class DictionaryJsonSerializer extends JsonSerializer<Dictionary> {
     @Override

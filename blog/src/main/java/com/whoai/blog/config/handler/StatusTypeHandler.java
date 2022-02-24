@@ -13,8 +13,8 @@ import java.sql.SQLException;
 /**
  * 自定义 mybatis 实体属性类型解析器
  *
- * @author chen.hong
  * @date 2022/2/24
+ * @see Status
  */
 @Slf4j
 public class StatusTypeHandler extends BaseTypeHandler<Status> {
