@@ -33,4 +33,19 @@
             <if test="admin.id != null">and id = #{admin.id}</if>
         </where>
     </update>
+    <insert id="saveAdmin" parameterType="com.whoai.blog.entity.Admin" useGeneratedKeys="true">
+        insert into tb_admin
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="admin.account != null">account,create_time,update_time,</if>
+            <if test="admin.password != null">`password`,</if>
+            <if test="admin.permission != null">permission,</if>
+            <if test="admin.status != null">status,</if>
+        </trim>
+        <trim prefix="values(" suffix=")" suffixOverrides=",">
+            <if test="admin.account != null">#{admin.account},NOW(),NOW(),</if>
+            <if test="admin.password != null">#{admin.password},</if>
+            <if test="admin.permission != null">#{admin.permission,javaType=com.whoai.blog.constant.Permission},</if>
+            <if test="admin.status != null">#{admin.status,javaType=com.whoai.blog.constant.Status},</if>
+        </trim>
+    </insert>
 </mapper>

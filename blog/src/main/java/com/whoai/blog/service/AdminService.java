@@ -31,5 +31,14 @@ public interface AdminService {
     /**
      * 管理端修改管理员信息
      */
-    Integer controlUpdateAdmin(AbstractDTO<AdminInputDTO, Admin> dto,HttpServletRequest request);
+    Integer updateAdmin(AbstractDTO<AdminInputDTO, Admin> dto, HttpServletRequest request);
+
+    /**
+     * 新增用户
+     *
+     * @param dto     用户信息
+     * @param request 请求
+     * @return 保存是否成功
+     */
+    Integer saveAdmin(AbstractDTO<AdminDTO, Admin> dto, HttpServletRequest request);
 }

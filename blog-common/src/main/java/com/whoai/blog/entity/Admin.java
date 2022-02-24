@@ -1,5 +1,9 @@
 package com.whoai.blog.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.whoai.blog.constant.Permission;
+import com.whoai.blog.constant.Status;
+import com.whoai.blog.dict.DictionaryJsonSerializer;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -41,13 +45,15 @@ public class Admin implements Serializable {
      * 权限
      */
     @Column(name = "permission")
-    private Integer permission;
+    @JsonSerialize(using = DictionaryJsonSerializer.class)
+    private Permission permission;
 
     /**
      * 状态（0：禁用，1：启用）
      */
     @Column(name = "status")
-    private Integer status;
+    @JsonSerialize(using = DictionaryJsonSerializer.class)
+    private Status status;
 
     /**
      * 创建时间

@@ -81,12 +81,13 @@ file:
   upload-dir: ./uploads
   logs-dir: ./logs
 
-# Mybatis 配置
+# Mybatis 配置，自动配置类会加载如下配置
 mybatis:
   mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: com.whoai.blog.entity.*
+  type-aliases-package: com.whoai.blog.entity
+  type-handlers-package: com.whoai.blog.config.handler
   configuration:
-    # 在console打印sql语句
+    # 在console打印sql语句，TODO 后续自定义一个输出格式
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 # Swagger 属性配置

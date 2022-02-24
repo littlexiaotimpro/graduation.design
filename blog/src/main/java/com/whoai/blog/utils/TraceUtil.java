@@ -21,7 +21,7 @@ public class TraceUtil {
     public static String getTraceId() {
         String traceId = threadLocal.get();
         if (traceId == null) {
-            traceId = UUID.randomUUID().toString();
+            traceId = UUID.randomUUID().toString().replaceAll("-","");
             setTraceId(traceId);
         }
         return traceId;

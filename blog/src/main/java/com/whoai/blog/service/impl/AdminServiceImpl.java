@@ -1,5 +1,7 @@
 package com.whoai.blog.service.impl;
 
+import com.whoai.blog.constant.Permission;
+import com.whoai.blog.constant.Status;
 import com.whoai.blog.dao.AdminDAO;
 import com.whoai.blog.dto.AbstractDTO;
 import com.whoai.blog.dto.AdminDTO;
@@ -17,6 +19,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+/**
+ * 用户操作服务实现
+ *
+ * @see com.whoai.blog.service.AdminService
+ */
 @Service
 @Slf4j
 public class AdminServiceImpl implements AdminService {
@@ -30,13 +37,13 @@ public class AdminServiceImpl implements AdminService {
     @Override
     @Transactional(readOnly = true)
     public Integer checkLogin(AbstractDTO<AdminDTO, Admin> dto, HttpServletResponse response) {
-        boolean debug = log.isDebugEnabled();
+        boolean info = log.isInfoEnabled();
         Admin admin = dto.convertToEntity();
         Admin checker = adminDAO.checkLogin(admin);
         if (checker != null) {
-            if (checker.getStatus() == 1 && checker.getPermission() == 0) {
-                if (debug) {
-                    log.debug("管理员[{}]登录成功", checker.getAccount());
+            if (checker.getStatus() == Status.VALID) {
+                if (info) {
+                    log.info("用户[{}]登录成功", checker.getAccount());
                 }
                 String jwt = JWTUtil.createJWT("1", checker.getAccount(), checker.getAccount(), 30 * 60 * 1000);
                 Cookie cookie = new Cookie("access_token", jwt);
@@ -46,37 +53,32 @@ public class AdminServiceImpl implements AdminService {
                 response.addCookie(cookie);
                 return 1;
             } else {
-                if (debug) {
-                    log.debug("管理员[{}]已禁用", checker.getAccount());
+                if (info) {
+                    log.info("用户[{}]已禁用", checker.getAccount());
                 }
                 return 0;
             }
         } else {
-            log.info("管理员[{}]登录失败，无此账户，或账号密码错误！", admin.getAccount());
-            return -1;
+            if (info) {
+                log.info("用户[{}]登录失败，无此账户，或账号密码错误！", admin.getAccount());
+            }
+            throw new ResourcesNotFoundException("");
         }
     }
 
     @Override
     public boolean checkLogout(HttpServletRequest request, HttpServletResponse response) {
-        String operator = JWTUtil.parseCookies(request);
-        if (operator == null) {
-            throw new ResourcesNotFoundException("用户未登录，无法操作");
-        } else {
-            log.info("管理员[{}]注销登录。", operator);
-            Cookie cookie = new Cookie("access_token", null);
-            cookie.setMaxAge(3600);
-            cookie.setPath("/");
-            cookie.setHttpOnly(false);
-            response.addCookie(cookie);
-            return Boolean.TRUE;
-        }
+        Cookie cookie = new Cookie("access_token", null);
+        cookie.setMaxAge(3600);
+        cookie.setPath("/");
+        cookie.setHttpOnly(false);
+        response.addCookie(cookie);
+        return Boolean.TRUE;
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<Admin> findAll() {
-        log.info("管理端获取所有用户信息");
         return adminDAO.findAll();
     }
 
@@ -85,13 +87,23 @@ public class AdminServiceImpl implements AdminService {
      */
     @Override
     @Transactional
-    public Integer controlUpdateAdmin(AbstractDTO<AdminInputDTO, Admin> dto, HttpServletRequest request) {
-        String operator = JWTUtil.parseCookies(request);
-        if (operator == null) {
-            throw new ResourcesNotFoundException("用户未登录，无法操作");
+    public Integer updateAdmin(AbstractDTO<AdminInputDTO, Admin> dto, HttpServletRequest request) {
+        if (log.isInfoEnabled()) {
+            log.info("待修改的用户信息: {}", dto);
         }
-        log.info("管理员[{}]尝试修改数据。", operator);
         Admin admin = dto.convertToEntity();
         return adminDAO.updateAdmin(admin);
+    }
+
+    @Override
+    @Transactional
+    public Integer saveAdmin(AbstractDTO<AdminDTO, Admin> dto, HttpServletRequest request) {
+        if (log.isInfoEnabled()) {
+            log.info("待新增的用户信息: {}", dto);
+        }
+        Admin admin = dto.convertToEntity();
+        admin.setPermission(Permission.GUEST);
+        admin.setStatus(Status.VALID);
+        return adminDAO.saveAdmin(admin);
     }
 }

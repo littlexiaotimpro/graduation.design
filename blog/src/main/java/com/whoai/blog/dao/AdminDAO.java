@@ -24,4 +24,12 @@ public interface AdminDAO {
      */
     Integer updateAdmin(@Param("admin") Admin admin);
 
+    /**
+     * 新增用户
+     *
+     * @param admin 用户信息
+     * @return 是否成功标识
+     */
+    Integer saveAdmin(@Param("admin") Admin admin);
+
 }

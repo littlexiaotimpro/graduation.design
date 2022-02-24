@@ -9,18 +9,18 @@ public enum LoginStatus {
     LOGIN_DISABLE(0, "此用户已禁用，或权限不够");
 
     private final Integer code;
-    private final String description;
+    private final String value;
 
-    LoginStatus(Integer code, String description) {
+    LoginStatus(Integer code, String value) {
         this.code = code;
-        this.description = description;
+        this.value = value;
     }
 
     public Integer getCode() {
         return code;
     }
 
-    public String getDescription() {
-        return description;
+    public String getValue() {
+        return value;
     }
 }

@@ -35,20 +35,20 @@ public class AdminController {
     @PostMapping(value = "login")
     @ApiOperation(value = "登录验证")
     public ResponseResult<Void> checkLogin(@RequestBody AdminDTO adminDTO, HttpServletResponse response) {
-        final Integer integer = adminService.checkLogin(adminDTO, response);
+        Integer integer = adminService.checkLogin(adminDTO, response);
         if (integer == 1) {
-            return ResponseResult.success(integer, null, LoginStatus.LOGIN_SUCCESS.getDescription());
+            return ResponseResult.success(integer, null, LoginStatus.LOGIN_SUCCESS.getValue());
         } else if (integer == 0) {
-            return ResponseResult.fail(integer, LoginStatus.LOGIN_DISABLE.getDescription());
+            return ResponseResult.fail(integer, LoginStatus.LOGIN_DISABLE.getValue());
         } else {
-            return ResponseResult.fail(integer, LoginStatus.LOGIN_FAIL.getDescription());
+            return ResponseResult.fail(integer, LoginStatus.LOGIN_FAIL.getValue());
         }
     }
 
     @PostMapping(value = "logout")
     @ApiOperation(value = "注销登录")
     public ResponseResult<Void> checkLogout(HttpServletRequest request, HttpServletResponse response) {
-        final boolean logout = adminService.checkLogout(request, response);
+        boolean logout = adminService.checkLogout(request, response);
         if (logout) {
             return ResponseResult.success(null, "注销成功");
         }
@@ -58,18 +58,28 @@ public class AdminController {
     @GetMapping(value = "/find/all")
     @ApiOperation(value = "获取用户")
     public ResponseResult<List<Admin>> getUsers() {
-        final List<Admin> admins = adminService.findAll();
+        List<Admin> admins = adminService.findAll();
         return ResponseResult.success(admins, "查询成功");
     }
 
     @PostMapping(value = "update")
     @ApiOperation(value = "编辑用户信息")
     public ResponseResult<Void> updateAdmin(@RequestBody AdminInputDTO adminInputDTO, HttpServletRequest request) {
-        final Integer integer = adminService.controlUpdateAdmin(adminInputDTO, request);
+        Integer integer = adminService.updateAdmin(adminInputDTO, request);
         if (integer <= 0) {
             return ResponseResult.fail("数据更新失败");
         }
         return ResponseResult.success(null, "数据更新成功");
+    }
+
+    @PostMapping(value = "save")
+    @ApiOperation(value = "新增用户信息")
+    public ResponseResult<Void> saveAdmin(@RequestBody AdminDTO adminDTO, HttpServletRequest request) {
+        Integer integer = adminService.saveAdmin(adminDTO, request);
+        if (integer <= 0) {
+            return ResponseResult.fail("用户新增失败！");
+        }
+        return ResponseResult.success(null, "用户新增成功！");
     }
 
 }
