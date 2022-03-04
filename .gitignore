@@ -6,6 +6,8 @@
 /blog-swagger/blog-swagger.iml
 /blog-file/target/
 /blog-file/blog-file.iml
+/blog-client/target/
+/blog-client/blog-client.iml
 /logs/
 /blog-common/target/
 /blog-common/blog-common.iml

@@ -1,0 +1,67 @@
+# 服务端口
+server:
+  port: 8090
+
+# spring 基础配置
+spring:
+  application:
+    name: blog-client
+
+  # 数据源相关属性 - MySQL
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.124.100:3306/blog?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+
+  # 视图前后缀
+  mvc:
+    view:
+      prefix: /
+      suffix: .html
+    # 静态文件访问地址
+    static-path-pattern: /**
+
+  # 上传文件及请求大小限制 (2.0版本之后的配置)
+  servlet:
+    multipart:
+      # 开启 multipart 上传功能
+      enabled: true
+      # 文件写入磁盘的阈值
+      file-size-threshold: 2KB
+      # 上传文件的临时路径：指向 Tomcat 服务器地址
+      # location: /upload
+      # 最大文件大小
+      max-file-size: 10MB
+      # 最大请求大小
+      max-request-size: 10MB
+
+  resources:
+    static-locations:
+      - classpath:/META-INF/resources/
+      - classpath:/resources/
+      - classpath:/static/
+      - classpath:/public/
+      # 自定义配置，访问上传的文件
+      - file:${file.upload-dir}/
+
+# 指定文件路径
+file:
+  logs-dir: ./logs
+
+# Mybatis 配置，自动配置类会加载如下配置
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.whoai.blog.entity
+  type-handlers-package: com.whoai.blog.config.handler
+  configuration:
+    # 在console打印sql语句，TODO 后续自定义一个输出格式
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# Swagger 属性配置
+swagger:
+  enable: true
+  application-name: ${spring.application.name}
+  version: 1.0
+  description: springfox swagger 3.0 Demo
+  try-host: http://localhost:${server.port}

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+    <!-- 应用名称: 取配置文件中的应用名称，不能使用${var}格式 -->
+    <springProperty name="APP_NAME" source="spring.application.name"/>
+    <!-- 日志文件保存路径: 取配置之文件的日志路径 -->
+    <springProperty name="LOG_FILE_PATH" source="file.logs-dir"/>
+    <property name="LOG_FILE_ERROR" value="${LOG_FILE_PATH}/%d{yyyy-MM-dd}/error"/>
+    <property name="LOG_FILE_WARN" value="${LOG_FILE_PATH}/%d{yyyy-MM-dd}/warn"/>
+    <property name="LOG_FILE_DEBUG" value="${LOG_FILE_PATH}/%d{yyyy-MM-dd}/debug"/>
+    <property name="LOG_FILE_INFO" value="${LOG_FILE_PATH}/%d{yyyy-MM-dd}/info"/>
+    <!-- 格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度，%msg：日志消息，%n是换行符 -->
+    <property name="CONSOLE_LOG_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{50}: %msg%n"/>
+    <property name="FILE_LOG_PATTERN"
+              value="%X{trace_id} %d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{50}: %msg%n"/>
+    <contextName>${APP_NAME}</contextName>
+
+    <!-- 日志输出到控制台 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder charset="UTF-8">
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+        <!-- 过滤INFO以下的日志 -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+    </appender>
+
+    <!-- 每天按日志级别收集日志，配置顺序有一定要求 -->
+    <!-- log4j定义了8个级别的log（除去OFF和ALL，可以说分为6个级别），优先级从高到低依次为：OFF、FATAL、ERROR、WARN、INFO、DEBUG、TRACE、 ALL。 -->
+    <appender name="FILE_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- SizeAndTimeBasedRollingPolicy基于时间和大小的滚动策略 -->
+        <!-- 此策略适用与1.1.7及后续版本，旧版本使用的是TimeBasedRollingPolicy和SizeAndTimeBasedFNATP组件实现 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!--日志文件输出的文件名-->
+            <fileNamePattern>${LOG_FILE_ERROR}/${APP_NAME}-%d{yyyy-MM-dd}.error.%i.log.zip</fileNamePattern>
+            <!-- 单个日志文件最大文件大小 -->
+            <maxFileSize>100MB</maxFileSize>
+            <!-- 日志保留的最大滚动周期，以天（fileNamePattern %d以dd结尾）为周期跑日志，则保留30天 -->
+            <maxHistory>30</maxHistory>
+            <!-- 保留的日志文件的最大的总的大小 -->
+            <totalSizeCap>10GB</totalSizeCap>
+        </rollingPolicy>
+        <!-- 格式化输出 -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <!-- 收集ERROR日志 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+    <appender name="FILE_WARN" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- TimeBasedRollingPolicy和SizeAndTimeBasedFNATP组件实现日志的滚动及压缩 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志文件输出的文件名-->
+            <fileNamePattern>${LOG_FILE_WARN}/${APP_NAME}-%d{yyyy-MM-dd}.warn.%i.log.zip</fileNamePattern>
+            <!-- 日志文件最大的大小 -->
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <!-- 格式化输出 -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <!-- 收集WARN日志 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+    <appender name="FILE_DEBUG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- SizeAndTimeBasedRollingPolicy基于时间和大小的滚动策略 -->
+        <!-- 此策略适用与1.1.7及后续版本，旧版本使用的是TimeBasedRollingPolicy和SizeAndTimeBasedFNATP组件实现 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 日志文件输出的文件名 -->
+            <!-- 决定生成文件的名称及滚动时机，并确定是否压缩，以【zip,gz】结尾，默认开启压缩配置 -->
+            <!-- %d决定以什么时间维度进行轮转（但实际轮转时间取决于日志事件的到达时间），%d{yyyy-MM-dd}: 默认按天轮转 -->
+            <fileNamePattern>${LOG_FILE_DEBUG}/${APP_NAME}-%d{yyyy-MM-dd}.debug.%i.log.zip</fileNamePattern>
+            <!-- 单个日志文件最大文件大小 -->
+            <maxFileSize>100MB</maxFileSize>
+            <!-- 日志保留的最大滚动周期，以天（fileNamePattern %d以dd结尾）为周期跑日志，则保留30天 -->
+            <maxHistory>30</maxHistory>
+            <!-- 保留的日志文件的最大的总的大小 -->
+            <totalSizeCap>10GB</totalSizeCap>
+        </rollingPolicy>
+        <!-- 格式化输出 -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <!-- 收集DEBUG日志 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>DEBUG</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+    <appender name="FILE_INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- TimeBasedRollingPolicy和SizeAndTimeBasedFNATP组件实现日志的滚动及压缩 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志文件输出的文件名-->
+            <fileNamePattern>${LOG_FILE_INFO}/${APP_NAME}-%d{yyyy-MM-dd}.info.%i.log.zip</fileNamePattern>
+            <!-- 日志文件最大的大小 -->
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <!-- 格式化输出 -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <!-- 收集INFO日志 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!-- 输出到LogStash -->
+    <!-- 使用TCP的方式连接LogStash -->
+    <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <!-- logstash的host:port -->
+        <destination>192.168.124.100:4560</destination>
+        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder">
+            <!-- 自定义全局属性 -->
+            <customFields>
+                { "app_name": "${APP_NAME}" }
+            </customFields>
+        </encoder>
+    </appender>
+
+    <root level="DEBUG">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE_ERROR"/>
+        <appender-ref ref="FILE_WARN"/>
+        <appender-ref ref="FILE_DEBUG"/>
+        <appender-ref ref="FILE_INFO"/>
+        <appender-ref ref="LOGSTASH"/>
+    </root>
+
+    <!-- 作为日志的记录器，把它关联到应用的对应的context上后，主要用于存放日志对象，也可以定义日志类型、级别。 -->
+    <!--<logger name="com.apache.ibatis" level="TRACE"/>-->
+</configuration>
