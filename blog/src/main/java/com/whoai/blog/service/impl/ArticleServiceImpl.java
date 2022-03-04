@@ -4,10 +4,10 @@ import com.whoai.blog.dao.ArticleDAO;
 import com.whoai.blog.dto.*;
 import com.whoai.blog.entity.Article;
 import com.whoai.blog.exception.ResourcesNotFoundException;
-import com.whoai.blog.file.FileService;
+import com.whoai.blog.file.service.FileService;
+import com.whoai.blog.file.util.MDUtil;
 import com.whoai.blog.service.ArticleService;
-import com.whoai.blog.utils.JWTUtil;
-import com.whoai.blog.utils.MDUtil;
+import com.whoai.blog.util.JWTUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -82,7 +82,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public String uploadFile(MultipartFile file, HttpServletRequest request){
+    public String uploadFile(MultipartFile file, HttpServletRequest request) {
         final String operator = JWTUtil.parseCookies(request);
         if (Objects.isNull(operator)) {
             throw new ResourcesNotFoundException("用户未登录，无法操作");

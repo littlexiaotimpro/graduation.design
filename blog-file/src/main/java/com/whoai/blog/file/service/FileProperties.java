@@ -1,4 +1,4 @@
-package com.whoai.blog.file;
+package com.whoai.blog.file.service;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

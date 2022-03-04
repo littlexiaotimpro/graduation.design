@@ -1,10 +1,10 @@
-package com.whoai.blog.controller;
+package com.whoai.blog.file.controller;
 
 
 import com.whoai.blog.bean.ResponseResult;
-import com.whoai.blog.file.FileService;
-import com.whoai.blog.file.UploadFileResult;
-import com.whoai.blog.utils.MDUtil;
+import com.whoai.blog.file.service.FileService;
+import com.whoai.blog.file.service.UploadFileResult;
+import com.whoai.blog.file.util.MDUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;

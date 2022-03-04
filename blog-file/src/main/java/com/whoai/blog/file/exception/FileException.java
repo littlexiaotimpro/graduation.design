@@ -1,4 +1,4 @@
-package com.whoai.blog.file;
+package com.whoai.blog.file.exception;
 
 /**
  * 文件操作异常

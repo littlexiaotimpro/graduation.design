@@ -1,7 +1,8 @@
-package com.whoai.blog.utils;
+package com.whoai.blog.file.util;
 
 import com.aliyun.oss.OSSClient;
 import com.whoai.blog.bean.OSSClientConstantsTemplate;
+import com.whoai.blog.util.JWTUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
 

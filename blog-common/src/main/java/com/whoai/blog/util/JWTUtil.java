@@ -1,4 +1,4 @@
-package com.whoai.blog.utils;
+package com.whoai.blog.util;
 
 import com.whoai.blog.bean.JWTResult;
 import com.fasterxml.jackson.core.JsonProcessingException;

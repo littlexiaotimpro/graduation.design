@@ -1,6 +1,6 @@
 package com.whoai.blog.config.filter;
 
-import com.whoai.blog.utils.TraceUtil;
+import com.whoai.blog.util.TraceUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
 import org.springframework.stereotype.Component;

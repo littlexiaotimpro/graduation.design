@@ -1,4 +1,4 @@
-package com.whoai.blog.utils;
+package com.whoai.blog.file.util;
 
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.Bucket;

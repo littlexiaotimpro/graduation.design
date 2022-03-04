@@ -1,4 +1,4 @@
-package com.whoai.blog.utils;
+package com.whoai.blog.util;
 
 import java.util.UUID;
 

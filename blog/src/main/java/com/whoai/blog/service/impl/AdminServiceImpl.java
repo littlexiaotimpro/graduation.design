@@ -9,7 +9,7 @@ import com.whoai.blog.dto.AdminInputDTO;
 import com.whoai.blog.entity.Admin;
 import com.whoai.blog.exception.ResourcesNotFoundException;
 import com.whoai.blog.service.AdminService;
-import com.whoai.blog.utils.JWTUtil;
+import com.whoai.blog.util.JWTUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

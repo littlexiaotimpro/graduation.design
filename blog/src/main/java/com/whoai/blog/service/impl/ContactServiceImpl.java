@@ -7,7 +7,7 @@ import com.whoai.blog.dto.ContactOutputDTO;
 import com.whoai.blog.dto.ContactStatusInputDTO;
 import com.whoai.blog.entity.Contact;
 import com.whoai.blog.service.ContactService;
-import com.whoai.blog.utils.JWTUtil;
+import com.whoai.blog.util.JWTUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

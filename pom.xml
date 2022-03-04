@@ -12,6 +12,7 @@
         <module>blog-swagger</module>
         <module>blog</module>
         <module>blog-common</module>
+        <module>blog-file</module>
     </modules>
 
     <properties>

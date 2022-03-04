@@ -1,7 +1,9 @@
-package com.whoai.blog.file;
+package com.whoai.blog.file.service;
 
 import com.whoai.blog.exception.MarkDownIllegalWordException;
-import com.whoai.blog.utils.MDUtil;
+import com.whoai.blog.file.exception.FileException;
+import com.whoai.blog.file.util.MDUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -17,6 +19,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Objects;
 
+@Slf4j
 @Service
 @EnableConfigurationProperties({FileProperties.class})
 public class FileService {
@@ -27,6 +30,9 @@ public class FileService {
     public FileService(FileProperties fileProperties) {
         this.fileStorageLocation = Paths.get(fileProperties.getUploadDir()).toAbsolutePath().normalize();
         try {
+            if (log.isInfoEnabled()) {
+                log.info("上传文件的存储地址【{}】", this.fileStorageLocation);
+            }
             Files.createDirectories(this.fileStorageLocation);
         } catch (Exception ex) {
             throw new FileException("Could not create the directory where the uploaded files will be stored.", ex);
@@ -53,6 +59,9 @@ public class FileService {
                 throw new FileException("Sorry! Filename contains invalid path sequence " + fileName);
             }
 
+            if (log.isInfoEnabled()) {
+                log.info("上传文件的名称【{}】", fileName);
+            }
             // Copy file to the target location (Replacing existing file with the same name)
             Path targetLocation = this.fileStorageLocation.resolve(fileName);
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
@@ -71,6 +80,9 @@ public class FileService {
      */
     public Resource loadFileAsResource(String fileName) {
         try {
+            if (log.isInfoEnabled()) {
+                log.info("加载文件的名称【{}】", fileName);
+            }
             Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
             Resource resource = new UrlResource(filePath.toUri());
             if (resource.exists()) {
