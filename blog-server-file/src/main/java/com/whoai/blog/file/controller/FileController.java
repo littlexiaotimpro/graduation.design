@@ -3,7 +3,7 @@ package com.whoai.blog.file.controller;
 
 import com.whoai.blog.bean.ResponseResult;
 import com.whoai.blog.file.service.FileService;
-import com.whoai.blog.file.service.UploadFileResult;
+import com.whoai.blog.bean.UploadFileResult;
 import com.whoai.blog.file.util.MDUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -61,6 +61,20 @@ public class FileController {
                 })
                 .collect(Collectors.toList());
         return ResponseResult.success(uploadFileResults, "批量文件上传");
+    }
+
+    @ApiOperation("文件删除")
+    @GetMapping("/delete/{fileName:.+}")
+    public ResponseResult<Boolean> deleteFile(@PathVariable String fileName, HttpServletRequest request) {
+        // Load file as Resource
+        Resource resource = fileService.loadFileAsResource(fileName);
+        boolean delete = false;
+        try {
+            delete = resource.getFile().delete();
+        } catch (IOException e) {
+            logger.warn("删除文件失败", e);
+        }
+        return ResponseResult.success(delete, "删除文件");
     }
 
     @ApiOperation("文件下载")

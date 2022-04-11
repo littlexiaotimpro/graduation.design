@@ -42,14 +42,6 @@ spring:
       - classpath:/resources/
       - classpath:/static/
       - classpath:/public/
-      # 自定义配置，访问上传的文件
-      - file:${file.upload-dir}/
-
-# 指定文件路径
-file:
-  logs-dir: ./logs
-logstash:
-  url: 192.168.124.100:4560
 
 # Mybatis 配置，自动配置类会加载如下配置
 mybatis:

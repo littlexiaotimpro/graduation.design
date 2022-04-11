@@ -5,18 +5,24 @@
     <!-- 应用名称: 取配置文件中的应用名称，不能使用${var}格式 -->
     <springProperty name="APP_NAME" source="spring.application.name"/>
     <!-- 日志文件保存路径: 取配置之文件的日志路径 -->
-    <springProperty name="LOG_FILE_PATH" source="file.logs-dir"/>
-    <springProperty name="LOGSTASH_URL" source="logstash.url"/>
-    <property name="LOG_FILE_ERROR" value="${LOG_FILE_PATH}/%d{yyyy-MM-dd}/error"/>
-    <property name="LOG_FILE_WARN" value="${LOG_FILE_PATH}/%d{yyyy-MM-dd}/warn"/>
-    <property name="LOG_FILE_DEBUG" value="${LOG_FILE_PATH}/%d{yyyy-MM-dd}/debug"/>
-    <property name="LOG_FILE_INFO" value="${LOG_FILE_PATH}/%d{yyyy-MM-dd}/info"/>
+    <springProperty name="LOG_FILE_PATH" source="logging.file.logs-dir"/>
+    <springProperty name="LOGSTASH_URL" source="logging.logstash.url"/>
+    <property name="LOG_FILE_ERROR" value="${LOG_FILE_PATH}/${APP_NAME}/%d{yyyy-MM-dd}/error"/>
+    <property name="LOG_FILE_WARN" value="${LOG_FILE_PATH}/${APP_NAME}/%d{yyyy-MM-dd}/warn"/>
+    <property name="LOG_FILE_DEBUG" value="${LOG_FILE_PATH}/${APP_NAME}/%d{yyyy-MM-dd}/debug"/>
+    <property name="LOG_FILE_INFO" value="${LOG_FILE_PATH}/${APP_NAME}/%d{yyyy-MM-dd}/info"/>
     <!-- 格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度，%msg：日志消息，%n是换行符 -->
     <property name="CONSOLE_LOG_PATTERN"
               value="%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{50}: %msg%n"/>
     <property name="FILE_LOG_PATTERN"
               value="%X{trace_id} %d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{50}: %msg%n"/>
-    <contextName>${APP_NAME}</contextName>
+    <!--
+        nacos 中已经配置了logback文件
+        如果同时存在logback.xml和logback-spring.xml，或者同时存在logback.xml和自定义的配置文件，
+        则会先加载logback.xml，再根据application配置加载指定配置文件，或加载logback-spring,xml。
+        如果这两个配置文件的contextName不同，就会报错
+    -->
+    <!--<contextName>${APP_NAME}</contextName>-->
 
     <!-- 日志输出到控制台 -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
@@ -134,6 +140,7 @@
     <!-- 使用TCP的方式连接LogStash -->
     <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
         <!-- logstash的host:port -->
+        <!--<destination>192.168.124.100:4560</destination>-->
         <destination>${LOGSTASH_URL}</destination>
         <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder">
             <!-- 自定义全局属性 -->

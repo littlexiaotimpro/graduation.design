@@ -70,14 +70,6 @@ spring:
       - classpath:/resources/
       - classpath:/static/
       - classpath:/public/
-      # 自定义配置，访问上传的文件
-      - file:${file.upload-dir}/
-
-# 指定文件上传路径
-file:
-  logs-dir: ./logs
-logstash:
-  url: 192.168.124.100:4560
 
 # Mybatis 配置，自动配置类会加载如下配置
 mybatis:
@@ -96,6 +88,43 @@ swagger:
   description: springfox swagger 3.0 Demo
   try-host: http://localhost:${server.port}
 
+# feign 启用断路器配置
+feign:
+  rpc-service: BLOG-FILE
+  hystrix:
+    enabled: true
+  httpclient:
+    enabled: true
+    # 禁用ssl验证，默认 false
+    disable-ssl-validation: false
+    # 重定向配置，默认 true
+    follow-redirects: false
+
+# 服务降级配置
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            # 服务降级超时时间，需要配合ribbon及feign的超时时间
+            timeoutInMilliseconds: 15000
+
+# ribbon 公共配置
+ribbon:
+  ConnectTimeout: 6000 #服务请求连接超时时间（毫秒）
+  ReadTimeout: 6000 #服务请求处理超时时间（毫秒）
+  OkToRetryOnAllOperations: true #对超时请求启用重试机制
+  MaxAutoRetriesNextServer: 1 #切换重试实例的最大个数
+  MaxAutoRetries: 1 # 切换实例后重试最大次数
+  #  com.netflix.loadbalancer.RandomRule：从提供服务的实例中以随机的方式；
+  #  com.netflix.loadbalancer.RoundRobinRule：以线性轮询的方式，就是维护一个计数器，从提供服务的实例中按顺序选取，第一次选第一个，第二次选第二个，以此类推，到最后一个以后再从头来过；
+  #  com.netflix.loadbalancer.RetryRule：在RoundRobinRule的基础上添加重试机制，即在指定的重试时间内，反复使用线性轮询策略来选择可用实例；
+  #  com.netflix.loadbalancer.WeightedResponseTimeRule：对RoundRobinRule的扩展，响应速度越快的实例选择权重越大，越容易被选择；
+  #  com.netflix.loadbalancer.BestAvailableRule：选择并发较小的实例；
+  #  com.netflix.loadbalancer.AvailabilityFilteringRule：先过滤掉故障实例，再选择并发较小的实例；
+  #  com.netflix.loadbalancer.ZoneAwareLoadBalancer：采用双重过滤，同时过滤不是同一区域的实例和故障实例，选择并发较小的实例。
+  NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule
 
 # 日志配置
 #logging:

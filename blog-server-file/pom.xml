@@ -32,17 +32,8 @@
             <artifactId>blog-logging</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
         <!--返回html的maven依赖-->
         <!--引入此模板包后，模板文件需要放在classpath:/templates文件夹下-->
@@ -92,7 +83,7 @@
 
     <build>
         <!-- 打成jar包的名称 -->
-        <finalName>blog-server-file</finalName>
+        <finalName>blog-file</finalName>
         <plugins>
             <!-- spring boot 打包插件 -->
             <plugin>

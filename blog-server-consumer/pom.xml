@@ -32,19 +32,6 @@
             <artifactId>blog-logging</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
         </dependency>
@@ -83,7 +70,7 @@
 
     <build>
         <!-- 打成jar包的名称 -->
-        <finalName>blog-server-consumer</finalName>
+        <finalName>blog-consumer</finalName>
         <plugins>
             <!-- spring boot 打包插件 -->
             <plugin>

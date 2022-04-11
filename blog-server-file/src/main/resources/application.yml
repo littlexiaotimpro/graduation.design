@@ -38,9 +38,6 @@ spring:
 # 指定文件上传路径
 file:
   upload-dir: ./uploads
-  logs-dir: ./logs
-logstash:
-  url: 192.168.124.100:4560
 
 # Swagger 属性配置
 swagger:

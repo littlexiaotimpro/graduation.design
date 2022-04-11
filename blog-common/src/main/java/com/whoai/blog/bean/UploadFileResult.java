@@ -1,4 +1,4 @@
-package com.whoai.blog.file.service;
+package com.whoai.blog.bean;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

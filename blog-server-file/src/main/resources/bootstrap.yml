@@ -6,3 +6,12 @@ spring:
     nacos:
       discovery:
         server-addr: 192.168.124.100:8848
+
+# 自定义日志属性
+logging:
+  # 日志文件路径
+  file:
+    logs-dir: ./logs
+  # logstash 配置，必须放在bootstrap中配置
+  logstash:
+    url: 192.168.124.100:4560
