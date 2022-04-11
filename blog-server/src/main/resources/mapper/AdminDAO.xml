@@ -5,13 +5,16 @@
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="account" jdbcType="VARCHAR" property="account"/>
         <result column="password" jdbcType="VARCHAR" property="password"/>
-        <result column="permission" jdbcType="INTEGER" property="permission"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="role" jdbcType="VARCHAR" property="role"/>
+        <result column="permission" jdbcType="VARCHAR" property="permission"/>
         <result column="status" jdbcType="INTEGER" property="status"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
     <sql id="Base_Column_List">
-        id, account, `password`, permission, `status`, create_time, update_time
+        id, account, `password`, username, email, `role`, permission, `status`, create_time, update_time
     </sql>
     <select id="checkLogin" parameterType="com.whoai.blog.entity.Admin" resultMap="BaseResultMap">
         select * from tb_admin
@@ -26,8 +29,15 @@
         update tb_admin
         <set>
             <if test="admin.password!=null">password = #{admin.password},</if>
-            <if test="admin.permission!=null">permission = #{admin.permission},</if>
-            <if test="admin.status!=null">status = #{admin.status},</if>
+            <if test="admin.role!=null">
+                `role` = #{admin.role,javaType=com.whoai.blog.constant.Role},
+            </if>
+            <if test="admin.permission!=null">
+                permission = #{admin.permission},
+            </if>
+            <if test="admin.status!=null">
+                status = #{admin.status,javaType=com.whoai.blog.constant.Status},
+            </if>
         </set>
         <where>
             <if test="admin.id != null">and id = #{admin.id}</if>
@@ -38,13 +48,19 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="admin.account != null">account,create_time,update_time,</if>
             <if test="admin.password != null">`password`,</if>
+            <if test="admin.username != null">username,</if>
+            <if test="admin.email != null">email,</if>
+            <if test="admin.role != null">`role`,</if>
             <if test="admin.permission != null">permission,</if>
             <if test="admin.status != null">status,</if>
         </trim>
         <trim prefix="values(" suffix=")" suffixOverrides=",">
             <if test="admin.account != null">#{admin.account},NOW(),NOW(),</if>
             <if test="admin.password != null">#{admin.password},</if>
-            <if test="admin.permission != null">#{admin.permission,javaType=com.whoai.blog.constant.Permission},</if>
+            <if test="admin.username != null">#{admin.username},</if>
+            <if test="admin.email != null">#{admin.email},</if>
+            <if test="admin.role != null">#{admin.rile,javaType=com.whoai.blog.constant.Role},</if>
+            <if test="admin.permission != null">#{admin.permission},</if>
             <if test="admin.status != null">#{admin.status,javaType=com.whoai.blog.constant.Status},</if>
         </trim>
     </insert>

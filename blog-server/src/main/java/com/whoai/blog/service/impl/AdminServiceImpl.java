@@ -1,6 +1,7 @@
 package com.whoai.blog.service.impl;
 
 import com.whoai.blog.constant.Permission;
+import com.whoai.blog.constant.Role;
 import com.whoai.blog.constant.Status;
 import com.whoai.blog.dao.AdminDAO;
 import com.whoai.blog.dto.AbstractDTO;
@@ -102,7 +103,7 @@ public class AdminServiceImpl implements AdminService {
             log.info("待新增的用户信息: {}", dto);
         }
         Admin admin = dto.convertToEntity();
-        admin.setPermission(Permission.GUEST);
+        admin.setRole(Role.GUEST);
         admin.setStatus(Status.VALID);
         return adminDAO.saveAdmin(admin);
     }

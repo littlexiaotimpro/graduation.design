@@ -2,6 +2,7 @@ package com.whoai.blog.entity;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.whoai.blog.constant.Permission;
+import com.whoai.blog.constant.Role;
 import com.whoai.blog.constant.Status;
 import com.whoai.blog.dict.DictionaryJsonSerializer;
 import lombok.Data;
@@ -24,7 +25,7 @@ public class Admin implements Serializable {
     private Integer id;
 
     /**
-     * 账号
+     * 账号，具有唯一性
      */
     private String account;
 
@@ -32,6 +33,22 @@ public class Admin implements Serializable {
      * 密码
      */
     private String password;
+
+    /**
+     * 用户名，具有唯一性
+     */
+    private String username;
+
+    /**
+     * 邮箱，若用户存在多个邮箱，仅能选择其中一个
+     */
+    private String email;
+
+    /**
+     * 角色
+     */
+    @JsonSerialize(using = DictionaryJsonSerializer.class)
+    private Role role;
 
     /**
      * 权限
