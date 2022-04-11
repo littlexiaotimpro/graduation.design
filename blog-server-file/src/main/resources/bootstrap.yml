@@ -1,0 +1,8 @@
+# 引导文件配置
+spring:
+  application:
+    name: blog-file
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.124.100:8848

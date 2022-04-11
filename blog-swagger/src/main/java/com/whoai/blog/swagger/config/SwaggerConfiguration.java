@@ -89,11 +89,14 @@ public class SwaggerConfiguration implements WebMvcConfigurer {
      * 授权信息全局应用
      */
     private List<SecurityContext> securityContexts() {
-        return Collections.singletonList(
-                SecurityContext.builder()
-                        .securityReferences(Collections.singletonList(new SecurityReference("BASE_TOKEN", new AuthorizationScope[]{new AuthorizationScope("global", "")})))
-                        .build()
-        );
+        //
+        AuthorizationScope[] authorizationScopes = {new AuthorizationScope("global", "")};
+        SecurityReference securityReference = new SecurityReference("BASE_TOKEN", authorizationScopes);
+        List<SecurityReference> securityReferences = Collections.singletonList(securityReference);
+        SecurityContext securityContext = SecurityContext.builder()
+                .securityReferences(securityReferences)
+                .build();
+        return Collections.singletonList(securityContext);
     }
 
     @SafeVarargs
