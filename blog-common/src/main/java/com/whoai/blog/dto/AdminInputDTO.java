@@ -1,5 +1,7 @@
 package com.whoai.blog.dto;
 
+import com.whoai.blog.constant.Role;
+import com.whoai.blog.constant.Status;
 import com.whoai.blog.entity.Admin;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,19 +16,29 @@ public class AdminInputDTO extends AbstractInputDTO<AdminInputDTO, Admin> {
     private Integer id;
 
     /**
+     * 账户
+     */
+    private String account;
+
+    /**
      * 密码
      */
     private String password;
 
     /**
+     * 角色
+     */
+    private Role role;
+
+    /**
      * 权限
      */
-    private Integer permission;
+    private String permission;
 
     /**
      * 状态（0：禁用，1：启用）
      */
-    private Integer status;
+    private Status status;
 
     @Override
     public Admin convertToEntity() {

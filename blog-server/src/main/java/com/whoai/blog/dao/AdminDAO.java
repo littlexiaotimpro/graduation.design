@@ -12,7 +12,7 @@ public interface AdminDAO {
     /**
      * 管理员登录验证
      */
-    Admin checkLogin(@Param("admin") Admin admin);
+    Admin findAdminByAccount(@Param("account") String account);
 
     /**
      * 查询所有用户

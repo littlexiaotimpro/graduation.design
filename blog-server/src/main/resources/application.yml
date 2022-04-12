@@ -88,6 +88,17 @@ swagger:
   description: springfox swagger 3.0 Demo
   try-host: http://localhost:${server.port}
 
+# 配置jwt相关属性
+jwt:
+  # header中的认证属性
+  tokenHeader: Authorization
+  # token的前缀，中间有个空格[Head token]
+  tokenHead: Head
+  # 加密密钥
+  secret: test_secret
+  # 过期时间，单位秒
+  expire: 3600
+
 # feign 启用断路器配置
 feign:
   rpc-service: BLOG-FILE

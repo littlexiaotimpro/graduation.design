@@ -5,7 +5,6 @@
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="account" jdbcType="VARCHAR" property="account"/>
         <result column="password" jdbcType="VARCHAR" property="password"/>
-        <result column="username" jdbcType="VARCHAR" property="username"/>
         <result column="email" jdbcType="VARCHAR" property="email"/>
         <result column="role" jdbcType="VARCHAR" property="role"/>
         <result column="permission" jdbcType="VARCHAR" property="permission"/>
@@ -14,12 +13,12 @@
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
     <sql id="Base_Column_List">
-        id, account, `password`, username, email, `role`, permission, `status`, create_time, update_time
+        id, account, `password`, email, `role`, permission, `status`, create_time, update_time
     </sql>
-    <select id="checkLogin" parameterType="com.whoai.blog.entity.Admin" resultMap="BaseResultMap">
+    <select id="findAdminByAccount" parameterType="java.lang.String" resultMap="BaseResultMap">
         select * from tb_admin
         <where>
-            account = #{admin.account} and `password` = #{admin.password}
+            account = #{account}
         </where>
     </select>
     <select id="findAll" resultMap="BaseResultMap">
@@ -33,7 +32,7 @@
                 `role` = #{admin.role,javaType=com.whoai.blog.constant.Role},
             </if>
             <if test="admin.permission!=null">
-                permission = #{admin.permission},
+                permission = #{admin.permission,javaType=com.whoai.blog.constant.Permission},
             </if>
             <if test="admin.status!=null">
                 status = #{admin.status,javaType=com.whoai.blog.constant.Status},
@@ -48,7 +47,6 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="admin.account != null">account,create_time,update_time,</if>
             <if test="admin.password != null">`password`,</if>
-            <if test="admin.username != null">username,</if>
             <if test="admin.email != null">email,</if>
             <if test="admin.role != null">`role`,</if>
             <if test="admin.permission != null">permission,</if>
@@ -57,10 +55,9 @@
         <trim prefix="values(" suffix=")" suffixOverrides=",">
             <if test="admin.account != null">#{admin.account},NOW(),NOW(),</if>
             <if test="admin.password != null">#{admin.password},</if>
-            <if test="admin.username != null">#{admin.username},</if>
             <if test="admin.email != null">#{admin.email},</if>
-            <if test="admin.role != null">#{admin.rile,javaType=com.whoai.blog.constant.Role},</if>
-            <if test="admin.permission != null">#{admin.permission},</if>
+            <if test="admin.role != null">#{admin.role,javaType=com.whoai.blog.constant.Role},</if>
+            <if test="admin.permission != null">#{admin.permission,javaType=com.whoai.blog.constant.Permission},</if>
             <if test="admin.status != null">#{admin.status,javaType=com.whoai.blog.constant.Status},</if>
         </trim>
     </insert>

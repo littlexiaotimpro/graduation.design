@@ -21,12 +21,12 @@ public class ResponseResult<T> implements Serializable {
     private T body;
 
     public static <K> ResponseResult<K> success(K body, String message) {
-        return new ResponseResult<>(ResponseCode.SUCCESS,
-                ResponseCode.SUCCESS.getState(), message, body);
+        return new ResponseResult<>(ResponseCode.OK,
+                ResponseCode.OK.getState(), message, body);
     }
 
     public static <K> ResponseResult<K> success(int state, K body, String message) {
-        return new ResponseResult<>(ResponseCode.SUCCESS,
+        return new ResponseResult<>(ResponseCode.OK,
                 state, message, body);
     }
 
@@ -40,18 +40,36 @@ public class ResponseResult<T> implements Serializable {
                 state, message, null);
     }
 
+    public static <K> ResponseResult<K> forbidden(String message) {
+        return new ResponseResult<>(ResponseCode.FAIL,
+                ResponseCode.FORBIDDEN.state, message, null);
+    }
+
+    public static <K> ResponseResult<K> unauthorized(String message) {
+        return new ResponseResult<>(ResponseCode.FAIL,
+                ResponseCode.UNAUTHORIZED.state, message, null);
+    }
+
     public enum ResponseCode {
-        SUCCESS(200),
-        FAIL(-1);
+        OK(200, "OK"),
+        FAIL(-1, "FAIL"),
+        FORBIDDEN(403, "Forbidden"),
+        UNAUTHORIZED(401, "Unauthorized");
 
         private final int state;
+        private final String desc;
 
-        ResponseCode(int state) {
+        ResponseCode(int state, String desc) {
             this.state = state;
+            this.desc = desc;
         }
 
         public int getState() {
             return state;
+        }
+
+        public String getDesc() {
+            return desc;
         }
     }
 

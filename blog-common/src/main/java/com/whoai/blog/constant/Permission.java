@@ -2,6 +2,9 @@ package com.whoai.blog.constant;
 
 import lombok.ToString;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 定义用户权限
  * <tr>若当前用户角色为管理员，初始值为所有权限
@@ -38,20 +41,36 @@ public enum Permission implements Dictionary {
         this.value = value;
     }
 
-    @Override
     public Integer getCode() {
         return code;
     }
 
-    @Override
     public String getValue() {
         return value;
     }
 
-    public static Permission convert(Integer code) {
+    public static List<Permission> converts(String codes) {
+        List<Permission> permissions = new ArrayList<>();
+        if (codes == null) {
+            return permissions;
+        }
+        String[] split = codes.split(",");
+        Permission[] values = Permission.values();
+        for (String code : split) {
+            for (Permission value : values) {
+                if (code.equals(value.getCode().toString())) {
+                    permissions.add(value);
+                    break;
+                }
+            }
+        }
+        return permissions;
+    }
+
+    public static Permission convert(String code) {
         Permission[] values = Permission.values();
         for (Permission value : values) {
-            if (code != null && code.compareTo(value.getCode()) == 0) {
+            if (code != null && code.equals(value.getCode().toString())) {
                 return value;
             }
         }

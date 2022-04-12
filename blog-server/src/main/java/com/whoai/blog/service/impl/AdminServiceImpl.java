@@ -1,17 +1,26 @@
 package com.whoai.blog.service.impl;
 
-import com.whoai.blog.constant.Permission;
+import com.whoai.blog.config.sercurity.JwtProperties;
 import com.whoai.blog.constant.Role;
 import com.whoai.blog.constant.Status;
 import com.whoai.blog.dao.AdminDAO;
 import com.whoai.blog.dto.AbstractDTO;
-import com.whoai.blog.dto.AdminDTO;
+import com.whoai.blog.dto.AdminLoginDTO;
 import com.whoai.blog.dto.AdminInputDTO;
 import com.whoai.blog.entity.Admin;
 import com.whoai.blog.exception.ResourcesNotFoundException;
 import com.whoai.blog.service.AdminService;
 import com.whoai.blog.util.JWTUtil;
+import com.whoai.blog.utils.JwtTokenUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,18 +38,55 @@ import java.util.List;
 @Slf4j
 public class AdminServiceImpl implements AdminService {
 
-    private final AdminDAO adminDAO;
+    @Autowired
+    private UserDetailsService userDetailsService;
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private JwtProperties jwtProperties;
+    @Autowired
+    private AdminDAO adminDAO;
 
-    public AdminServiceImpl(AdminDAO adminDAO) {
-        this.adminDAO = adminDAO;
+    @Override
+    public Admin findUserByAccount(AbstractDTO<AdminLoginDTO, Admin> dto) {
+        Admin admin = dto.convertToEntity();
+        return adminDAO.findAdminByAccount(admin.getAccount());
+    }
+
+    @Override
+    public Integer register(AbstractDTO<AdminInputDTO, Admin> dto) {
+        Admin admin = dto.convertToEntity();
+        admin.setPassword(passwordEncoder.encode(admin.getPassword()));
+        return adminDAO.saveAdmin(admin);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Integer checkLogin(AbstractDTO<AdminDTO, Admin> dto, HttpServletResponse response) {
+    public String login(AbstractDTO<AdminLoginDTO, Admin> dto, HttpServletResponse response) {
+        Admin admin = dto.convertToEntity();
+        String account = admin.getAccount();
+        String password = admin.getPassword();
+        String token = null;
+        try {
+            UserDetails userDetails = userDetailsService.loadUserByUsername(account);
+            if (!passwordEncoder.matches(password, userDetails.getPassword())) {
+                throw new BadCredentialsException("密码不正确");
+            }
+            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            token = jwtTokenUtil.generalToken(userDetails);
+        } catch (AuthenticationException e) {
+            log.warn("登录异常:{}", e.getMessage());
+        }
+        return token;
+    }
+
+    private int loginWithCookies(AbstractDTO<AdminLoginDTO, Admin> dto, HttpServletResponse response) {
         boolean info = log.isInfoEnabled();
         Admin admin = dto.convertToEntity();
-        Admin checker = adminDAO.checkLogin(admin);
+        Admin checker = findUserByAccount(dto);
         if (checker != null) {
             if (checker.getStatus() == Status.VALID) {
                 if (info) {
@@ -68,7 +114,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public boolean checkLogout(HttpServletRequest request, HttpServletResponse response) {
+    public boolean logout(HttpServletRequest request, HttpServletResponse response) {
         Cookie cookie = new Cookie("access_token", null);
         cookie.setMaxAge(3600);
         cookie.setPath("/");
@@ -98,7 +144,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     @Transactional
-    public Integer saveAdmin(AbstractDTO<AdminDTO, Admin> dto, HttpServletRequest request) {
+    public Integer saveAdmin(AbstractDTO<AdminLoginDTO, Admin> dto, HttpServletRequest request) {
         if (log.isInfoEnabled()) {
             log.info("待新增的用户信息: {}", dto);
         }

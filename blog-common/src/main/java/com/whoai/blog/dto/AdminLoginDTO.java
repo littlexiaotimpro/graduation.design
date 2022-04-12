@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class AdminDTO extends AbstractInputDTO<AdminDTO, Admin> {
+public class AdminLoginDTO extends AbstractInputDTO<AdminLoginDTO, Admin> {
     /**
      * 账号
      */
@@ -19,7 +19,7 @@ public class AdminDTO extends AbstractInputDTO<AdminDTO, Admin> {
 
     @Override
     public Admin convertToEntity() {
-        DTOConvert<AdminDTO, Admin> converter = converter();
+        DTOConvert<AdminLoginDTO, Admin> converter = converter();
         converter.setEntity(new Admin());
         return converter.convert(this);
     }

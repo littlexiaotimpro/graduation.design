@@ -5,10 +5,12 @@ import com.whoai.blog.constant.Permission;
 import com.whoai.blog.constant.Role;
 import com.whoai.blog.constant.Status;
 import com.whoai.blog.dict.DictionaryJsonSerializer;
+import com.whoai.blog.dict.DictionaryListJsonSerializer;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 用户: tb_admin
@@ -35,11 +37,6 @@ public class Admin implements Serializable {
     private String password;
 
     /**
-     * 用户名，具有唯一性
-     */
-    private String username;
-
-    /**
      * 邮箱，若用户存在多个邮箱，仅能选择其中一个
      */
     private String email;
@@ -53,8 +50,8 @@ public class Admin implements Serializable {
     /**
      * 权限
      */
-    @JsonSerialize(using = DictionaryJsonSerializer.class)
-    private Permission permission;
+    @JsonSerialize(using = DictionaryListJsonSerializer.class)
+    private List<Permission> permission;
 
     /**
      * 状态（0：禁用，1：启用）

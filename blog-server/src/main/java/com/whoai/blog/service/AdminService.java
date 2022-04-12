@@ -1,7 +1,7 @@
 package com.whoai.blog.service;
 
 import com.whoai.blog.dto.AbstractDTO;
-import com.whoai.blog.dto.AdminDTO;
+import com.whoai.blog.dto.AdminLoginDTO;
 import com.whoai.blog.dto.AdminInputDTO;
 import com.whoai.blog.entity.Admin;
 
@@ -13,15 +13,26 @@ import java.util.List;
  * 管理员服务接口（系统未提供用户注册等功能）
  */
 public interface AdminService {
+
+    Admin findUserByAccount(AbstractDTO<AdminLoginDTO, Admin> dto);
+
+    /**
+     * 用户注册
+     *
+     * @param dto 用户信息
+     * @return 是否注册成功
+     */
+    Integer register(AbstractDTO<AdminInputDTO, Admin> dto);
+
     /**
      * 管理员登录验证
      */
-    Integer checkLogin(AbstractDTO<AdminDTO, Admin> dto, HttpServletResponse response);
+    String login(AbstractDTO<AdminLoginDTO, Admin> dto, HttpServletResponse response);
 
     /**
      * 管理员登出验证
      */
-    boolean checkLogout(HttpServletRequest request, HttpServletResponse response);
+    boolean logout(HttpServletRequest request, HttpServletResponse response);
 
     /**
      * 管理端获取用户数据
@@ -40,5 +51,5 @@ public interface AdminService {
      * @param request 请求
      * @return 保存是否成功
      */
-    Integer saveAdmin(AbstractDTO<AdminDTO, Admin> dto, HttpServletRequest request);
+    Integer saveAdmin(AbstractDTO<AdminLoginDTO, Admin> dto, HttpServletRequest request);
 }
