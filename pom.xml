@@ -16,6 +16,7 @@
         <module>blog-server-consumer</module>
         <module>blog-logging</module>
         <module>blog-cloud-openfeign</module>
+        <module>blog-sso-client</module>
     </modules>
 
     <properties>
