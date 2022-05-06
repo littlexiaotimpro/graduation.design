@@ -1,6 +1,5 @@
 package com.whoai.blog.service.impl;
 
-import com.whoai.blog.config.sercurity.JwtProperties;
 import com.whoai.blog.constant.Role;
 import com.whoai.blog.constant.Status;
 import com.whoai.blog.dao.AdminDAO;
@@ -11,15 +10,8 @@ import com.whoai.blog.entity.Admin;
 import com.whoai.blog.exception.ResourcesNotFoundException;
 import com.whoai.blog.service.AdminService;
 import com.whoai.blog.util.JWTUtil;
-import com.whoai.blog.utils.JwtTokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,13 +31,7 @@ import java.util.List;
 public class AdminServiceImpl implements AdminService {
 
     @Autowired
-    private UserDetailsService userDetailsService;
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
-    @Autowired
     private PasswordEncoder passwordEncoder;
-    @Autowired
-    private JwtProperties jwtProperties;
     @Autowired
     private AdminDAO adminDAO;
 
@@ -65,22 +51,23 @@ public class AdminServiceImpl implements AdminService {
     @Override
     @Transactional(readOnly = true)
     public String login(AbstractDTO<AdminLoginDTO, Admin> dto, HttpServletResponse response) {
-        Admin admin = dto.convertToEntity();
-        String account = admin.getAccount();
-        String password = admin.getPassword();
-        String token = null;
-        try {
-            UserDetails userDetails = userDetailsService.loadUserByUsername(account);
-            if (!passwordEncoder.matches(password, userDetails.getPassword())) {
-                throw new BadCredentialsException("密码不正确");
-            }
-            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            token = jwtTokenUtil.generalToken(userDetails);
-        } catch (AuthenticationException e) {
-            log.warn("登录异常:{}", e.getMessage());
-        }
-        return token;
+//        Admin admin = dto.convertToEntity();
+//        String account = admin.getAccount();
+//        String password = admin.getPassword();
+//        String token = null;
+//        try {
+//            UserDetails userDetails = userDetailsService.loadUserByUsername(account);
+//            if (!passwordEncoder.matches(password, userDetails.getPassword())) {
+//                throw new BadCredentialsException("密码不正确");
+//            }
+//            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+//            SecurityContextHolder.getContext().setAuthentication(authentication);
+//            token = jwtTokenUtil.generalToken(userDetails);
+//        } catch (AuthenticationException e) {
+//            log.warn("登录异常:{}", e.getMessage());
+//        }
+//        return token;
+        return null;
     }
 
     private int loginWithCookies(AbstractDTO<AdminLoginDTO, Admin> dto, HttpServletResponse response) {

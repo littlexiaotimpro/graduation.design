@@ -1,6 +1,6 @@
-package com.whoai.blog.utils;
+package com.whoai.blog.sso.util;
 
-import com.whoai.blog.config.sercurity.JwtProperties;
+import com.whoai.blog.sso.config.sercurity.JwtProperties;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

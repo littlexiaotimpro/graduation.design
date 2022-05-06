@@ -1,16 +1,9 @@
 package com.whoai.blog.config.filter;
 
-import com.whoai.blog.config.sercurity.JwtProperties;
 import com.whoai.blog.util.TraceUtil;
-import com.whoai.blog.utils.JwtTokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -20,51 +13,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 请求拦截器（在进入 Controller 前），可以过滤请求或设置一些参数
- * <p>
- * 如下（可以由前端解决）：
- * <tr>- 用户未登录时，在一些需要登录的操作上进行过滤
- * <tr>- 用户登录后，缓存用户信息，在一些需要权限的操作上进行过滤
+ * 为每一个请求设置一个唯一的 traceID
  */
 @Slf4j
+@Component
 public class TraceFilter extends OncePerRequestFilter {
-
-    @Autowired
-    private UserDetailsService userDetailsService;
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
-    @Autowired
-    private JwtProperties jwtProperties;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-
-        // 设置响应参数
-        response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
-        response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, If-Modified-Since");
-        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
-        response.setHeader("Access-Control-Max-Age", "3600");
-        response.addHeader("Access-Control-Allow-Credentials", "true");
-        response.setCharacterEncoding("UTF-8");
-        response.setContentType("application/json");
-
-        // 用户权限认证
-        String authHeader = request.getHeader(jwtProperties.getTokenHeader());
-        if (authHeader != null && authHeader.startsWith(jwtProperties.getTokenHead())) {
-            String authToken = authHeader.substring(jwtProperties.getTokenHead().length());
-            String username = jwtTokenUtil.getUsernameFromToken(authToken);
-            log.info("checking username:{}", username);
-            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-                if (jwtTokenUtil.validateToken(authToken, userDetails)) {
-                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                    log.info("authenticated user:{}", username);
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
-                }
-            }
-        }
         // 为每一个请求设置一个 traceId
         try {
             MDC.put(TraceUtil.TRACE_ID, TraceUtil.getTraceId());

@@ -21,7 +21,7 @@
     <dependencies>
         <dependency>
             <groupId>whoai</groupId>
-            <artifactId>blog-common</artifactId>
+            <artifactId>blog-sso-client</artifactId>
         </dependency>
         <dependency>
             <groupId>whoai</groupId>
@@ -43,15 +43,6 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
-        </dependency>
-        <!-- Spring 安全认证 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
         </dependency>
         <!--返回html的maven依赖-->
         <!--引入此模板包后，模板文件需要放在classpath:/templates文件夹下-->

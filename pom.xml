@@ -97,6 +97,11 @@
             </dependency>
             <dependency>
                 <groupId>whoai</groupId>
+                <artifactId>blog-sso-client</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>whoai</groupId>
                 <artifactId>blog-swagger</artifactId>
                 <version>${project.version}</version>
             </dependency>

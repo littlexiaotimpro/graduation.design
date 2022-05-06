@@ -1,4 +1,4 @@
-package com.whoai.blog.config.sercurity;
+package com.whoai.blog.sso.config.sercurity;
 
 import com.whoai.blog.constant.Permission;
 import com.whoai.blog.constant.Role;

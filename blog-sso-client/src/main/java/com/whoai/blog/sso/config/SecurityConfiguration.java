@@ -1,7 +1,7 @@
-package com.whoai.blog.config;
+package com.whoai.blog.sso.config;
 
-import com.whoai.blog.config.filter.TraceFilter;
-import com.whoai.blog.config.sercurity.*;
+import com.whoai.blog.sso.config.filter.LoginFilter;
+import com.whoai.blog.sso.config.sercurity.*;
 import com.whoai.blog.constant.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -72,8 +72,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public TraceFilter traceFilter() {
-        return new TraceFilter();
+    public LoginFilter traceFilter() {
+        return new LoginFilter();
     }
 
     @Override

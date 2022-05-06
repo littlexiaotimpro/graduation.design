@@ -1,14 +1,14 @@
-package com.whoai.blog.config.interceptor;
+package com.whoai.blog.sso.config.interceptor;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Slf4j
-public class ErrorInterceptor implements HandlerInterceptor {
+public class ErrorInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     @SuppressWarnings("NullableProblems")
@@ -26,15 +26,6 @@ public class ErrorInterceptor implements HandlerInterceptor {
         if (log.isDebugEnabled()) {
             log.debug("请求处理之后进行调用，但是在视图被渲染之前（Controller方法调用之后）");
         }
-//        if (response.getStatus() == 404) {
-//            /*
-//             * 请求执行并处理提交后，此时不能进行重定向设置
-//             * 在出现请求访问失败之后，已经执行了重定向至 /error
-//             * 此时再次执行重定向会报错
-//             * java.lang.IllegalStateException: Cannot call sendRedirect() after the response has been committed
-//             */
-//            response.sendRedirect("/404");
-//        }
     }
 
     @Override

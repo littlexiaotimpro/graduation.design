@@ -1,6 +1,6 @@
-package com.whoai.blog.config;
+package com.whoai.blog.sso.config;
 
-import com.whoai.blog.config.interceptor.ErrorInterceptor;
+import com.whoai.blog.sso.config.interceptor.ErrorInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
