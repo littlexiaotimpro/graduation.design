@@ -2,9 +2,8 @@ package com.whoai.blog.sso.config.sercurity;
 
 import com.whoai.blog.constant.Permission;
 import com.whoai.blog.constant.Role;
-import com.whoai.blog.dto.AdminLoginDTO;
 import com.whoai.blog.entity.Admin;
-import com.whoai.blog.service.AdminService;
+import com.whoai.blog.sso.dao.LoginMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,14 +19,12 @@ import java.util.List;
 public class AdminUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private AdminService adminService;
+    private LoginMapper loginMapper;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // 依据用户名获取用户
-        AdminLoginDTO adminLoginDTO = new AdminLoginDTO();
-        adminLoginDTO.setAccount(username);
-        Admin admin = adminService.findUserByAccount(adminLoginDTO);
+        // 依据用户名获取用户 TODO 若后续加入缓存功能，此处需要新增逻辑，是否从缓存中获取
+        Admin admin = loginMapper.findAdminByAccount(username);
         if (admin != null) {
             Role role = admin.getRole();
             List<Permission> permissionList = admin.getPermission();

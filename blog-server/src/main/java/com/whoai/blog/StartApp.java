@@ -8,7 +8,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
-@MapperScan("com.whoai.blog.dao")
+@MapperScan({"com.whoai.blog.dao","com.whoai.blog.sso.dao"})
 @EnableFeignClients("com.whoai.blog.feign")
 @EnableDiscoveryClient
 public class StartApp {
