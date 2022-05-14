@@ -14,3 +14,7 @@
 /uploads/
 /blog-logging/target/
 /blog-logging/blog-logging.iml
+/blog-server-sso/target
+/blog-server-sso/blog-server-sso.iml
+/blog-base-jwt/target
+/blog-base-jwt/blog-base-jwt.iml

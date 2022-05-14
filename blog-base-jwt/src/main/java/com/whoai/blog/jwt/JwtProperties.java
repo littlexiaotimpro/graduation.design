@@ -1,4 +1,4 @@
-package com.whoai.blog.sso.config.sercurity;
+package com.whoai.blog.jwt;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

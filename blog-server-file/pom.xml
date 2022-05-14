@@ -73,12 +73,6 @@
             <artifactId>che-core-api-dto</artifactId>
             <version>6.17.0</version>
         </dependency>
-        <!--OSS存储-->
-        <dependency>
-            <groupId>com.aliyun.oss</groupId>
-            <artifactId>aliyun-sdk-oss</artifactId>
-            <version>3.10.2</version>
-        </dependency>
     </dependencies>
 
     <build>

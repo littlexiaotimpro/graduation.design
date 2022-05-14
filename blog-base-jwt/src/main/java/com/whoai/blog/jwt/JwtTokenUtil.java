@@ -1,16 +1,15 @@
-package com.whoai.blog.sso.util;
+package com.whoai.blog.jwt;
 
-import com.whoai.blog.sso.config.sercurity.JwtProperties;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * JWT 生成 Token 的工具类
@@ -54,11 +53,7 @@ public class JwtTokenUtil {
      * @param userDetails 用户详细信息
      * @return token，token是一次性的。是为一个用户的有效登录周期准备的一个token。用户退出或超时，token失效。
      */
-    public String generalToken(UserDetails userDetails) {
-        return generalToken(userDetails.getUsername());
-    }
-
-    private String generalToken(String account) {
+    public String generalToken(String account) {
         long createdMillis = System.currentTimeMillis();
         Date createdTime = new Date(createdMillis);
         SecretKey secretKey = generalSecretKey();
@@ -133,9 +128,9 @@ public class JwtTokenUtil {
      *
      * @return boolean
      */
-    public boolean validateToken(String token, UserDetails userDetails) {
+    public boolean validateToken(String token, String username) {
         JWTResult jwtResult = parseToken(token);
-        return jwtResult.success && userDetails.getUsername().equals(jwtResult.claims.getSubject());
+        return jwtResult.success && Objects.equals(username,jwtResult.claims.getSubject());
     }
 
     /**

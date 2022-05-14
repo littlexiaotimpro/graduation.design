@@ -1,4 +1,4 @@
-package com.whoai.blog.sso.config.sercurity;
+package com.whoai.blog.sso.sercurity;
 
 import cn.hutool.json.JSONUtil;
 import com.whoai.blog.bean.ResponseResult;

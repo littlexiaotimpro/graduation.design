@@ -17,12 +17,14 @@
         <module>blog-logging</module>
         <module>blog-cloud-openfeign</module>
         <module>blog-server-sso</module>
+        <module>blog-base-jwt</module>
     </modules>
 
     <properties>
         <guava.version>27.0.1-jre</guava.version>
         <hutool.version>5.1.4</hutool.version>
         <mybatis.boot.version>2.1.3</mybatis.boot.version>
+        <mybatis-plus.boot.version>3.5.1</mybatis-plus.boot.version>
         <jwt.version>3.3.0</jwt.version>
         <jjwt.version>0.9.0</jjwt.version>
         <logstash.version>6.6</logstash.version>
@@ -61,6 +63,11 @@
                 <version>${mybatis.boot.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.boot.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid</artifactId>
                 <version>${alibaba-druid.version}</version>
@@ -97,12 +104,12 @@
             </dependency>
             <dependency>
                 <groupId>whoai</groupId>
-                <artifactId>blog-sso-client</artifactId>
+                <artifactId>blog-swagger</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>whoai</groupId>
-                <artifactId>blog-swagger</artifactId>
+                <artifactId>blog-base-jwt</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

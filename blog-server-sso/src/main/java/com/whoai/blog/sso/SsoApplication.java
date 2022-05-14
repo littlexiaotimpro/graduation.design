@@ -11,7 +11,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  * @since 2022/5/8
  */
 @SpringBootApplication
-@MapperScan("com.whoai.blog.sso.dao")
+@MapperScan("com.whoai.blog.sso.mapper")
 @EnableDiscoveryClient
 public class SsoApplication {
     public static void main(String[] args) {

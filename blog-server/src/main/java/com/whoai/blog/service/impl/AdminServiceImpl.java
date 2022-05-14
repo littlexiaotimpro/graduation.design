@@ -7,9 +7,7 @@ import com.whoai.blog.dto.AbstractDTO;
 import com.whoai.blog.dto.AdminLoginDTO;
 import com.whoai.blog.dto.AdminInputDTO;
 import com.whoai.blog.entity.Admin;
-import com.whoai.blog.exception.ResourcesNotFoundException;
 import com.whoai.blog.service.AdminService;
-import com.whoai.blog.util.JWTUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -68,36 +66,6 @@ public class AdminServiceImpl implements AdminService {
 //        }
 //        return token;
         return null;
-    }
-
-    private int loginWithCookies(AbstractDTO<AdminLoginDTO, Admin> dto, HttpServletResponse response) {
-        boolean info = log.isInfoEnabled();
-        Admin admin = dto.convertToEntity();
-        Admin checker = findUserByAccount(dto);
-        if (checker != null) {
-            if (checker.getStatus() == Status.VALID) {
-                if (info) {
-                    log.info("用户[{}]登录成功", checker.getAccount());
-                }
-                String jwt = JWTUtil.createJWT("1", checker.getAccount(), checker.getAccount(), 30 * 60 * 1000);
-                Cookie cookie = new Cookie("access_token", jwt);
-                cookie.setMaxAge(3600);
-                cookie.setPath("/");
-                cookie.setHttpOnly(false);
-                response.addCookie(cookie);
-                return 1;
-            } else {
-                if (info) {
-                    log.info("用户[{}]已禁用", checker.getAccount());
-                }
-                return 0;
-            }
-        } else {
-            if (info) {
-                log.info("用户[{}]登录失败，无此账户，或账号密码错误！", admin.getAccount());
-            }
-            throw new ResourcesNotFoundException("");
-        }
     }
 
     @Override

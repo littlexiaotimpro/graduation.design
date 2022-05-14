@@ -1,8 +1,10 @@
 package com.whoai.blog.sso.config;
 
+import com.whoai.blog.jwt.JwtProperties;
 import com.whoai.blog.sso.config.filter.LoginFilter;
-import com.whoai.blog.sso.config.sercurity.*;
+import com.whoai.blog.sso.sercurity.*;
 import com.whoai.blog.constant.Role;
+import com.whoai.blog.sso.sercurity.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -90,7 +92,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     public UserDetailsService userDetailsService() {
         // 获取登录用户信息
-        return new AdminUserDetailsService();
+        return new UserDetailsServiceImpl();
     }
 
     @Bean
