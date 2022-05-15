@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whoai.blog.sso.mapper.UserRoleMapper">
+    <select id="findByUserId" parameterType="java.lang.Long" resultType="com.whoai.blog.entity.UserRole">
+        select * from u_user_role ur
+        <where>
+            active = 1 and exists(select urc.role_id from u_user_role_connect urc
+            where urc.role_id = ur.id and urc.user_id = #{userId})
+        </where>
+    </select>
+</mapper>

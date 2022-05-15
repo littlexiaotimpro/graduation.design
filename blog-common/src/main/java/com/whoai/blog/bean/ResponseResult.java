@@ -18,36 +18,37 @@ public class ResponseResult<T> implements Serializable {
     private ResponseCode code;
     private int state;
     private String message;
+    private boolean success;
     private T body;
 
     public static <K> ResponseResult<K> success(K body, String message) {
         return new ResponseResult<>(ResponseCode.OK,
-                ResponseCode.OK.getState(), message, body);
+                ResponseCode.OK.getState(), message, true, body);
     }
 
     public static <K> ResponseResult<K> success(int state, K body, String message) {
         return new ResponseResult<>(ResponseCode.OK,
-                state, message, body);
+                state, message, true, body);
     }
 
     public static <K> ResponseResult<K> fail(String message) {
         return new ResponseResult<>(ResponseCode.FAIL,
-                ResponseCode.FAIL.getState(), message, null);
+                ResponseCode.FAIL.getState(), message, false, null);
     }
 
     public static <K> ResponseResult<K> fail(int state, String message) {
         return new ResponseResult<>(ResponseCode.FAIL,
-                state, message, null);
+                state, message, false, null);
     }
 
     public static <K> ResponseResult<K> forbidden(String message) {
         return new ResponseResult<>(ResponseCode.FAIL,
-                ResponseCode.FORBIDDEN.state, message, null);
+                ResponseCode.FORBIDDEN.state, message, false, null);
     }
 
     public static <K> ResponseResult<K> unauthorized(String message) {
         return new ResponseResult<>(ResponseCode.FAIL,
-                ResponseCode.UNAUTHORIZED.state, message, null);
+                ResponseCode.UNAUTHORIZED.state, message, false, null);
     }
 
     public enum ResponseCode {

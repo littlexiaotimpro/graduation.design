@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.whoai.blog.sso.mapper.LoginMapper">
-    <select id="findByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
-        select * from tb_admin
+    <select id="findByUsername" parameterType="java.lang.String" resultType="com.whoai.blog.sso.web.po.UserAuthenticationPO">
+        select * from u_user
         <where>
-            account = #{account}
+            active = 1 and username = #{username}
         </where>
     </select>
 </mapper>

@@ -58,4 +58,7 @@ jwt:
 mybatis-plus:
   type-enums-package: com.whoai.blog.enums
   configuration:
+    # 枚举类处理
     default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
+    # 开启日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

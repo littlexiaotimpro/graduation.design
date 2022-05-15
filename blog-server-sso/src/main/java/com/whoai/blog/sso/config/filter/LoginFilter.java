@@ -38,6 +38,15 @@ public class LoginFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
+        // 设置响应参数
+//        response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
+//        response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, If-Modified-Since");
+//        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+//        response.setHeader("Access-Control-Max-Age", "3600");
+//        response.addHeader("Access-Control-Allow-Credentials", "true");
+//        response.setCharacterEncoding("UTF-8");
+//        response.setContentType("application/json");
+
         // 用户权限认证
         String authHeader = request.getHeader(jwtProperties.getTokenHeader());
         if (authHeader != null && authHeader.startsWith(jwtProperties.getTokenHead())) {

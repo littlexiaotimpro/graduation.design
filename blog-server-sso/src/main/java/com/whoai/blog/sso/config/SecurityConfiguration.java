@@ -1,12 +1,9 @@
 package com.whoai.blog.sso.config;
 
-import com.whoai.blog.jwt.JwtProperties;
 import com.whoai.blog.sso.config.filter.LoginFilter;
 import com.whoai.blog.sso.sercurity.*;
-import com.whoai.blog.constant.Role;
 import com.whoai.blog.sso.sercurity.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -32,7 +29,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-@EnableConfigurationProperties({JwtProperties.class})
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private RestfulAccessDeniedHandler restfulAccessDeniedHandler;
@@ -50,13 +46,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 // 设置请求的角色权限
-                .antMatchers("/admin/**")
-                .hasRole(Role.SYSTEM.name())
+                //.antMatchers("/**")
+                //.hasRole(RoleEnum.SUPER_ADMIN.name())
                 // 允许对于网站静态资源的无授权访问
                 .antMatchers(HttpMethod.GET)
                 .permitAll()
                 // 对登录注册要允许匿名访问
-                .antMatchers("/admin/login", "/admin/register")
+                .antMatchers("/login", "/register")
                 .permitAll()
                 .antMatchers(HttpMethod.OPTIONS)//跨域请求会先进行一次options请求
                 .permitAll()

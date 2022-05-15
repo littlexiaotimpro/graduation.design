@@ -3,7 +3,6 @@ package com.whoai.blog.jwt;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
@@ -16,7 +15,6 @@ import java.util.Objects;
  *
  * @since 2022/4/11
  */
-@Component
 @Slf4j
 public class JwtTokenUtil {
     /**
@@ -50,21 +48,21 @@ public class JwtTokenUtil {
     /**
      * 签发JWT，创建 token
      *
-     * @param userDetails 用户详细信息
+     * @param username 用户名称
      * @return token，token是一次性的。是为一个用户的有效登录周期准备的一个token。用户退出或超时，token失效。
      */
-    public String generalToken(String account) {
+    public String generalToken(String username) {
         long createdMillis = System.currentTimeMillis();
         Date createdTime = new Date(createdMillis);
         SecretKey secretKey = generalSecretKey();
         Date expireTime = generalExpireTime(createdMillis);
         JwtBuilder builder = Jwts.builder()
                 // 身份标识，具有唯一性
-                .setId(account)
+                .setId(username)
                 // 签发人
-                .setIssuer(account)
+                .setIssuer(username)
                 // 存储的用户信息
-                .setSubject(account)
+                .setSubject(username)
                 // 生成时间
                 .setIssuedAt(createdTime)
                 // 过期时间
@@ -130,7 +128,7 @@ public class JwtTokenUtil {
      */
     public boolean validateToken(String token, String username) {
         JWTResult jwtResult = parseToken(token);
-        return jwtResult.success && Objects.equals(username,jwtResult.claims.getSubject());
+        return jwtResult.success && Objects.equals(username, jwtResult.claims.getSubject());
     }
 
     /**

@@ -9,10 +9,13 @@ import java.util.UUID;
  * @see ThreadLocal
  * @see InheritableThreadLocal
  */
-public class TraceUtil {
+public final class TraceUtil {
 
     public final static String TRACE_ID = "trace_id";
     private final static InheritableThreadLocal<String> threadLocal = new InheritableThreadLocal<>();
+
+    private TraceUtil() {
+    }
 
     public static void setTraceId(String traceId) {
         threadLocal.set(traceId);
