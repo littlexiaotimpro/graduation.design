@@ -81,6 +81,7 @@ public class UserLoginService {
             cookie.setPath("/");
             cookie.setHttpOnly(false);
             response.addCookie(cookie);
+            response.addHeader(jwtProperties.getTokenHeader(), jwtProperties.getTokenHead() + " " + token);
         } catch (AuthenticationException e) {
             log.warn("登录异常:{}", e.getMessage());
         }
