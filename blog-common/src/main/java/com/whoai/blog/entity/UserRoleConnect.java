@@ -1,5 +1,6 @@
 package com.whoai.blog.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.whoai.blog.enums.RoleEnum;
 import lombok.Data;
@@ -27,5 +28,6 @@ public class UserRoleConnect extends BaseModifyEntity {
     /**
      * 角色
      */
+    @TableField(value = "role_id")
     private RoleEnum role;
 }

@@ -7,7 +7,9 @@ import com.whoai.blog.jwt.JwtTokenUtil;
 import com.whoai.blog.sso.UserLoginInfo;
 import com.whoai.blog.sso.UserLoginInfoHolder;
 import com.whoai.blog.sso.mapper.UserMapper;
+import com.whoai.blog.util.TraceUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -81,9 +83,14 @@ public class LoginFilter extends OncePerRequestFilter {
                         .username(username)
                         .build());
             }
+            MDC.put(TraceUtil.TRACE_ID, TraceUtil.getTraceId());
+            if (log.isInfoEnabled()) {
+                log.info("当前请求【{}】", request.getRequestURL());
+            }
             //此行代码确保请求可以继续执行至Controller
             filterChain.doFilter(request, response);
         } finally {
+            TraceUtil.removeTraceId();
             if (notNull) {
                 UserLoginInfoHolder.removeUser();
             }

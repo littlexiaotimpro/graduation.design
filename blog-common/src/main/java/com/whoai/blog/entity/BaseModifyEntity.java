@@ -26,6 +26,12 @@ public abstract class BaseModifyEntity extends BaseIdEntity{
     private Long modifyBy;
 
     /**
+     * 修改人-名称
+     */
+    @TableField(value = "modify_user",fill = FieldFill.INSERT_UPDATE)
+    private String modifyUser;
+
+    /**
      * 修改时间
      */
     @TableField(value = "gmt_modify",fill = FieldFill.INSERT_UPDATE)

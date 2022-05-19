@@ -5,11 +5,10 @@ import com.whoai.blog.enums.ApplicationTypeEnum;
 import com.whoai.blog.jwt.JwtProperties;
 import com.whoai.blog.jwt.JwtTokenUtil;
 import com.whoai.blog.sso.exception.UserManagerException;
-import com.whoai.blog.sso.mapper.UserInfoMapper;
 import com.whoai.blog.sso.mapper.UserMapper;
-import com.whoai.blog.sso.mapper.UserRoleConnectMapper;
 import com.whoai.blog.sso.web.param.LoginParam;
 import com.whoai.blog.sso.web.param.RegisterParam;
+import com.whoai.blog.sso.web.param.UserInfoSaveParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -40,10 +39,10 @@ public class UserLoginService {
     private UserMapper userMapper;
 
     @Autowired
-    private UserInfoMapper userInfoMapper;
+    private UserInfoService userInfoService;
 
     @Autowired
-    private UserRoleConnectMapper userRoleConnectMapper;
+    private UserRoleConnectService userRoleConnectService;
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -101,6 +100,9 @@ public class UserLoginService {
         if (insert <= 0) {
             throw new UserManagerException("用户注册失败！");
         }
+        User u = userMapper.findByUsername(param.getUsername());
+        userInfoService.initUserInfo(u.getId());
+        userRoleConnectService.initUserRole(u.getId());
     }
 
     /**

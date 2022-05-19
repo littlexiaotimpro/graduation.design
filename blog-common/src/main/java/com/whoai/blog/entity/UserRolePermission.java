@@ -1,5 +1,6 @@
 package com.whoai.blog.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.whoai.blog.enums.PermissionEnum;
 import com.whoai.blog.enums.RoleEnum;
@@ -27,6 +28,7 @@ public class UserRolePermission extends BaseModifyEntity {
     /**
      * 权限
      */
+    @TableField(value = "permission_id")
     private PermissionEnum permission;
 
 

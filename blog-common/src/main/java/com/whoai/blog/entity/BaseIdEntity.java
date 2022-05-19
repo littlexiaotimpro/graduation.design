@@ -30,6 +30,12 @@ public abstract class BaseIdEntity implements Serializable {
     private Long createBy;
 
     /**
+     * 修改人-名称
+     */
+    @TableField(value = "create_user",fill = FieldFill.UPDATE)
+    private String createUser;
+
+    /**
      * 创建时间
      */
     @TableField(value = "gmt_created", fill = FieldFill.INSERT)
