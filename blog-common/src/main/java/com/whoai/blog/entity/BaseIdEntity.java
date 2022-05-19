@@ -1,7 +1,6 @@
 package com.whoai.blog.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -27,16 +26,20 @@ public abstract class BaseIdEntity implements Serializable {
     /**
      * 创建的用户id
      */
+    @TableField(value = "create_by", fill = FieldFill.INSERT)
     private Long createBy;
 
     /**
      * 创建时间
      */
+    @TableField(value = "gmt_created", fill = FieldFill.INSERT)
     private Date gmtCreated;
 
     /**
      * 是否有效: [0:失效, 1:有效]
      */
+    @TableField(value = "active", fill = FieldFill.INSERT_UPDATE)
+    @TableLogic(value = "1", delval = "0")
     private Integer active;
 
 }

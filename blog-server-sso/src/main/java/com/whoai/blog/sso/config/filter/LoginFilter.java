@@ -1,7 +1,12 @@
 package com.whoai.blog.sso.config.filter;
 
+import cn.hutool.core.util.ObjectUtil;
+import com.whoai.blog.entity.User;
 import com.whoai.blog.jwt.JwtProperties;
 import com.whoai.blog.jwt.JwtTokenUtil;
+import com.whoai.blog.sso.UserLoginInfo;
+import com.whoai.blog.sso.UserLoginInfoHolder;
+import com.whoai.blog.sso.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -33,6 +38,8 @@ public class LoginFilter extends OncePerRequestFilter {
     private JwtTokenUtil jwtTokenUtil;
     @Autowired
     private JwtProperties jwtProperties;
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -49,9 +56,10 @@ public class LoginFilter extends OncePerRequestFilter {
 
         // 用户权限认证
         String authHeader = request.getHeader(jwtProperties.getTokenHeader());
+        String username = null;
         if (authHeader != null && authHeader.startsWith(jwtProperties.getTokenHead())) {
             String authToken = authHeader.substring(jwtProperties.getTokenHead().length());
-            String username = jwtTokenUtil.getUsernameFromToken(authToken);
+            username = jwtTokenUtil.getUsernameFromToken(authToken);
             log.info("checking username:{}", username);
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
@@ -63,7 +71,22 @@ public class LoginFilter extends OncePerRequestFilter {
                 }
             }
         }
-        //此行代码确保请求可以继续执行至Controller
-        filterChain.doFilter(request, response);
+        boolean notNull = ObjectUtil.isNotNull(username);
+        try {
+            if (notNull) {
+                User user = userMapper.findByUsername(username);
+                // 设置用户信息
+                UserLoginInfoHolder.setUser(UserLoginInfo.builder()
+                        .id(user.getId())
+                        .username(username)
+                        .build());
+            }
+            //此行代码确保请求可以继续执行至Controller
+            filterChain.doFilter(request, response);
+        } finally {
+            if (notNull) {
+                UserLoginInfoHolder.removeUser();
+            }
+        }
     }
 }

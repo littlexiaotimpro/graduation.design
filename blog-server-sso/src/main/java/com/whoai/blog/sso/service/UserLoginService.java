@@ -24,7 +24,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
 
 /**
  * 用户登录注册相关服务
@@ -98,13 +97,6 @@ public class UserLoginService {
         User user = new User();
         user.setUsername(param.getUsername());
         user.setPassword(passwordEncoder.encode(param.getPassword()));
-        user.setActive(1);
-        user.setCreateBy(1L);
-        Date gmtCreated = new Date();
-        user.setGmtCreated(gmtCreated);
-        user.setModifyBy(1L);
-        user.setGmtModify(gmtCreated);
-        // TODO ID 自增问题
         int insert = userMapper.insert(user);
         if (insert <= 0) {
             throw new UserManagerException("用户注册失败！");

@@ -1,5 +1,7 @@
 package com.whoai.blog.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -20,11 +22,13 @@ public abstract class BaseModifyEntity extends BaseIdEntity{
     /**
      * 修改人
      */
+    @TableField(value = "modify_by",fill = FieldFill.INSERT_UPDATE)
     private Long modifyBy;
 
     /**
      * 修改时间
      */
+    @TableField(value = "gmt_modify",fill = FieldFill.INSERT_UPDATE)
     private Date gmtModify;
 
 }
