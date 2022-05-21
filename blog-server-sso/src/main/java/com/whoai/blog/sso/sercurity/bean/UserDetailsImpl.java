@@ -36,7 +36,7 @@ public class UserDetailsImpl implements UserDetails {
                 .map(permission -> new SimpleGrantedAuthority(permission.getCode()))
                 .collect(Collectors.toSet());
         grantedAuthorities.addAll(userRoles.stream()
-                .map(role -> new SimpleGrantedAuthority(role.getCode()))
+                .map(role -> new SimpleGrantedAuthority("ROLE_"+role.getCode()))
                 .collect(Collectors.toSet()));
         return grantedAuthorities;
     }
