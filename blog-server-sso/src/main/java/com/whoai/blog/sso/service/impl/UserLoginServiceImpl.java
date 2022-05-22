@@ -66,7 +66,7 @@ public class UserLoginServiceImpl implements UserLoginService {
      * @return token
      */
     public String login(LoginParam param, HttpServletResponse response) {
-        String token = null;
+        String token;
         String username = param.getUsername();
         String password = param.getPassword();
         try {
@@ -106,7 +106,7 @@ public class UserLoginServiceImpl implements UserLoginService {
         }
         User u = userMapper.findByUsername(param.getUsername());
         userInfoService.initUserInfo(u.getId());
-        userRoleConnectService.initUserRole(u.getId());
+        userRoleConnectService.initUserRole(u.getId(),param.getType());
     }
 
     /**

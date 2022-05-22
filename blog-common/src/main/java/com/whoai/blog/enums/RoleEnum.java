@@ -30,7 +30,12 @@ public enum RoleEnum {
     /**
      * 游客
      */
-    GUEST(4, "GUEST");
+    GUEST(4, "GUEST"),
+
+    /**
+     * 作者，拥有部分管理权限
+     */
+    AUTHOR(5, "AUTHOR");
 
     @EnumValue
     private final Integer id;

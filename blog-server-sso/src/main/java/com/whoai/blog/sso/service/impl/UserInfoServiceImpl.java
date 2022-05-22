@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -38,7 +39,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void saveUserInfo(UserInfoSaveParam param) {
+    public void saveOrUpdateUserInfo(UserInfoSaveParam param) {
         UserInfo userInfo = this.baseMapper.findByUserId(param.getId());
         userInfo = Optional.ofNullable(userInfo).orElse(new UserInfo());
         userInfo.setUserId(param.getId());
@@ -49,6 +50,19 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         userInfo.setPhone(param.getPhone());
         if (!super.saveOrUpdate(userInfo)) {
             throw new UserManagerException("用户基本信息保存失败");
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteUserInfo(Long userId) {
+        UserInfo userInfo = this.baseMapper.findByUserId(userId);
+        if (Objects.isNull(userInfo) && log.isInfoEnabled()) {
+            log.info("用户[ID={}]基本信息不存在", userId);
+            return;
+        }
+        if (!super.removeById(userInfo.getId())) {
+            throw new UserManagerException("用户基本信息删除失败");
         }
     }
 }

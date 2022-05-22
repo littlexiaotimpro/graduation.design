@@ -27,9 +27,9 @@ public class UserInfoController {
     private UserInfoService userInfoService;
 
     @ApiOperation("保存用户基本信息")
-    @PostMapping(value = "/save")
-    public ResponseResult<Void> saveUserInfo(@RequestBody UserInfoSaveParam param) {
-        userInfoService.saveUserInfo(param);
+    @PostMapping(value = "/saveOrUpdate")
+    public ResponseResult<Void> saveOrUpdate(@RequestBody UserInfoSaveParam param) {
+        userInfoService.saveOrUpdateUserInfo(param);
         return ResponseResult.success(null, "用户基本信息保存成功");
     }
 

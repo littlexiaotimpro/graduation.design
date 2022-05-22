@@ -11,8 +11,25 @@ import com.whoai.blog.sso.web.param.UserInfoSaveParam;
  */
 public interface UserInfoService {
 
+    /**
+     * 用户注册时，初始化基本信息
+     *
+     * @param userId 用户ID
+     */
     void initUserInfo(Long userId);
 
-    void saveUserInfo(UserInfoSaveParam param);
+    /**
+     * 新增/编辑用户基本信息
+     *
+     * @param param 用户基本信息
+     */
+    void saveOrUpdateUserInfo(UserInfoSaveParam param);
+
+    /**
+     * 用户注销账号后，基本信息同步删除
+     *
+     * @param userId 用户ID
+     */
+    void deleteUserInfo(Long userId);
 
 }

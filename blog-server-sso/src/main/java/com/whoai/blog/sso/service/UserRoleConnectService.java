@@ -1,6 +1,6 @@
 package com.whoai.blog.sso.service;
 
-import com.whoai.blog.sso.web.param.UserInfoSaveParam;
+import com.whoai.blog.enums.ApplicationTypeEnum;
 
 /**
  * 用户角色关联操作服务接口
@@ -11,6 +11,12 @@ import com.whoai.blog.sso.web.param.UserInfoSaveParam;
  */
 public interface UserRoleConnectService {
 
-    void initUserRole(Long userId);
+    /**
+     * 用户注册时初始化角色
+     *
+     * @param userId 用户ID
+     * @param type   应用类型：PROVIDER/CONSUMER
+     */
+    void initUserRole(Long userId, ApplicationTypeEnum type);
 
 }
