@@ -4,8 +4,8 @@
     <select id="findByUserId" parameterType="java.lang.Long" resultType="com.whoai.blog.entity.UserRole">
         select * from u_user_role ur
         <where>
-            active = 1 and exists(select urc.role_id from u_user_role_connect urc
-            where urc.role_id = ur.id and urc.user_id = #{userId})
+            active = 1 and exists(select urc.role_id from u_user_role_relation urr
+            where urr.role_id = ur.id and urr.user_id = #{userId})
         </where>
     </select>
 </mapper>

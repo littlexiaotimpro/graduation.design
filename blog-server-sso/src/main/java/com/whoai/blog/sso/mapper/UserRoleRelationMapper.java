@@ -1,7 +1,7 @@
 package com.whoai.blog.sso.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.whoai.blog.entity.UserRoleConnect;
+import com.whoai.blog.entity.UserRoleRelation;
 
 /**
  * 用户角色关联
@@ -10,5 +10,5 @@ import com.whoai.blog.entity.UserRoleConnect;
  * @date 2022/5/15
  * @since 1.0
  */
-public interface UserRoleConnectMapper extends BaseMapper<UserRoleConnect> {
+public interface UserRoleRelationMapper extends BaseMapper<UserRoleRelation> {
 }

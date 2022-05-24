@@ -9,7 +9,7 @@ import com.whoai.blog.sso.exception.UserManagerException;
 import com.whoai.blog.sso.mapper.UserMapper;
 import com.whoai.blog.sso.service.UserInfoService;
 import com.whoai.blog.sso.service.UserLoginService;
-import com.whoai.blog.sso.service.UserRoleConnectService;
+import com.whoai.blog.sso.service.UserRoleRelationService;
 import com.whoai.blog.sso.web.param.LoginParam;
 import com.whoai.blog.sso.web.param.RegisterParam;
 import lombok.extern.slf4j.Slf4j;
@@ -45,7 +45,7 @@ public class UserLoginServiceImpl implements UserLoginService {
     private UserInfoService userInfoService;
 
     @Autowired
-    private UserRoleConnectService userRoleConnectService;
+    private UserRoleRelationService userRoleRelationService;
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -106,7 +106,7 @@ public class UserLoginServiceImpl implements UserLoginService {
         }
         User u = userMapper.findByUsername(param.getUsername());
         userInfoService.initUserInfo(u.getId());
-        userRoleConnectService.initUserRole(u.getId(),param.getType());
+        userRoleRelationService.initUserRole(u.getId(),param.getType());
     }
 
     /**

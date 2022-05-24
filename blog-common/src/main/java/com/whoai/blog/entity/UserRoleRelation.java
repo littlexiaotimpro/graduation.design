@@ -15,8 +15,8 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("u_user_role_connect")
-public class UserRoleConnect extends BaseModifyEntity {
+@TableName("u_user_role_relation")
+public class UserRoleRelation extends BaseModifyEntity {
 
 
     private static final long serialVersionUID = -9192566348351584700L;

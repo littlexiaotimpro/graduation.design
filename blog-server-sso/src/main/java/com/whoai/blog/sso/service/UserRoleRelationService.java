@@ -9,7 +9,7 @@ import com.whoai.blog.enums.ApplicationTypeEnum;
  * @date 2022/5/19
  * @since 1.0
  */
-public interface UserRoleConnectService {
+public interface UserRoleRelationService {
 
     /**
      * 用户注册时初始化角色
