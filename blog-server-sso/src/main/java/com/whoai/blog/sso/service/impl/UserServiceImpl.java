@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.whoai.blog.entity.User;
 import com.whoai.blog.entity.UserInfo;
+import com.whoai.blog.sso.UserLoginInfo;
 import com.whoai.blog.sso.mapper.UserInfoMapper;
 import com.whoai.blog.sso.mapper.UserMapper;
 import com.whoai.blog.sso.service.UserService;
@@ -48,5 +49,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                     .build());
         }
         return list;
+    }
+
+    @Override
+    public UserLoginInfo findByUsername(String username) {
+        User user = this.baseMapper.findByUsername(username);
+        return UserLoginInfo.builder()
+                .id(user.getId())
+                .username(username)
+                .build();
     }
 }

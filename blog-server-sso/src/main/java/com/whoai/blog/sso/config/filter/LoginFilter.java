@@ -1,12 +1,10 @@
 package com.whoai.blog.sso.config.filter;
 
 import cn.hutool.core.util.ObjectUtil;
-import com.whoai.blog.entity.User;
 import com.whoai.blog.jwt.JwtProperties;
 import com.whoai.blog.jwt.JwtTokenUtil;
-import com.whoai.blog.sso.UserLoginInfo;
 import com.whoai.blog.sso.UserLoginInfoHolder;
-import com.whoai.blog.sso.mapper.UserMapper;
+import com.whoai.blog.sso.service.UserService;
 import com.whoai.blog.util.TraceUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
@@ -41,7 +39,7 @@ public class LoginFilter extends OncePerRequestFilter {
     @Autowired
     private JwtProperties jwtProperties;
     @Autowired
-    private UserMapper userMapper;
+    private UserService userService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -76,12 +74,8 @@ public class LoginFilter extends OncePerRequestFilter {
         boolean notNull = ObjectUtil.isNotNull(username);
         try {
             if (notNull) {
-                User user = userMapper.findByUsername(username);
                 // 设置用户信息
-                UserLoginInfoHolder.setUser(UserLoginInfo.builder()
-                        .id(user.getId())
-                        .username(username)
-                        .build());
+                UserLoginInfoHolder.setUser(userService.findByUsername(username));
             }
             MDC.put(TraceUtil.TRACE_ID, TraceUtil.getTraceId());
             if (log.isInfoEnabled()) {
