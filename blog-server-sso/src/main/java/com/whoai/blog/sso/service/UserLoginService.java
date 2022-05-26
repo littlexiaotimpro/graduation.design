@@ -1,6 +1,7 @@
 package com.whoai.blog.sso.service;
 
 import com.whoai.blog.enums.ApplicationTypeEnum;
+import com.whoai.blog.sso.UserLoginInfo;
 import com.whoai.blog.sso.web.param.LoginParam;
 import com.whoai.blog.sso.web.param.RegisterParam;
 
@@ -37,5 +38,7 @@ public interface UserLoginService {
      * @param response 响应
      */
     void logout(ApplicationTypeEnum type, HttpServletResponse response);
+
+    UserLoginInfo findByUsername(String username);
 
 }

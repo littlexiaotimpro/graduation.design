@@ -4,6 +4,7 @@ import com.whoai.blog.entity.User;
 import com.whoai.blog.enums.ApplicationTypeEnum;
 import com.whoai.blog.jwt.JwtProperties;
 import com.whoai.blog.jwt.JwtTokenUtil;
+import com.whoai.blog.sso.UserLoginInfo;
 import com.whoai.blog.sso.exception.UserExceptionMessage;
 import com.whoai.blog.sso.exception.UserManagerException;
 import com.whoai.blog.sso.mapper.UserMapper;
@@ -26,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Objects;
 
 /**
  * 用户登录注册相关服务
@@ -65,6 +67,7 @@ public class UserLoginServiceImpl implements UserLoginService {
      * @param param 登录参数
      * @return token
      */
+    @Override
     public String login(LoginParam param, HttpServletResponse response) {
         String token;
         String username = param.getUsername();
@@ -95,6 +98,7 @@ public class UserLoginServiceImpl implements UserLoginService {
      *
      * @param param 用户注册参数
      */
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public void register(RegisterParam param) {
         User user = new User();
@@ -106,7 +110,7 @@ public class UserLoginServiceImpl implements UserLoginService {
         }
         User u = userMapper.findByUsername(param.getUsername());
         userInfoService.initUserInfo(u.getId());
-        userRoleRelationService.initUserRole(u.getId(),param.getType());
+        userRoleRelationService.initUserRole(u.getId(), param.getType());
     }
 
     /**
@@ -115,12 +119,24 @@ public class UserLoginServiceImpl implements UserLoginService {
      * @param type     应用类型
      * @param response 响应
      */
+    @Override
     public void logout(ApplicationTypeEnum type, HttpServletResponse response) {
         Cookie cookie = new Cookie(type.name() + ACCESS_TOKEN_KEY, null);
         cookie.setMaxAge(0);
         cookie.setPath("/");
         cookie.setHttpOnly(false);
         response.addCookie(cookie);
+    }
+
+
+    @Override
+    public UserLoginInfo findByUsername(String username) {
+        User user = userMapper.findByUsername(username);
+        Objects.requireNonNull(user, String.format("用户[%s]不存在", username));
+        return UserLoginInfo.builder()
+                .id(user.getId())
+                .username(username)
+                .build();
     }
 
 }

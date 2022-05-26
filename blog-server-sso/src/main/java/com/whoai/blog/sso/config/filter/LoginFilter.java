@@ -1,10 +1,9 @@
 package com.whoai.blog.sso.config.filter;
 
-import cn.hutool.core.util.ObjectUtil;
 import com.whoai.blog.jwt.JwtProperties;
 import com.whoai.blog.jwt.JwtTokenUtil;
 import com.whoai.blog.sso.UserLoginInfoHolder;
-import com.whoai.blog.sso.service.UserService;
+import com.whoai.blog.sso.service.UserLoginService;
 import com.whoai.blog.util.TraceUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
@@ -39,7 +38,7 @@ public class LoginFilter extends OncePerRequestFilter {
     @Autowired
     private JwtProperties jwtProperties;
     @Autowired
-    private UserService userService;
+    private UserLoginService userLoginService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -54,40 +53,34 @@ public class LoginFilter extends OncePerRequestFilter {
 //        response.setCharacterEncoding("UTF-8");
 //        response.setContentType("application/json");
 
-        // 用户权限认证
-        String authHeader = request.getHeader(jwtProperties.getTokenHeader());
-        String username = null;
-        if (authHeader != null && authHeader.startsWith(jwtProperties.getTokenHead())) {
-            String authToken = authHeader.substring(jwtProperties.getTokenHead().length());
-            username = jwtTokenUtil.getUsernameFromToken(authToken);
-            log.info("checking username:{}", username);
-            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-                if (jwtTokenUtil.validateToken(authToken, userDetails.getUsername())) {
-                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                    log.info("authenticated user:{}", username);
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
-                }
-            }
-        }
-        boolean notNull = ObjectUtil.isNotNull(username);
         try {
-            if (notNull) {
-                // 设置用户信息
-                UserLoginInfoHolder.setUser(userService.findByUsername(username));
-            }
-            MDC.put(TraceUtil.TRACE_ID, TraceUtil.getTraceId());
             if (log.isInfoEnabled()) {
                 log.info("当前请求【{}】", request.getRequestURL());
             }
-            //此行代码确保请求可以继续执行至Controller
+            // 用户权限认证
+            String authHeader = request.getHeader(jwtProperties.getTokenHeader());
+            if (authHeader != null && authHeader.startsWith(jwtProperties.getTokenHead())) {
+                String authToken = authHeader.substring(jwtProperties.getTokenHead().length());
+                String username = jwtTokenUtil.getUsernameFromToken(authToken);
+                log.info("checking username:{}", username);
+                if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                    UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+                    if (jwtTokenUtil.validateToken(authToken, userDetails.getUsername())) {
+                        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                        log.info("authenticated user:{}", username);
+                        SecurityContextHolder.getContext().setAuthentication(authentication);
+                    }
+                }
+                // 设置用户信息
+                UserLoginInfoHolder.setUser(userLoginService.findByUsername(username));
+            }
+            MDC.put(TraceUtil.TRACE_ID, TraceUtil.getTraceId());
+            // 此行代码确保请求可以继续执行至Controller
             filterChain.doFilter(request, response);
         } finally {
             TraceUtil.removeTraceId();
-            if (notNull) {
-                UserLoginInfoHolder.removeUser();
-            }
+            UserLoginInfoHolder.removeUser();
         }
     }
 }

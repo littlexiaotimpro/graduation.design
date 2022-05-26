@@ -1,6 +1,5 @@
 package com.whoai.blog.sso.service;
 
-import com.whoai.blog.sso.UserLoginInfo;
 import com.whoai.blog.sso.web.vo.UserDetailVO;
 
 import java.util.List;
@@ -15,7 +14,5 @@ import java.util.List;
 public interface UserService {
 
     List<UserDetailVO> listUserDetails();
-
-    UserLoginInfo findByUsername(String username);
 
 }
