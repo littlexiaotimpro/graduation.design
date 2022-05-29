@@ -39,6 +39,11 @@ public interface UserLoginService {
      */
     void logout(ApplicationTypeEnum type, HttpServletResponse response);
 
+    /**
+     * 获取用户登录信息
+     * @param username 用户名
+     * @return 用户登录信息
+     */
     UserLoginInfo findByUsername(String username);
 
 }

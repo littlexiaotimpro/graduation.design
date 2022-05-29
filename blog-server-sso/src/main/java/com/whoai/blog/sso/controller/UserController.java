@@ -6,7 +6,6 @@ import com.whoai.blog.sso.web.vo.UserDetailVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,7 +34,6 @@ public class UserController {
      */
     @ApiOperation("获取用户列表")
     @PostMapping(value = "/list")
-    @PreAuthorize("hasAnyRole('ADMIN','SUPER_ADMIN')")
     public ResponseResult<List<UserDetailVO>> listUserDetails() {
         List<UserDetailVO> userDetails = userService.listUserDetails();
         return ResponseResult.success(userDetails, "获取用户列表成功");
