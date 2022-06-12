@@ -18,6 +18,7 @@
         <module>blog-cloud-openfeign</module>
         <module>blog-server-sso</module>
         <module>blog-base-jwt</module>
+        <module>blog-cloud-gateway</module>
     </modules>
 
     <properties>
