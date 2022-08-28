@@ -11,15 +11,15 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "jwt")
 @Data
 public class JwtProperties {
-    private String tokenHeader;
-    private String tokenHead;
+    private String tokenHeader = "Authorization";
+    private String tokenHead = "Head";
     /**
      * 加密密钥
      */
-    private String secret;
+    private String secret = "test_secret";
 
     /**
      * token 过期时间，单位s
      */
-    private Long expire;
+    private Long expire = 3600L;
 }

@@ -1,6 +1,5 @@
 package com.whoai.blog.file.controller;
 
-
 import com.whoai.blog.bean.ResponseResult;
 import com.whoai.blog.file.service.FileService;
 import com.whoai.blog.bean.UploadFileResult;
@@ -25,7 +24,7 @@ import java.util.stream.Collectors;
 
 @Api("文件上传/下载/预览")
 @RestController
-@RequestMapping(value = "/file")
+@RequestMapping(value = "/blog/file")
 public class FileController {
 
     private final Logger logger = LoggerFactory.getLogger(FileController.class);
